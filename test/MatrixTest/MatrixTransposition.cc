@@ -28,11 +28,11 @@ TEST_CASE("Test the transposition of a vector matrix") {
 }
 
 TEST_CASE("Test the transposition of a square matrix") {
-  Matrix<int> m1(4,4);
+  Matrix<int> m1(4, 4);
 
   int index{};
-  for (int i : std::views::iota(1,17)) {
-	m1.set_data(index, i);
+  for (int i : std::views::iota(1, 17)) {
+    m1.set_data(index, i);
   }
 
   Matrix<int> m2 = m1.transpose();
@@ -41,18 +41,18 @@ TEST_CASE("Test the transposition of a square matrix") {
   CHECK(m2.nrows() == 4);
   CHECK(m2.ncols() == 4);
   for (int i{}; i < m2.nrows(); ++i) {
-	for (int j{}; j < m2.ncols(); ++j) {
-	  CHECK(m2.get(i, j) == m1.get(j, i));
-	}
+    for (int j{}; j < m2.ncols(); ++j) {
+      CHECK(m2.get(i, j) == m1.get(j, i));
+    }
   }
 }
 
 TEST_CASE("Test the transposition of a rectangular matrix") {
-  Matrix<int> m1(2,4);
+  Matrix<int> m1(2, 4);
 
   int index{};
-  for (int i : std::views::iota(1,9)) {
-	m1.set_data(index, i);
+  for (int i : std::views::iota(1, 9)) {
+    m1.set_data(index, i);
   }
 
   Matrix<int> m2 = m1.transpose();
@@ -61,8 +61,8 @@ TEST_CASE("Test the transposition of a rectangular matrix") {
   CHECK(m2.nrows() == 4);
   CHECK(m2.ncols() == 2);
   for (int i{}; i < m2.nrows(); ++i) {
-	for (int j{}; j < m2.ncols(); ++j) {
-	  CHECK(m2.get(i, j) == m1.get(j, i));
-	}
+    for (int j{}; j < m2.ncols(); ++j) {
+      CHECK(m2.get(i, j) == m1.get(j, i));
+    }
   }
 }

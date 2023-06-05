@@ -147,7 +147,7 @@ Matrix<T> operator+(const Matrix<T>& m1, const Matrix<T>& m2) {
   Matrix<T> result(m1.m_nrows, m1.m_ncols);
 
   for (int index{}; index < m1.m_nrows * m1.m_ncols; ++index) {
-	result.set_data(index, m1.m_data[index] + m2.m_data[index]);
+    result.set_data(index, m1.m_data[index] + m2.m_data[index]);
   }
 
   return result;
