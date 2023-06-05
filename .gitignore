@@ -1,5 +1,10 @@
-# pdf files
+# tex generated files
 *.pdf
+*.aux
+*.log
 
 # executables
 *.out
+
+# valgrind files
+*vgcore*
