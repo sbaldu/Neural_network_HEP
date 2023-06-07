@@ -6,5 +6,8 @@
 # executables
 *.out
 
+# test scripts
+*Test.sh
+
 # valgrind files
 *vgcore*
