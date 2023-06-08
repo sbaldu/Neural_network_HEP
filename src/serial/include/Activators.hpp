@@ -23,6 +23,15 @@ struct Step {
       return 1;
     }
   }
+  std::vector<short> operator()(const std::vector<T>& vec) {
+	size_t N{vec.size()};
+	std::vector<T> activated(N);
+	for (int i{}; i < N; ++i) {
+	  activated[i] = Step<T>()(vec[i]);
+	}
+	
+	return activated;
+  }
 
   // Derivative of the activation function
   double grad(double x) { return 0; }
@@ -37,6 +46,15 @@ struct Step {
 template <typename T>
 struct Linear {
   double operator()(double x) { return x; }
+  std::vector<T> operator()(const std::vector<T>& vec) {
+	size_t N{vec.size()};
+	std::vector<T> activated(N);
+	for (int i{}; i < N; ++i) {
+	  activated[i] = Linear<T>()(vec[i]);
+	}
+	
+	return activated;
+  }
 
   // Derivative of the activation function
   double grad(double x) { return 1; }
@@ -51,6 +69,15 @@ struct Linear {
 template <typename T>
 struct Sigmoid {
   double operator()(double x) { return 1. / (1 + std::exp(-x)); }
+  std::vector<T> operator()(const std::vector<T>& vec) {
+	size_t N{vec.size()};
+	std::vector<T> activated(N);
+	for (int i{}; i < N; ++i) {
+	  activated[i] = Sigmoid<T>()(vec[i]);
+	}
+	
+	return activated;
+  }
 
   // Derivative of the activation function
   double grad(double x) {
@@ -79,6 +106,15 @@ struct Sigmoid {
 template <typename T>
 struct Tanh {
   double operator()(double x) { return std::tanh(x); }
+  std::vector<T> operator()(const std::vector<T>& vec) {
+	size_t N{vec.size()};
+	std::vector<T> activated(N);
+	for (int i{}; i < N; ++i) {
+	  activated[i] = Tanh<T>()(vec[i]);
+	}
+	
+	return activated;
+  }
 
   // Derivative of the activation function
   double grad(double x) {
@@ -115,6 +151,15 @@ struct Elu {
       return A * (std::exp(x) - 1);
     }
   }
+  std::vector<T> operator()(const std::vector<T>& vec) {
+	size_t N{vec.size()};
+	std::vector<T> activated(N);
+	for (int i{}; i < N; ++i) {
+	  activated[i] = Elu<T>()(vec[i]);
+	}
+	
+	return activated;
+  }
 
   // Derivative of the activation function
   double grad(double x) {
@@ -147,6 +192,15 @@ struct Elu {
 template <typename T>
 struct Leaky_ReLU {
   double operator()(double x) { return std::max(0.1 * x, x); }
+  std::vector<T> operator()(const std::vector<T>& vec) {
+	size_t N{vec.size()};
+	std::vector<T> activated(N);
+	for (int i{}; i < N; ++i) {
+	  activated[i] = Leaky_ReLU<T>()(vec[i]);
+	}
+	
+	return activated;
+  }
 
   // Derivative of the activation function
   double grad(double x) {
@@ -181,6 +235,15 @@ struct Parametric_ReLU {
   double A;
 
   double operator()(double x) { return std::max(A * x, x); }
+  std::vector<T> operator()(const std::vector<T>& vec) {
+	size_t N{vec.size()};
+	std::vector<T> activated(N);
+	for (int i{}; i < N; ++i) {
+	  activated[i] = Parametric_ReLU<T>()(vec[i]);
+	}
+	
+	return activated;
+  }
 
   // Derivative of the activation function
   double grad(double x) {
@@ -214,6 +277,15 @@ template <typename T>
 struct Swish {
   double operator()(double x) {
     return x * Sigmoid<T>()(x);
+  }
+  std::vector<T> operator()(const std::vector<T>& vec) {
+	size_t N{vec.size()};
+	std::vector<T> activated(N);
+	for (int i{}; i < N; ++i) {
+	  activated[i] = Swish<T>()(vec[i]);
+	}
+	
+	return activated;
   }
 
   // Derivative of the activation function
