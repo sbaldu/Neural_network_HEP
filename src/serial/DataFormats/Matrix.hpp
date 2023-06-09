@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <concepts>
 #include <iostream>
 #include <vector>
 
@@ -17,9 +18,11 @@ private:
 public:
   Matrix() = default;
   Matrix(int n_rows, int n_cols);
-  Matrix(int n_rows, int n_cols, std::vector<T> data);
+  template <typename E>
+  Matrix(int n_rows, int n_cols, std::vector<E> vec);
   // Create a matrix from a vector
-  Matrix(const std::vector<T>& vec);
+  template <typename E>
+  Matrix(const std::vector<E>& vec);
 
   // Getters
   const int nrows() const;
@@ -34,32 +37,60 @@ public:
   // Setters for data
   void set_data(int i, int j, T data);
   void set_data(int index, T data);
+  void set_data(std::vector<T> data_vec);
 
   const T get(int i, int j) const;
 
   Matrix transpose();
 
   T& operator[](int index);
+  const T& operator[](int index) const;
 
   template <typename E>
   friend Matrix<E> operator+(const Matrix<E>& m1, const Matrix<E>& m2);
+
+  template <typename U, std::convertible_to<U> E>
+  friend Matrix<T> operator*(E constant, const Matrix<T>& m);
 
   template <typename E>
   friend Matrix<E> operator*(const Matrix<E>& m1, const Matrix<E>& m2);
 
   template <typename E>
   friend std::vector<E> operator*(const Matrix<E>& matrix, const std::vector<E>& vec);
+
+  Matrix<T>& operator+=(const Matrix<T>& other);
+  template <typename E>
+  Matrix<T>& operator+=(const Matrix<E>& other);
+
+  Matrix<T>& operator-=(const Matrix<T>& other);
+  template <typename E>
+  Matrix<T>& operator-=(const Matrix<E>& other);
+
+  template <typename E>
+  Matrix<T>& operator*=(E constant);
+
+  template <typename E>
+  Matrix<T>& operator/=(E constant);
 };
 
 template <typename T>
 Matrix<T>::Matrix(int n_rows, int n_cols) : m_nrows{n_rows}, m_ncols{n_cols}, m_data(n_rows * n_cols) {}
 
 template <typename T>
-Matrix<T>::Matrix(int n_rows, int n_cols, std::vector<T> data)
-    : m_nrows{n_rows}, m_ncols{n_cols}, m_data{std::move(data)} {}
+template <typename E>
+Matrix<T>::Matrix(int n_rows, int n_cols, std::vector<E> vec) : Matrix{n_rows, n_cols} {
+  for (int i{}; i < m_ncols * m_nrows; ++i) {
+    m_data[i] = vec.data()[i];
+  }
+}
 
 template <typename T>
-Matrix<T>::Matrix(const std::vector<T>& vec) : m_nrows{static_cast<int>(vec.size())}, m_ncols{1}, m_data{vec} {}
+template <typename E>
+Matrix<T>::Matrix(const std::vector<E>& vec) : Matrix{static_cast<int>(vec.size()), 1} {
+  for (int i{}; i < m_ncols * m_nrows; ++i) {
+    m_data[i] = vec.data()[i];
+  }
+}
 
 template <typename T>
 const int Matrix<T>::nrows() const {
@@ -120,6 +151,11 @@ void Matrix<T>::set_data(int index, T data) {
 }
 
 template <typename T>
+void Matrix<T>::set_data(std::vector<T> data_vec) {
+  m_data = std::move(data_vec);
+}
+
+template <typename T>
 const T Matrix<T>::get(int i, int j) const {
   return m_data[j + m_ncols * i];
 }
@@ -143,11 +179,28 @@ T& Matrix<T>::operator[](int index) {
 }
 
 template <typename T>
+const T& Matrix<T>::operator[](int index) const {
+  return m_data[index];
+}
+
+template <typename T>
 Matrix<T> operator+(const Matrix<T>& m1, const Matrix<T>& m2) {
   Matrix<T> result(m1.m_nrows, m1.m_ncols);
 
   for (int index{}; index < m1.m_nrows * m1.m_ncols; ++index) {
     result.set_data(index, m1.m_data[index] + m2.m_data[index]);
+  }
+
+  return result;
+}
+
+template <typename T, std::convertible_to<T> E>
+Matrix<T> operator*(E constant, const Matrix<T>& m) {
+  constant = static_cast<T>(constant);
+
+  Matrix<T> result(m);
+  for (int i{}; i < result.ncols() * result.nrows(); ++i) {
+	result[i] *= constant;
   }
 
   return result;
@@ -183,6 +236,72 @@ std::vector<T> operator*(const Matrix<T>& matrix, const std::vector<T>& vec) {
   }
 
   return result_vec;
+}
+
+template <typename T>
+Matrix<T>& Matrix<T>::operator+=(const Matrix<T>& other) {
+  int N{this->m_ncols * this->m_nrows};
+  for (int i{}; i < N; ++i) {
+    this->m_data[i] += other.m_data[i];
+  }
+
+  return *this;
+}
+
+template <typename T>
+template <typename E>
+Matrix<T>& Matrix<T>::operator+=(const Matrix<E>& other) {
+  int N{this->m_ncols * this->m_nrows};
+  for (int i{}; i < N; ++i) {
+    this->m_data[i] += other.m_data[i];
+  }
+
+  return *this;
+}
+
+template <typename T>
+Matrix<T>& Matrix<T>::operator-=(const Matrix<T>& other) {
+  int N{this->m_ncols * this->m_nrows};
+  for (int i{}; i < N; ++i) {
+    this->m_data[i] -= other.m_data[i];
+  }
+
+  return *this;
+}
+
+template <typename T>
+template <typename E>
+Matrix<T>& Matrix<T>::operator-=(const Matrix<E>& other) {
+  int N{this->m_ncols * this->m_nrows};
+  for (int i{}; i < N; ++i) {
+    this->m_data[i] -= other.m_data[i];
+  }
+
+  return *this;
+}
+
+template <typename T>
+template <typename E>
+Matrix<T>& Matrix<T>::operator*=(E constant) {
+  constant = static_cast<T>(constant);
+  int N{this->m_ncols * this->m_nrows};
+  for (int i{}; i < N; ++i) {
+    this->m_data[i] *= constant;
+  }
+
+  return *this;
+}
+
+template <typename T>
+template <typename E>
+Matrix<T>& Matrix<T>::operator/=(E constant) {
+  constant = static_cast<T>(constant);
+  int N{this->m_ncols * this->m_nrows};
+  for (int i{}; i < N; ++i) {
+    this->m_data[i] /= constant;
+  }
+
+  return *this;
 }
 
 #endif
