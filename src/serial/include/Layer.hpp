@@ -116,6 +116,8 @@ template <typename T>
 T& Layer<T>::operator[](int i) {
   return m_nodes[i];
 }
+
+template <typename T>
 const T& Layer<T>::operator[](int i) const {
   return m_nodes[i];
 }
