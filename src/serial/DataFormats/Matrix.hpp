@@ -27,6 +27,7 @@ public:
   // Getters
   const int nrows() const;
   const int ncols() const;
+  const int size() const;
   const std::vector<T>& data() const;
 
   // Setters for dimensions
@@ -57,6 +58,9 @@ public:
 
   template <typename E>
   friend std::vector<E> operator*(const Matrix<E>& matrix, const std::vector<E>& vec);
+
+  template <typename U, std::convertible_to<U> E>
+  friend std::vector<U> operator*(const Matrix<U>& matrix, const std::vector<E>& vec);
 
   Matrix<T>& operator+=(const Matrix<T>& other);
   template <typename E>
@@ -100,6 +104,11 @@ const int Matrix<T>::nrows() const {
 template <typename T>
 const int Matrix<T>::ncols() const {
   return m_ncols;
+}
+
+template <typename T>
+const int Matrix<T>::size() const {
+  return m_ncols * m_nrows;
 }
 
 template <typename T>
@@ -238,6 +247,21 @@ std::vector<T> operator*(const Matrix<T>& matrix, const std::vector<T>& vec) {
   return result_vec;
 }
 
+template <typename T, std::convertible_to<T> E>
+std::vector<T> operator*(const Matrix<T>& matrix, const std::vector<E>& vec) {
+  std::vector<T> result_vec(matrix.m_nrows);
+
+  for (int i{}; i < matrix.m_nrows; ++i) {
+    T sum{};
+    for (int j{}; j < matrix.m_ncols; ++j) {
+      sum += matrix.m_data[j + matrix.m_ncols * i] * vec[j];
+    }
+    result_vec[i] = sum;
+  }
+
+  return result_vec;
+}
+
 template <typename T>
 Matrix<T>& Matrix<T>::operator+=(const Matrix<T>& other) {
   int N{this->m_ncols * this->m_nrows};
@@ -253,7 +277,7 @@ template <typename E>
 Matrix<T>& Matrix<T>::operator+=(const Matrix<E>& other) {
   int N{this->m_ncols * this->m_nrows};
   for (int i{}; i < N; ++i) {
-    this->m_data[i] += other.m_data[i];
+    this->m_data[i] += other.data()[i];
   }
 
   return *this;
@@ -274,7 +298,7 @@ template <typename E>
 Matrix<T>& Matrix<T>::operator-=(const Matrix<E>& other) {
   int N{this->m_ncols * this->m_nrows};
   for (int i{}; i < N; ++i) {
-    this->m_data[i] -= other.m_data[i];
+    this->m_data[i] -= other.data()[i];
   }
 
   return *this;
