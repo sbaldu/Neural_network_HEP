@@ -24,9 +24,9 @@ class Layer{
 	Layer() = default;
 	Layer(int n_nodes);
 	Layer(std::vector<T> nodes);
-	Layer(std::stringstream stream);
+	Layer(std::stringstream& stream);
 
-	void load(std::stringstream stream);
+	void load(std::stringstream& stream);
 
 	// Getters
 	const std::vector<T>& nodes() const;
@@ -53,7 +53,7 @@ Layer<T>::Layer(std::vector<T> nodes)
   : m_nodes{std::move(nodes)}, n_nodes{m_nodes.size()} {}
 
 template <typename T>
-Layer<T>::Layer(std::stringstream stream) {
+Layer<T>::Layer(std::stringstream& stream) {
   // I assume that the data is provided in csv format
   std::string value;
   int node_index{};
@@ -66,7 +66,7 @@ Layer<T>::Layer(std::stringstream stream) {
 }
 
 template <typename T>
-void Layer<T>::load(std::stringstream stream) {
+void Layer<T>::load(std::stringstream& stream) {
   // I assume that the data is provided in csv format
   std::string value;
   int node_index{};
