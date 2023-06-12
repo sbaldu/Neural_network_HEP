@@ -28,13 +28,13 @@ struct MeanSquaredError {
   // Derivative of the error function with respect to the activated node values
   std::vector<double> grad(const std::vector<T>& expected_values,
                            shared<Layer<T>> current_layer,
-                           shared<Layer<T>> previous_layer,
-                           shared<Matrix<W>> weight_matrix) {
-    if (weight_matrix == nullptr) {
-      int N{current_layer->size()};
+                           shared<Layer<T>> next_layer,
+                           shared<Matrix<W>> next_layer_matrix) {
+    if (next_layer_matrix == nullptr) {
+      int N{next_layer->size()};
       std::vector<double> delta(N);
       for (int node_index{}; node_index < N; ++node_index) {
-        delta[node_index] = (*current_layer)[node_index] - expected_values[node_index];
+        delta[node_index] = (*next_layer)[node_index] - expected_values[node_index];
       }
 
       return delta;
@@ -45,7 +45,7 @@ struct MeanSquaredError {
 
       for (int node_index{}; node_index < N; ++node_index) {
         delta[node_index] =
-            act.grad((*current_layer)[node_index]) * (*weight_matrix * previous_layer->nodes())[node_index];
+            act.grad((*current_layer)[node_index]) * (*next_layer_matrix * next_layer->nodes())[node_index];
       }
 
       return delta;
