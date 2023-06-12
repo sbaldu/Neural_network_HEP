@@ -30,11 +30,11 @@ struct MeanSquaredError {
                            shared<Layer<T>> current_layer,
                            shared<Layer<T>> next_layer,
                            shared<Matrix<W>> next_layer_matrix) {
-    if (next_layer_matrix == nullptr) {
-      int N{next_layer->size()};
+    if (next_layer == nullptr) {
+      int N{current_layer->size()};
       std::vector<double> delta(N);
       for (int node_index{}; node_index < N; ++node_index) {
-        delta[node_index] = (*next_layer)[node_index] - expected_values[node_index];
+        delta[node_index] = (*current_layer)[node_index] - expected_values[node_index];
       }
 
       return delta;
