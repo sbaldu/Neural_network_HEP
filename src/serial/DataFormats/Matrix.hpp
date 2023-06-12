@@ -56,6 +56,9 @@ public:
   template <typename E>
   friend Matrix<E> operator*(const Matrix<E>& m1, const Matrix<E>& m2);
 
+  template <typename U, std::convertible_to<U> E>
+  friend Matrix<U> operator*(const Matrix<U>& m1, const Matrix<E>& m2);
+
   template <typename E>
   friend std::vector<E> operator*(const Matrix<E>& matrix, const std::vector<E>& vec);
 
@@ -217,6 +220,23 @@ Matrix<T> operator*(E constant, const Matrix<T>& m) {
 
 template <typename T>
 Matrix<T> operator*(const Matrix<T>& m1, const Matrix<T>& m2) {
+  Matrix<T> result(m1.m_nrows, m2.m_ncols);
+
+  for (int i{}; i < m1.m_nrows; ++i) {
+    for (int j{}; j < m2.m_ncols; ++j) {
+      T sum{};
+      for (int k{}; k < m1.m_nrows; ++k) {
+        sum += m1.get(i, k) * m2.get(k, j);
+      }
+      result.set_data(i, j, sum);
+    }
+  }
+
+  return result;
+}
+
+template <typename T, std::convertible_to<T> E>
+Matrix<T> operator*(const Matrix<T>& m1, const Matrix<E>& m2) {
   Matrix<T> result(m1.m_nrows, m2.m_ncols);
 
   for (int i{}; i < m1.m_nrows; ++i) {
