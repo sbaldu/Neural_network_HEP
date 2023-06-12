@@ -3,8 +3,10 @@ CXXFLAGS = -std=c++20
 
 MatrixTestPath = "test/MatrixTest/"
 ActivatorsTestPath = "test/ActivatorsTest/"
+NetworkTestPath = "test/NetworkTest/"
 
-test: ./test/MatrixTest/* ./test/ActivatorsTest/*
+
+test: ./test/MatrixTest/* ./test/ActivatorsTest/* ./test/NetworkTest/*
 	# Test the matrix class
 	cd ./test/MatrixTest/ ;
 	$(CXX) $(CXXFLAGS) ./test/MatrixTest/MatrixSum.cc -o $(MatrixTestPath)MatrixSum.out ;
@@ -25,6 +27,19 @@ test: ./test/MatrixTest/* ./test/ActivatorsTest/*
 	echo "#" > ActivatorsTest.sh ;
 	echo "" >> ActivatorsTest.sh ;
 	echo "$(ActivatorsTestPath)Activators.out" >> ActivatorsTest.sh ;
+
+	# Test the neural network classes with basic functions
+	cd ./test/NetworkTest/ ;
+	$(CXX) $(CXXFLAGS) ./test/NetworkTest/OrFunction.cc -o $(NetworkTestPath)Or.out ;
+	$(CXX) $(CXXFLAGS) ./test/NetworkTest/AndFunction.cc -o $(NetworkTestPath)And.out ;
+	$(CXX) $(CXXFLAGS) ./test/NetworkTest/XorFunction.cc -o $(NetworkTestPath)Xor.out ;
+
+	touch NetworkTest.sh ; chmod +x NetworkTest.sh ;
+	echo "#" > NetworkTest.sh ;
+	echo "" >> NetworkTest.sh ;
+	echo "$(NetworkTestPath)Or.out" >> NetworkTest.sh ;
+	echo "$(NetworkTestPath)And.out" >> NetworkTest.sh ;
+	echo "$(NetworkTestPath)Xor.out" >> NetworkTest.sh ;
 
 	clear ;
 	
