@@ -10,10 +10,6 @@
 
 #include "../DataFormats/Matrix.hpp"
 
-// Overload sum operator for vectors
-template <typename T>
-std::vector<T> operator+(const std::vector<T>& v1, const std::vector<T>& v2);
-
 template <typename T>
 class Layer{
   private:
@@ -129,17 +125,6 @@ std::ostream& operator<<(std::ostream& out, const Layer<T>& layer) {
   }
 
   return out;
-}
-
-template <typename T>
-std::vector<T> operator+(const std::vector<T>& v1, const std::vector<T>& v2) {
-  std::vector<T> result(v1.size());
-
-  for (int i{}; i < v1.size(); ++i) {
-	result[i] = v1[i] + v2[i];
-  }
-
-  return result;
 }
 
 #endif
