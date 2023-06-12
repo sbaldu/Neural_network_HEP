@@ -14,7 +14,7 @@ int main() {
   for (int epoch{}; epoch < n_epochs; ++epoch) {
 	for (int i{}; i < inputs.size(); ++i) {
 	  net.load_input_layer(inputs[i]);
-	  net.train(inputs[i], targets[i], eta);
+	  net.train(targets[i], eta);
 	  std::cout << net.output_layer()[0] << std::endl;
 	}
 	std::cout << "-------------------------------------\n";

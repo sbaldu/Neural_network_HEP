@@ -7,7 +7,7 @@
 #include "../../src/serial/DataFormats/Matrix.hpp"
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "../doctest.h"
+#include "doctest.h"
 
 TEST_CASE("Test sum of two vector matrices") {
   int len{10};

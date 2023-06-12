@@ -7,7 +7,7 @@
 #include "../../src/serial/DataFormats/Matrix.hpp"
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "../doctest.h"
+#include "doctest.h"
 
 TEST_CASE("Test the transposition of a vector matrix") {
   std::vector<int> vec(10, 1);
