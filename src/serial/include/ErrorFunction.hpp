@@ -26,7 +26,8 @@ struct MeanSquaredError {
   }
 
   // Derivative of the error function with respect to the activated node values
-  std::vector<double> grad(const std::vector<T>& expected_values,
+  template <typename U>
+  std::vector<double> grad(const std::vector<U>& expected_values,
                            shared<Layer<T>> current_layer,
                            shared<Layer<T>> next_layer,
                            shared<Matrix<W>> next_layer_matrix) {
@@ -34,7 +35,7 @@ struct MeanSquaredError {
       int N{current_layer->size()};
       std::vector<double> delta(N);
       for (int node_index{}; node_index < N; ++node_index) {
-        delta[node_index] = (*current_layer)[node_index] - expected_values[node_index];
+        delta[node_index] = (*current_layer)[node_index] - static_cast<T>(expected_values[node_index]);
       }
 
       return delta;

@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <algorithm>
+#include <cmath>
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -23,6 +25,8 @@ class Layer{
 	Layer(std::stringstream& stream);
 
 	void load(std::stringstream& stream);
+
+	void normalize();
 
 	// Getters
 	const std::vector<T>& nodes() const;
@@ -125,6 +129,16 @@ std::ostream& operator<<(std::ostream& out, const Layer<T>& layer) {
   }
 
   return out;
+}
+
+template <typename T>
+void Layer<T>::normalize() {
+  T min{*std::min_element(m_nodes.begin(), m_nodes.end())};
+  T max{*std::max_element(m_nodes.begin(), m_nodes.end())};
+
+  for (auto& x : m_nodes) {
+	x /= (max - min);
+  }
 }
 
 #endif
