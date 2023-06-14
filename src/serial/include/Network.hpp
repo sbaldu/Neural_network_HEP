@@ -33,7 +33,7 @@ private:
   std::vector<shared<std::vector<W>>> m_bias;
   int n_layers;
 
-  void normalize();
+  inline void normalize();
 
 public:
   Network() = delete;
@@ -112,7 +112,7 @@ template <typename T,
           typename Activator,
           template <typename E, typename LW, template <typename K> typename Act>
           typename Loss>
-void Network<T, W, Activator, Loss>::normalize() {
+inline void Network<T, W, Activator, Loss>::normalize() {
   m_layers[0]->normalize();
 }
 
@@ -151,7 +151,7 @@ template <typename T,
           template <typename E, typename LW, template <typename K> typename Act>
           typename Loss>
 const shared<Matrix<W>> Network<T, W, Activator, Loss>::weight_matrix(int layer_id) const {
-  return m_weights;
+  return m_weights[layer_id];
 }
 
 template <typename T,
@@ -288,6 +288,11 @@ template <typename T,
           typename Loss>
 template <typename U>
 void Network<T, W, Activator, Loss>::train(U target, double eta) {
+  // Standardization of the input
+  if (!std::is_integral<T>::value) {
+	normalize();
+  }
+
   std::vector<U> target_vector{target};
   forward_propatation();
   back_propagation(eta, target_vector);
@@ -309,7 +314,7 @@ std::ostream& operator<<(std::ostream& out, const Network<T, W, Activator, Loss>
 }
 
 template <typename W>
-void random_matrix(shared<Matrix<W>> matrix) {
+inline void random_matrix(shared<Matrix<W>> matrix) {
   std::mt19937 gen;
   std::uniform_real_distribution<W> dis(-0.5, 0.5);
 
