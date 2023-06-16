@@ -90,12 +90,12 @@ template <typename T,
 Network<T, W, Activator, Loss>::Network(int n_layers, std::vector<int> nodes_per_layer)
     : n_layers{n_layers},
       m_layers(n_layers + 1),
-      m_weights(n_layers + 1, std::make_shared<Matrix<W>>()),
-      m_bias(n_layers, std::make_shared<std::vector<W>>()) {
+      m_weights(n_layers + 1),
+      m_bias(n_layers - 1) {
   for (int i{}; i < n_layers - 1; ++i) {
     m_layers[i] = std::make_shared<Layer<T>>(nodes_per_layer[i]);
-    m_weights[i] = std::make_shared<Matrix<W>>(nodes_per_layer[i + 1], nodes_per_layer[i]);
-    m_bias[i]->resize(nodes_per_layer[i]);
+    m_weights[i] = std::make_shared<Matrix<W>>(nodes_per_layer[i+1], nodes_per_layer[i]);
+    m_bias[i] = std::make_shared<std::vector<W>>(nodes_per_layer[i+1]);
 
     // Generate random weight matrices
     random_matrix(m_weights[i]);
