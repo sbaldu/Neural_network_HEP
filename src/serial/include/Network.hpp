@@ -28,16 +28,14 @@ template <typename T,
           typename Loss>
 class Network {
 private:
+  int n_layers;
   std::vector<shared<Layer<T>>> m_layers;
   std::vector<shared<Matrix<W>>> m_weights;
   std::vector<shared<std::vector<W>>> m_bias;
-  int n_layers;
-
-  inline void normalize();
 
 public:
   Network() = delete;
-  Network(int n_layers, std::vector<int> nodes_per_layer);
+  Network(int n_layers, const std::vector<int>& nodes_per_layer);
 
   void load_input_layer(std::stringstream& stream);
   void load_input_layer(const std::vector<T>& vec);
@@ -60,9 +58,7 @@ public:
   void forward_propatation();
 
   template <typename U>
-  void back_propagation(const std::vector<U>& target,
-						int layer_id,
-                        double eta);
+  void back_propagation(const std::vector<U>& target, int layer_id, double eta);
   template <typename U>
   void back_propagation(double eta, const std::vector<U>& target);
 
@@ -87,15 +83,12 @@ template <typename T,
           typename Activator,
           template <typename E, typename LW, template <typename K> typename Act>
           typename Loss>
-Network<T, W, Activator, Loss>::Network(int n_layers, std::vector<int> nodes_per_layer)
-    : n_layers{n_layers},
-      m_layers(n_layers + 1),
-      m_weights(n_layers + 1),
-      m_bias(n_layers - 1) {
+Network<T, W, Activator, Loss>::Network(int n_layers, const std::vector<int>& nodes_per_layer)
+    : n_layers{n_layers}, m_layers(n_layers + 1), m_weights(n_layers + 1), m_bias(n_layers - 1) {
   for (int i{}; i < n_layers - 1; ++i) {
     m_layers[i] = std::make_shared<Layer<T>>(nodes_per_layer[i]);
-    m_weights[i] = std::make_shared<Matrix<W>>(nodes_per_layer[i+1], nodes_per_layer[i]);
-    m_bias[i] = std::make_shared<std::vector<W>>(nodes_per_layer[i+1]);
+    m_weights[i] = std::make_shared<Matrix<W>>(nodes_per_layer[i + 1], nodes_per_layer[i]);
+    m_bias[i] = std::make_shared<std::vector<W>>(nodes_per_layer[i + 1]);
 
     // Generate random weight matrices
     random_matrix(m_weights[i]);
@@ -104,16 +97,6 @@ Network<T, W, Activator, Loss>::Network(int n_layers, std::vector<int> nodes_per
   m_layers[n_layers] = nullptr;
   m_weights[n_layers - 1] = nullptr;
   m_weights[n_layers] = nullptr;
-}
-
-template <typename T,
-          typename W,
-          template <typename F>
-          typename Activator,
-          template <typename E, typename LW, template <typename K> typename Act>
-          typename Loss>
-inline void Network<T, W, Activator, Loss>::normalize() {
-  m_layers[0]->normalize();
 }
 
 template <typename T,
@@ -161,7 +144,7 @@ template <typename T,
           template <typename E, typename LW, template <typename K> typename Act>
           typename Loss>
 const std::vector<T>& Network<T, W, Activator, Loss>::output_layer() const {
-  return m_layers[n_layers-1]->nodes();
+  return m_layers[n_layers - 1]->nodes();
 }
 
 template <typename T,
@@ -238,11 +221,10 @@ template <typename T,
           template <typename E, typename LW, template <typename K> typename Act>
           typename Loss>
 template <typename U>
-void Network<T, W, Activator, Loss>::back_propagation(const std::vector<U>& target,
-													  int layer_id,
-                                                      double eta) {
+void Network<T, W, Activator, Loss>::back_propagation(const std::vector<U>& target, int layer_id, double eta) {
   Loss<T, W, Activator> loss_function;
-  Matrix<W> loss_grad(loss_function.grad(target, m_layers[layer_id+1], m_layers[layer_id+2], m_weights[layer_id+1]));
+  Matrix<W> loss_grad(
+      loss_function.grad(target, m_layers[layer_id + 1], m_layers[layer_id + 2], m_weights[layer_id + 1]));
   Matrix<T> activated_values_grad(m_layers[layer_id]->nodes());
   *m_weights[layer_id] -= eta * (loss_grad * activated_values_grad.transpose());
   *m_bias[layer_id] -= eta * loss_grad;
@@ -257,9 +239,7 @@ template <typename T,
 template <typename U>
 void Network<T, W, Activator, Loss>::back_propagation(double eta, const std::vector<U>& target) {
   for (int layer_id{n_layers - 2}; layer_id >= 0; --layer_id) {
-    back_propagation(target,
-					 layer_id,
-                     eta);
+    back_propagation(target, layer_id, eta);
   }
 }
 
@@ -271,11 +251,6 @@ template <typename T,
           typename Loss>
 template <typename U>
 void Network<T, W, Activator, Loss>::train(const std::vector<U>& target, double eta) {
-  // Standardization of the input
-  if (!std::is_integral<T>::value) {
-	normalize();
-  }
-
   forward_propatation();
   back_propagation(eta, target);
 }
@@ -288,11 +263,6 @@ template <typename T,
           typename Loss>
 template <typename U>
 void Network<T, W, Activator, Loss>::train(U target, double eta) {
-  // Standardization of the input
-  if (!std::is_integral<T>::value) {
-	normalize();
-  }
-
   std::vector<U> target_vector{target};
   forward_propatation();
   back_propagation(eta, target_vector);

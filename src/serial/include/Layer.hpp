@@ -26,8 +26,6 @@ class Layer{
 
 	void load(std::stringstream& stream);
 
-	inline void normalize();
-
 	// Getters
 	const std::vector<T>& nodes() const;
 	const int size() const;
@@ -129,16 +127,6 @@ std::ostream& operator<<(std::ostream& out, const Layer<T>& layer) {
   }
 
   return out;
-}
-
-template <typename T>
-inline void Layer<T>::normalize() {
-  T min{*std::min_element(m_nodes.begin(), m_nodes.end())};
-  T max{*std::max_element(m_nodes.begin(), m_nodes.end())};
-
-  for (auto& x : m_nodes) {
-	x /= (max - min);
-  }
 }
 
 #endif
