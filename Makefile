@@ -1,5 +1,5 @@
 export CXX := g++
-CXXFLAGS = -std=c++20
+CXXFLAGS = -O3 -std=c++20
 
 MatrixTestPath = "test/MatrixTest/"
 ActivatorsTestPath = "test/ActivatorsTest/"
