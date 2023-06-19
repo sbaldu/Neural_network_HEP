@@ -223,8 +223,7 @@ template <typename T,
 template <typename U>
 void Network<T, W, Activator, Loss>::back_propagation(const std::vector<U>& target, int layer_id, double eta) {
   Loss<T, W, Activator> loss_function;
-  Matrix<W> loss_grad(
-      loss_function.grad(target, m_layers[layer_id + 1], m_layers[layer_id + 2], m_weights[layer_id + 1]));
+  Matrix<W> loss_grad(loss_function.grad(target, layer_id + 1, m_layers, m_weights));
   Matrix<T> activated_values_grad(m_layers[layer_id]->nodes());
   *m_weights[layer_id] -= eta * (loss_grad * activated_values_grad.transpose());
   *m_bias[layer_id] -= eta * loss_grad;

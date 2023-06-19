@@ -28,25 +28,26 @@ struct MeanSquaredError {
   // Derivative of the error function with respect to the activated node values
   template <typename U>
   std::vector<double> grad(const std::vector<U>& expected_values,
-                           shared<Layer<T>> current_layer,
-                           shared<Layer<T>> next_layer,
-                           shared<Matrix<W>> next_layer_matrix) {
-    if (next_layer == nullptr) {
-      int N{current_layer->size()};
+                           int layer_id,
+                           const std::vector<shared<Layer<T>>>& layers,
+                           const std::vector<shared<Matrix<W>>>& weights) {
+    if (layers[layer_id + 1] == nullptr) {
+      int N{layers[layer_id]->size()};
       std::vector<double> delta(N);
       for (int node_index{}; node_index < N; ++node_index) {
-        delta[node_index] = (*current_layer)[node_index] - static_cast<T>(expected_values[node_index]);
+        delta[node_index] = (*layers[layer_id])[node_index] - static_cast<T>(expected_values[node_index]);
       }
 
       return delta;
     } else {
       Activator<T> act;
-      int N{current_layer->size()};
+      int N{layers[layer_id]->size()};
       std::vector<double> delta(N);
 
       for (int node_index{}; node_index < N; ++node_index) {
+        std::vector<double> previous_delta{grad(expected_values, layer_id + 1, layers, weights)};
         delta[node_index] =
-            act.grad((*current_layer)[node_index]) * (*next_layer_matrix * next_layer->nodes())[node_index];
+            act.grad((*layers[layer_id])[node_index]) * (weights[layer_id]->transpose() * previous_delta)[node_index];
       }
 
       return delta;
