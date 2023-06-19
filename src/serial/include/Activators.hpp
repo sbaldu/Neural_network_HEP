@@ -46,7 +46,7 @@ struct Step {
   }
 
   // Derivative of the activation function
-  double grad(double x) { return 0; }
+  double grad(double activated_value) { return 0; }
   std::vector<double> grad(shared<Layer<T>> layer) { 
 	return std::vector<double>(layer->size(), 0);
   }
@@ -82,7 +82,7 @@ struct Linear {
   }
 
   // Derivative of the activation function
-  double grad(double x) { return 1; }
+  double grad(double activated_value) { return 1; }
   std::vector<double> grad(shared<Layer<T>> layer) {
 	return std::vector<double>(layer->size(), 1);
   }
@@ -117,14 +117,14 @@ struct Sigmoid {
   }
 
   // Derivative of the activation function
-  double grad(double x) {
-	return Sigmoid()(x) * (1 - Sigmoid()(x));
+  double grad(double activated_value) {
+	return activated_value * (1 - activated_value);
   }
   std::vector<double> grad(shared<Layer<T>> layer) {
 	int N{layer->size()};
 	std::vector<double> gradient_values(N);
 	for (int i{}; i < N; ++i) {
-	  gradient_values[i] = grad(layer->nodes()[i]);
+	  gradient_values[i] = grad((*layer)[i]);
 	}
 
 	return gradient_values;
@@ -166,8 +166,8 @@ struct Tanh {
   }
 
   // Derivative of the activation function
-  double grad(double x) {
-	return 1 + pow(std::tanh(x), 2);
+  double grad(double activated_value) {
+	return 1 + pow(activated_value, 2);
   }
   std::vector<double> grad(shared<Layer<T>> layer) {
 	int N{layer->size()};
@@ -223,11 +223,11 @@ struct Elu {
   }
 
   // Derivative of the activation function
-  double grad(double x) {
-	if (x >= 0) {
+  double grad(double activated_value) {
+	if (activated_value >= 0) {
 	  return 1;
 	} else {
-	  return A * std::exp(x);
+	  return activated_value + A;
 	}
   }
   std::vector<double> grad(shared<Layer<T>> layer) {
@@ -276,8 +276,8 @@ struct Leaky_ReLU {
   }
 
   // Derivative of the activation function
-  double grad(double x) {
-	if (x >= 0) {
+  double grad(double activated_value) {
+	if (activated_value >= 0) {
 	  return 1;
 	} else {
 	  return 0.1;
@@ -331,8 +331,8 @@ struct Parametric_ReLU {
   }
 
   // Derivative of the activation function
-  double grad(double x) {
-	if (x >= 0) {
+  double grad(double activated_value) {
+	if (activated_value >= 0) {
 	  return 1;
 	} else {
 	  return A;
