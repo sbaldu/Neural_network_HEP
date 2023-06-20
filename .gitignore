@@ -3,6 +3,9 @@
 *.aux
 *.log
 
+# files for import/export of networks
+*.nn
+
 # executables
 *.out
 

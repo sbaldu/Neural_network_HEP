@@ -68,6 +68,10 @@ public:
   template <typename U>
   void train(U target, double eta);
 
+  // Import and export functions
+  void import_network(const std::string& filepath);
+  void export_network(const std::string& filepath);
+
   template <typename U,
             typename P,
             template <typename Q>
@@ -265,6 +269,62 @@ void Network<T, W, Activator, Loss>::train(U target, double eta) {
   std::vector<U> target_vector{target};
   forward_propatation();
   back_propagation(eta, target_vector);
+}
+
+template <typename T,
+          typename W,
+          template <typename F>
+          typename Activator,
+          template <typename E, typename LW, template <typename K> typename Act>
+          typename Loss>
+void Network<T, W, Activator, Loss>::import_network(const std::string& filepath) {
+  std::ifstream file_stream(filepath);
+
+  std::string file_row;
+  int i{};
+  while (getline(file_stream, file_row)) {
+    std::vector<W> weights;
+    std::vector<W> bias;
+
+    std::stringstream row_stream(file_row);
+    std::string value;
+    // First we fill the weight matrix
+    while (getline(row_stream, value, ',')) {
+      weights.push_back(std::stod(value));
+    }
+    // Then we get the next line and fill the bias vector
+    getline(file_stream, file_row);
+    row_stream = std::stringstream(file_row);
+    while (getline(row_stream, value, ',')) {
+      bias.push_back(std::stod(value));
+    }
+
+    m_weights[i] = std::make_shared<Matrix<W>>(m_weights[i]->nrows(), m_weights[i]->ncols(), weights);
+    m_bias[i] = std::make_shared<std::vector<W>>(bias);
+  }
+}
+
+template <typename T,
+          typename W,
+          template <typename F>
+          typename Activator,
+          template <typename E, typename LW, template <typename K> typename Act>
+          typename Loss>
+void Network<T, W, Activator, Loss>::export_network(const std::string& filepath) {
+  std::ofstream ofile;
+  ofile.open(filepath);
+
+  if (!ofile.is_open()) {
+    std::cout << "The file is not open\n";
+    return;
+  }
+
+  for (int i{}; i < n_layers - 1; ++i) {
+    ofile << *m_weights[i] << '\n';
+    ofile << *m_bias[i] << '\n';
+  }
+
+  ofile.close();
 }
 
 template <typename T,
