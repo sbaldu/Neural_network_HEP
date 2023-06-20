@@ -1,6 +1,12 @@
 
+#ifndef vec_operations_h
+#define vec_operations_h
 
+#pragma once
+
+#include <algorithm>
 #include <concepts>
+#include <ostream>
 #include <vector>
 
 #include "Matrix.hpp"
@@ -48,3 +54,17 @@ void operator-=(std::vector<T>& vec, const Matrix<T>& m) {
 	vec[i] -= m.data()[i];
   }
 }
+
+// Ostream operator for vectors
+template <typename T>
+std::ostream& operator<<(std::ostream& out, const std::vector<T>& vec) {
+  out << *vec.begin();
+  std::for_each(vec.begin()+1, vec.end(), [&out](T x) {
+		out << ',';
+		out << x;
+	  }); 
+
+  return out;
+}
+
+#endif

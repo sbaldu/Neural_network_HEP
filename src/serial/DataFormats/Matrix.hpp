@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <algorithm>
 #include <concepts>
 #include <iostream>
 #include <iterator>
@@ -80,6 +81,9 @@ public:
 
   template <typename E>
   Matrix<T>& operator/=(E constant);
+
+  template <typename U>
+  friend std::ostream& operator<<(std::ostream& out, const Matrix<U>& m);
 };
 
 template <typename T>
@@ -357,6 +361,17 @@ Matrix<T>& Matrix<T>::operator/=(E constant) {
   }
 
   return *this;
+}
+
+template <typename U>
+std::ostream& operator<<(std::ostream& out, const Matrix<U>& m) {
+  out << m.m_data[0];
+  std::for_each(m.m_data.begin()+1, m.m_data.end(), [&out](U x) {
+		out << ',';
+		out << x;
+	  });
+
+  return out;
 }
 
 #endif
