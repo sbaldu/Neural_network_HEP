@@ -7,11 +7,11 @@
 #include <cassert>
 
 template <typename T>
-struct matrix_t{
+struct matrix_t {
   int rows;
   int cols;
   T* data;
-}; 
+};
 
 template <typename T>
 __global__ void vec_add(const T* a, const T* b, T* c, int n) {
@@ -81,20 +81,20 @@ __global__ void matrix_vec_multiply(const matrix_t<T> matrix, const T* vec, T* r
 
   assert(m1.cols == n);
   for (int i{}; i < m1.cols; i += blockIdx.x) {
-	// Fill the arrays in shared memory
-	s_a[threadIdx.y * blockDim.x + threadIdx.x] = a[row * m1.cols + threadIdx.x + i];
-	s_b[threadIdx.y * blockDim.x + threadIdx.x] = b[threadIdx.y + i];
+    // Fill the arrays in shared memory
+    s_a[threadIdx.y * blockDim.x + threadIdx.x] = a[row * m1.cols + threadIdx.x + i];
+    s_b[threadIdx.y * blockDim.x + threadIdx.x] = b[threadIdx.y + i];
 
-	// Make sure that the shared arrays are completely filled
-	__syncthreads();
+    // Make sure that the shared arrays are completely filled
+    __syncthreads();
 
-	for (int j{}; j < blockDim.x; ++j) {
-	  temp += s_a[threadIdx.y * blockDim.x + j] * s_b[j * blockDim.x + threadIdx.x];
-	}
+    for (int j{}; j < blockDim.x; ++j) {
+      temp += s_a[threadIdx.y * blockDim.x + j] * s_b[j * blockDim.x + threadIdx.x];
+    }
 
-	__syncthreads();
+    __syncthreads();
 
-	c[row * m2.cols + col] = temp;
+    c[row * m2.cols + col] = temp;
   }
 }
 
@@ -112,19 +112,19 @@ __global__ void matrix_multiply(const matrix_t<T> a, const matrix_t<T> b, matrix
 
   assert(m1.cols == m2.rows);
   for (int i{}; i < m1.cols; i += blockIdx.x) {
-	// Fill the arrays in shared memory
-	s_a[threadIdx.y * blockDim.x + threadIdx.x] = a[row * m1.cols + threadIdx.x + i];
-	s_b[threadIdx.y * blockDim.x + threadIdx.x] = b[(threadIdx.y + i) * m2.cols + col];
+    // Fill the arrays in shared memory
+    s_a[threadIdx.y * blockDim.x + threadIdx.x] = a[row * m1.cols + threadIdx.x + i];
+    s_b[threadIdx.y * blockDim.x + threadIdx.x] = b[(threadIdx.y + i) * m2.cols + col];
 
-	__syncthreads();
+    __syncthreads();
 
-	for (int j{}; j < blockDim.x; ++j) {
-	  temp += s_a[threadIdx.y * blockDim.x + j] * s_b[j * blockDim.x + threadIdx.x];
-	}
+    for (int j{}; j < blockDim.x; ++j) {
+      temp += s_a[threadIdx.y * blockDim.x + j] * s_b[j * blockDim.x + threadIdx.x];
+    }
 
-	__syncthreads();
+    __syncthreads();
 
-	c[row * m2.cols + col] = temp;
+    c[row * m2.cols + col] = temp;
   }
 }
 

@@ -29,7 +29,7 @@ std::vector<T> operator+(const std::vector<T>& v1, const std::vector<T>& v2) {
   // Launch kernel
   cudaMemcpy(d_v1, v1.data(), size, cudaMemcpyHostToDevice);
   cudaMemcpy(d_v2, v2.data(), size, cudaMemcpyHostToDevice);
-  vec_add<<<N/256, 256>>>(d_v1, d_v2, d_res, N);
+  vec_add<<<N / 256, 256>>>(d_v1, d_v2, d_res, N);
   cudaMemcpy(result.data(), d_res, size, cudaMemcpyDeviceToHost);
 
   cudaFree(d_v1);
@@ -56,7 +56,7 @@ std::vector<T> operator-(const std::vector<T>& v1, const std::vector<T>& v2) {
   // Launch kernel
   cudaMemcpy(d_v1, v1.data(), size, cudaMemcpyHostToDevice);
   cudaMemcpy(d_v2, v2.data(), size, cudaMemcpyHostToDevice);
-  vec_sub<<<N/256, 256>>>(d_v1, d_v2, d_res, N);
+  vec_sub<<<N / 256, 256>>>(d_v1, d_v2, d_res, N);
   cudaMemcpy(result.data(), d_res, size, cudaMemcpyDeviceToHost);
 
   cudaFree(d_v1);
@@ -75,12 +75,12 @@ std::vector<T> operator*(E constant, std::vector<T> vec) {
   int size{sizeof(T) * N};
 
   // Allocate on device
-  T *d_res;
+  T* d_res;
   cudaMalloc(&d_res, size);
 
   // Launch kernel
   cudaMemcpy(d_res, vec.data(), size, cudaMemcpyHostToDevice);
-  vec_multiply<<<N/256, 256>>>(d_res, constant, N);
+  vec_multiply<<<N / 256, 256>>>(d_res, constant, N);
   cudaMemcpy(result.data(), d_res, size, cudaMemcpyDeviceToHost);
 
   cudaFree(d_res);
@@ -97,12 +97,12 @@ std::vector<T> operator/(E constant, std::vector<T> vec) {
   int size{sizeof(T) * N};
 
   // Allocate on device
-  T *d_res;
+  T* d_res;
   cudaMalloc(&d_res, size);
 
   // Launch kernel
   cudaMemcpy(d_res, vec.data(), size, cudaMemcpyHostToDevice);
-  vec_divide<<<N/256, 256>>>(d_res, constant, N);
+  vec_divide<<<N / 256, 256>>>(d_res, constant, N);
   cudaMemcpy(result.data(), d_res, size, cudaMemcpyDeviceToHost);
 
   cudaFree(d_res);
@@ -126,7 +126,7 @@ void operator+=(std::vector<T>& vec, const Matrix<T>& m) {
   // Launch kernel
   cudaMemcpy(d_vec, vec.data(), size, cudaMemcpyHostToDevice);
   cudaMemcpy(d_mat, (m.data()).data(), size, cudaMemcpyHostToDevice);
-  vec_add<<<N/256, 256>>>(d_vec, d_res, N);
+  vec_add<<<N / 256, 256>>>(d_vec, d_res, N);
   cudaMemcpy(vec.data(), d_vec, size, cudaMemcpyDeviceToHost);
 
   cudaFree(d_vec);
@@ -149,7 +149,7 @@ void operator-=(std::vector<T>& vec, const Matrix<T>& m) {
   // Launch kernel
   cudaMemcpy(d_vec, vec.data(), size, cudaMemcpyHostToDevice);
   cudaMemcpy(d_mat, (m.data()).data(), size, cudaMemcpyHostToDevice);
-  vec_sub<<<N/256, 256>>>(d_vec, d_res, N);
+  vec_sub<<<N / 256, 256>>>(d_vec, d_res, N);
   cudaMemcpy(vec.data(), d_vec, size, cudaMemcpyDeviceToHost);
 
   cudaFree(d_vec);
@@ -160,10 +160,10 @@ void operator-=(std::vector<T>& vec, const Matrix<T>& m) {
 template <typename T>
 std::ostream& operator<<(std::ostream& out, const std::vector<T>& vec) {
   out << *vec.begin();
-  std::for_each(vec.begin()+1, vec.end(), [&out](T x) {
-		out << ',';
-		out << x;
-	  }); 
+  std::for_each(vec.begin() + 1, vec.end(), [&out](T x) {
+    out << ',';
+    out << x;
+  });
 
   return out;
 }
