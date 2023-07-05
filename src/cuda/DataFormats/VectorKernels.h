@@ -79,11 +79,11 @@ __global__ void matrix_vec_multiply(const matrix_t<T> matrix, const T* vec, T* r
   // Temporary variable containing the result of the moltiplication
   int temp{};
 
-  assert(m1.cols == n);
-  for (int i{}; i < m1.cols; i += blockIdx.x) {
+  assert(matrix.cols == n);
+  for (int i{}; i < matrix.cols; i += blockIdx.x) {
     // Fill the arrays in shared memory
-    s_a[threadIdx.y * blockDim.x + threadIdx.x] = a[row * m1.cols + threadIdx.x + i];
-    s_b[threadIdx.y * blockDim.x + threadIdx.x] = b[threadIdx.y + i];
+    s_a[threadIdx.y * blockDim.x + threadIdx.x] = matrix[row * matrix.cols + threadIdx.x + i];
+    s_b[threadIdx.y * blockDim.x + threadIdx.x] = vec[threadIdx.y + i];
 
     // Make sure that the shared arrays are completely filled
     __syncthreads();
@@ -94,7 +94,7 @@ __global__ void matrix_vec_multiply(const matrix_t<T> matrix, const T* vec, T* r
 
     __syncthreads();
 
-    c[row * m2.cols + col] = temp;
+    result[col] = temp;
   }
 }
 
@@ -110,11 +110,11 @@ __global__ void matrix_multiply(const matrix_t<T> a, const matrix_t<T> b, matrix
   // Temporary variable containing the result of the moltiplication
   int temp{};
 
-  assert(m1.cols == m2.rows);
-  for (int i{}; i < m1.cols; i += blockIdx.x) {
+  assert(a.cols == b.rows);
+  for (int i{}; i < a.cols; i += blockIdx.x) {
     // Fill the arrays in shared memory
-    s_a[threadIdx.y * blockDim.x + threadIdx.x] = a[row * m1.cols + threadIdx.x + i];
-    s_b[threadIdx.y * blockDim.x + threadIdx.x] = b[(threadIdx.y + i) * m2.cols + col];
+    s_a[threadIdx.y * blockDim.x + threadIdx.x] = a[row * a.cols + threadIdx.x + i];
+    s_b[threadIdx.y * blockDim.x + threadIdx.x] = b[(threadIdx.y + i) * b.cols + col];
 
     __syncthreads();
 
@@ -124,7 +124,7 @@ __global__ void matrix_multiply(const matrix_t<T> a, const matrix_t<T> b, matrix
 
     __syncthreads();
 
-    c[row * m2.cols + col] = temp;
+    c[row * b.cols + col] = temp;
   }
 }
 
