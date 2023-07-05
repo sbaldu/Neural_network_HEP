@@ -11,8 +11,8 @@
 
 #include "Activators.hpp"
 #include "Layer.hpp"
-#include "../DataFormats/Matrix.hpp"
-#include "../DataFormats/VectorOperations.hpp"
+#include "DataFormats/Matrix.hpp"
+#include "DataFormats/VectorOperations.hpp"
 
 template <typename T>
 using shared = std::shared_ptr<T>;

@@ -1,5 +1,10 @@
+
+BASE_DIR := ../../
+SRC_DIR := $(BASE_DIR)src/
+SERIAL_DIR := $(SRC_DIR)serial/
+
 export CXX := g++
-CXXFLAGS = -O3 -std=c++20 -g -pg
+CXXFLAGS = -O3 -std=c++20 -I$(SERIAL_DIR) -g
 
 all: ./OrFunction.cc ./AndFunction.cc ./XorFunction.cc
 	$(CXX) $(CXXFLAGS) ./OrFunction.cc -o $(NetworkTestPath)Or.out ;

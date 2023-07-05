@@ -4,7 +4,7 @@
 #include <ranges>
 #include <vector>
 
-#include "../../src/serial/DataFormats/Matrix.hpp"
+#include "DataFormats/Matrix.hpp"
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
