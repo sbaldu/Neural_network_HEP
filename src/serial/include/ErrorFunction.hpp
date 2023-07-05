@@ -6,7 +6,7 @@
 #include <memory>
 #include <vector>
 
-#include "../DataFormats/Matrix.hpp"
+#include "DataFormats/Matrix.hpp"
 #include "Layer.hpp"
 
 template <typename T>

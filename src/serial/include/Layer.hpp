@@ -10,7 +10,7 @@
 #include <sstream>
 #include <vector>
 
-#include "../DataFormats/Matrix.hpp"
+#include "DataFormats/Matrix.hpp"
 
 template <typename T>
 class Layer{

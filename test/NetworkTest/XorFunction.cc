@@ -1,8 +1,8 @@
 
 #include <iostream>
 
-#include "../../src/serial/include/Network.hpp"
-#include "../../src/serial/include/ErrorFunction.hpp"
+#include "include/Network.hpp"
+#include "include/ErrorFunction.hpp"
 
 int main() {
   double eta{0.05};
