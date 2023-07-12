@@ -11,6 +11,11 @@ struct matrix_t {
   int rows;
   int cols;
   T* data;
+
+  matrix_t(int n_rows, int n_cols, T* data) : rows{n_rows}, cols{n_cols}, data{data} {}
+
+  __host__ __device__ T& operator[](int index) { return data[index]; }
+  __host__ __device__ const T& operator[](int index) const { return data[index]; }
 };
 
 template <typename T>
@@ -99,10 +104,11 @@ __global__ void matrix_vec_multiply(const matrix_t<T> matrix, const T* vec, T* r
 }
 
 template <typename T>
-__global__ void matrix_multiply(const matrix_t<T> a, const matrix_t<T> b, matrix_t<T> c) {
+__global__ void matrix_multiply(const matrix_t<T> a, const matrix_t<T> b, matrix_t<T> c, int block_size) {
   // Allocate memory on shared memory
-  extern __shared__ int s_a[];
-  extern __shared__ int s_b[];
+  extern __shared__ int shared[];
+  int *s_a{shared};
+  int *s_b{&shared[block_size * block_size]};
 
   unsigned int row{blockIdx.y * blockDim.y + threadIdx.y};
   unsigned int col{blockIdx.x * blockDim.x + threadIdx.x};
@@ -111,7 +117,7 @@ __global__ void matrix_multiply(const matrix_t<T> a, const matrix_t<T> b, matrix
   int temp{};
 
   assert(a.cols == b.rows);
-  for (int i{}; i < a.cols; i += blockIdx.x) {
+  for (int i{}; i < a.cols; i += blockDim.x) {
     // Fill the arrays in shared memory
     s_a[threadIdx.y * blockDim.x + threadIdx.x] = a[row * a.cols + threadIdx.x + i];
     s_b[threadIdx.y * blockDim.x + threadIdx.x] = b[(threadIdx.y + i) * b.cols + col];
