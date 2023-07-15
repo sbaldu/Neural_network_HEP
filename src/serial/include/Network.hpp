@@ -35,7 +35,7 @@ private:
 
 public:
   Network() = delete;
-  Network(int n_layers, const std::vector<int>& nodes_per_layer);
+  Network(const std::vector<int>& nodes_per_layer);
 
   void load_input_layer(std::stringstream& stream);
   void load_input_layer(const std::vector<T>& vec);
@@ -87,8 +87,11 @@ template <typename T,
           typename Activator,
           template <typename E, typename LW, template <typename K> typename Act>
           typename Loss>
-Network<T, W, Activator, Loss>::Network(int n_layers, const std::vector<int>& nodes_per_layer)
-    : n_layers{n_layers}, m_layers(n_layers + 1), m_weights(n_layers + 1), m_bias(n_layers - 1) {
+Network<T, W, Activator, Loss>::Network(const std::vector<int>& nodes_per_layer)
+    : n_layers{static_cast<int>(nodes_per_layer.size())},
+      m_layers(n_layers + 1),
+      m_weights(n_layers + 1),
+      m_bias(n_layers - 1) {
   for (int i{}; i < n_layers - 1; ++i) {
     m_layers[i] = std::make_shared<Layer<T>>(nodes_per_layer[i]);
     m_weights[i] = std::make_shared<Matrix<W>>(nodes_per_layer[i + 1], nodes_per_layer[i]);
@@ -225,7 +228,9 @@ template <typename T,
           template <typename E, typename LW, template <typename K> typename Act>
           typename Loss>
 template <typename U>
-void Network<T, W, Activator, Loss>::back_propagation(const std::vector<U>& target, int layer_id, double eta) {
+void Network<T, W, Activator, Loss>::back_propagation(const std::vector<U>& target,
+                                                      int layer_id,
+                                                      double eta) {
   Loss<T, W, Activator> loss_function;
   Matrix<W> loss_grad(loss_function.grad(target, layer_id + 1, m_layers, m_weights));
   Matrix<T> activated_values_grad(m_layers[layer_id]->nodes());
