@@ -1,8 +1,7 @@
 ---
 Language:        Cpp
 BasedOnStyle:  Google
-ColumnLimit:     120
-#didn't we want to change this?
+ColumnLimit:     108
 NamespaceIndentation: All
 SortIncludes:    false
 IndentWidth:     2

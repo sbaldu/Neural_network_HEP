@@ -73,7 +73,7 @@ void Layer<T>::load(std::stringstream& stream) {
 	m_nodes[node_index] = static_cast<T>(numeric_value);
 
 	try {
-	  if (node_index + 1 >= n_nodes) {
+	  if (node_index + 1 > n_nodes) {
 		throw (node_index);
 	  }
 	  ++node_index;
