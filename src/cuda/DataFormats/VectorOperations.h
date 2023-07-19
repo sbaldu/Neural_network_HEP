@@ -102,7 +102,7 @@ std::vector<T> operator*(E constant, std::vector<T> vec) {
 
 // Overload division of vector with constant
 template <typename T, std::convertible_to<T> E>
-std::vector<T> operator/(E constant, std::vector<T> vec) {
+std::vector<T> operator/(std::vector<T> vec, E constant) {
   const size_t N{vec.size()};
   std::vector<T> result(N);
 
