@@ -155,21 +155,45 @@ TEST_CASE("Test division of matrix by a constant") {
   }
 }
 
-/*
 TEST_CASE("Test scalar product between two vector matrices") {
-  std::vector<int> v1(1024), v2(1024);
+  const int len{1 << 10};
+  std::vector<int> v1(len), v2(len);
   std::iota(v1.begin(), v1.end(), 0);
-  std::iota(v2.begin(), v2.end(), 1024);
+  std::iota(v2.begin(), v2.end(), len);
 
-  Matrix<int> m1(1, 1024, v1);
-  Matrix<int> m2(1024, 1, v2);
+  Matrix<int> m1(1, len, v1);
+  Matrix<int> m2(len, 1, v2);
 
   Matrix<int> product{m1 * m2};
 
   CHECK(product.size() == 1);
-  CHECK(product.get(0, 0) == 735);
+
+  int tmp{};
+  for (int i{}; i < len; ++i) {
+    tmp += m1[i] * m2[i];
+  }
+  CHECK(product[0] == tmp);
 }
-*/
+
+TEST_CASE("Test 'ket-bra' product between two vector matrices") {
+  const int N{1 << 10};
+  std::vector<int> v1(N), v2(N);
+  std::iota(v1.begin(), v1.end(), 0);
+  std::iota(v2.begin(), v2.end(), N);
+
+  Matrix<int> m1(N, 1, v1);
+  Matrix<int> m2(1, N, v2);
+
+  Matrix<int> product{m1 * m2};
+
+  CHECK(product.size() == N * N);
+
+  for (int i{}; i < N; ++i) {
+	for (int j{}; j < N; ++j) {
+	  CHECK(product[i * N + j] == m1[i] * m2[j]);
+	}
+  }
+}
 
 TEST_CASE("Test matrix product between two 32x32 matrices") {
   const int N{1 << 5};
@@ -319,23 +343,57 @@ TEST_CASE("Test matrix product between two 1024x512 and 512x1024 matrices") {
   }
 }
 
-TEST_CASE("Test multiplication of a column vector with a matrix") {
-  Matrix<int> m(5, 5);
+TEST_CASE("Test multiplication of a small column vector with a matrix") {
+  const int N{1 << 2};
+  Matrix<int> m(N, N);
 
   int index{};
-  for (int i : std::views::iota(1, 26)) {
+  for (int i : std::views::iota(1, N * N + 1)) {
     m.set_data(index, i);
     ++index;
   }
 
-  std::vector<int> vec(5);
+  std::vector<int> vec(N);
   std::iota(vec.begin(), vec.end(), 1);
   Matrix<int> m2(vec);
 
-  Matrix<int> product_1{m * m2};
+  Matrix<int> product{m * m2};
 
-  for (int i{}; i < 5; ++i) {
-    CHECK(product_1[i] == 55 + 5 * 15 * i);
+  for (int i{}; i < N; ++i) {
+    int tmp{};
+    for (int k{}; k < N; ++k) {
+      // Accumulate the partial results
+      tmp += m[i * N + k] * vec[k];
+    }
+
+    CHECK(tmp == product[i]);
+  }
+}
+
+TEST_CASE("Test multiplication of a large column vector with a matrix") {
+  const int N{1 << 9};
+  Matrix<int> m(N, N);
+
+  int index{};
+  for (int i : std::views::iota(1, N * N + 1)) {
+    m.set_data(index, i);
+    ++index;
+  }
+
+  std::vector<int> vec(N);
+  std::iota(vec.begin(), vec.end(), 1);
+  Matrix<int> m2(vec);
+
+  Matrix<int> product{m * m2};
+
+  for (int i{}; i < N; ++i) {
+    int tmp{};
+    for (int k{}; k < N; ++k) {
+      // Accumulate the partial results
+      tmp += m[i * N + k] * vec[k];
+    }
+
+    CHECK(tmp == product[i]);
   }
 }
 
