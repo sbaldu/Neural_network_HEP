@@ -28,7 +28,7 @@ class Layer{
 
 	// Getters
 	const std::vector<T>& nodes() const;
-	const int size() const;
+	int size() const;
 
 	// Setters for the node data
 	void set_node_data(int i, T value);
@@ -101,7 +101,7 @@ const std::vector<T>& Layer<T>::nodes() const {
 }
 
 template <typename T>
-const int Layer<T>::size() const {
+int Layer<T>::size() const {
   return m_nodes.size();
 }
 

@@ -126,8 +126,8 @@ struct Sigmoid {
 	// Allocate on device
 	T* d_act;
 	E* d_vec;
-	const int size_act{N * sizeof(T)};
-	const int size_vec{N * sizeof(E)};
+	const size_t size_act{N * sizeof(T)};
+	const size_t size_vec{N * sizeof(E)};
 	cudaMalloc(&d_act, size_act);
 	cudaMalloc(&d_vec, size_vec);
 

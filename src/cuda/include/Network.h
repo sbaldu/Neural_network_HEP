@@ -9,10 +9,10 @@
 #include <string>
 #include <type_traits>
 
-#include "Activators.hpp"
-#include "Layer.hpp"
-#include "DataFormats/Matrix.hpp"
-#include "DataFormats/VectorOperations.hpp"
+#include "Activators.h"
+#include "Layer.h"
+#include "DataFormats/Matrix.h"
+#include "DataFormats/VectorOperations.h"
 
 template <typename T>
 using shared = std::shared_ptr<T>;

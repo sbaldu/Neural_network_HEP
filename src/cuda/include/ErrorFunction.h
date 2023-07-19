@@ -6,8 +6,8 @@
 #include <memory>
 #include <vector>
 
-#include "DataFormats/Matrix.hpp"
-#include "Layer.hpp"
+#include "DataFormats/Matrix.h"
+#include "Layer.h"
 
 template <typename T>
 using shared = std::shared_ptr<T>;
