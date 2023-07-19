@@ -26,8 +26,8 @@ int main() {
     std::string target;
     std::string input;
 
-	// Get rid of the header row
-	getline(file_stream, file_row);
+    // Get rid of the header row
+    getline(file_stream, file_row);
     while (getline(file_stream, file_row)) {
       std::stringstream row_stream(file_row);
 
@@ -42,7 +42,7 @@ int main() {
       net.train(target_value, eta);
 
       int guess = *net.output_layer().begin();
-	  /* std::cout << target_value << ' ' << guess << std::endl; */
+      /* std::cout << target_value << ' ' << guess << std::endl; */
       if (guess == target_value) {
         ++n_correct_guesses;
       }

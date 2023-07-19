@@ -26,7 +26,7 @@ int main() {
 
       // Isolate the target, which is the first value
       getline(row_stream, target, ',');
-	  int target_value{std::stoi(target)};
+      int target_value{std::stoi(target)};
       std::vector<int> target_vector(10, 0);
       target_vector[target_value] = 1;
 
@@ -42,16 +42,16 @@ int main() {
         ++n_correct_guesses;
       }
     }
-	
-	double accuracy{static_cast<double>(n_correct_guesses) * 100 / data_size};
+
+    double accuracy{static_cast<double>(n_correct_guesses) * 100 / data_size};
     std::cout << "Accuracy = " << accuracy << " %" << std::endl;
     std::cout << "-------------------------------------\n";
 
-	if (accuracy - previous_accuracy > 0.1) {
-	  previous_accuracy = accuracy;
-	} else {
-	  break;
-	}
+    if (accuracy - previous_accuracy > 0.1) {
+      previous_accuracy = accuracy;
+    } else {
+      break;
+    }
 
     file_stream.close();
   }

@@ -107,8 +107,8 @@ template <typename T, typename E, typename U>
 __global__ void matrix_multiply(const matrix_t<T> a, const matrix_t<E> b, matrix_t<U> c, int block_size) {
   // Allocate memory on shared memory
   extern __shared__ int shared[];
-  int *s_a{shared};
-  int *s_b{&shared[block_size * block_size]};
+  int* s_a{shared};
+  int* s_b{&shared[block_size * block_size]};
 
   unsigned int row{blockIdx.y * blockDim.y + threadIdx.y};
   unsigned int col{blockIdx.x * blockDim.x + threadIdx.x};
@@ -119,20 +119,20 @@ __global__ void matrix_multiply(const matrix_t<T> a, const matrix_t<E> b, matrix
   assert(a.cols == b.rows);
   for (int i{}; i < a.cols; i += blockDim.x) {
     // Fill the arrays in shared memory
-	//if (row < a.rows && col < b.cols && row < b.rows && col < b.cols) {
-	  s_a[threadIdx.y * blockDim.x + threadIdx.x] = a[row * a.cols + threadIdx.x + i];
-	  s_b[threadIdx.y * blockDim.x + threadIdx.x] = b[(threadIdx.y + i) * b.cols + col];
+    //if (row < a.rows && col < b.cols && row < b.rows && col < b.cols) {
+    s_a[threadIdx.y * blockDim.x + threadIdx.x] = a[row * a.cols + threadIdx.x + i];
+    s_b[threadIdx.y * blockDim.x + threadIdx.x] = b[(threadIdx.y + i) * b.cols + col];
 
-	  __syncthreads();
+    __syncthreads();
 
-	  for (int j{}; j < blockDim.x; ++j) {
-		temp += s_a[threadIdx.y * blockDim.x + j] * s_b[j * blockDim.x + threadIdx.x];
-	  }
+    for (int j{}; j < blockDim.x; ++j) {
+      temp += s_a[threadIdx.y * blockDim.x + j] * s_b[j * blockDim.x + threadIdx.x];
+    }
 
-	  __syncthreads();
+    __syncthreads();
 
-	  c[row * b.cols + col] = temp;
-	//}
+    c[row * b.cols + col] = temp;
+    //}
   }
 }
 

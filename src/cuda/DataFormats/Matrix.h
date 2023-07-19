@@ -290,7 +290,7 @@ Matrix<T> operator*(const Matrix<T>& m1, const Matrix<T>& m2) {
 
   auto block_size{std::min({N, K, M})};
   if (block_size > 32) {
-	block_size = 32;
+    block_size = 32;
   }
 
   const int grid_x{(int)std::ceil(M / (float)(block_size))};
@@ -332,7 +332,7 @@ Matrix<T> operator*(const Matrix<T>& m1, const Matrix<E>& m2) {
   const size_t size_c{N * M * sizeof(T)};
 
   T *d_a, *d_c;
-  E *d_b;
+  E* d_b;
   cudaMalloc(&d_a, size_a);
   cudaMalloc(&d_b, size_b);
   cudaMalloc(&d_c, size_c);
@@ -343,7 +343,7 @@ Matrix<T> operator*(const Matrix<T>& m1, const Matrix<E>& m2) {
 
   int block_size{std::min({N, K, M})};
   if (block_size > 32) {
-	block_size = 32;
+    block_size = 32;
   }
 
   const int grid_x{(int)std::ceil(M / (float)(block_size))};
@@ -416,8 +416,8 @@ Matrix<T>& Matrix<T>::operator+=(const Matrix<E>& other) {
   const size_t size_other{sizeof(E) * m_size};
 
   // Allocate on device
-  T *d_vec;
-  E *d_other;
+  T* d_vec;
+  E* d_other;
   cudaMalloc(&d_vec, size_src);
   cudaMalloc(&d_other, size_other);
 
@@ -431,7 +431,6 @@ Matrix<T>& Matrix<T>::operator+=(const Matrix<E>& other) {
   cudaFree(d_other);
 
   return *this;
-
 }
 
 template <typename T>
@@ -468,8 +467,8 @@ Matrix<T>& Matrix<T>::operator-=(const Matrix<E>& other) {
   const size_t size_other{sizeof(E) * m_size};
 
   // Allocate on device
-  T *d_vec;
-  E *d_other;
+  T* d_vec;
+  E* d_other;
   cudaMalloc(&d_vec, size_src);
   cudaMalloc(&d_other, size_other);
 
@@ -494,7 +493,7 @@ Matrix<T>& Matrix<T>::operator*=(E constant) {
   const size_t size{sizeof(T) * m_size};
 
   // Allocate on device
-  T *d_vec;
+  T* d_vec;
   cudaMalloc(&d_vec, size);
 
   // Launch kernel
@@ -516,7 +515,7 @@ __host__ Matrix<T>& Matrix<T>::operator/=(E constant) {
   const size_t size{sizeof(T) * m_size};
 
   // Allocate on device
-  T *d_vec;
+  T* d_vec;
   cudaMalloc(&d_vec, size);
 
   // Launch kernel

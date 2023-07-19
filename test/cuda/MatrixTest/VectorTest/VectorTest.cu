@@ -22,7 +22,7 @@ TEST_CASE("Test sum of two small vectors") {
   std::vector<int> sum{v1 + v2};
 
   for (int i{}; i < len; ++i) {
-	CHECK(sum[i] == v1[i] + v2[i]);
+    CHECK(sum[i] == v1[i] + v2[i]);
   }
 }
 
@@ -38,7 +38,7 @@ TEST_CASE("Test sum of two large vectors") {
   std::vector<int> sum{v1 + v2};
 
   for (int i{}; i < len; ++i) {
-	CHECK(sum[i] == v1[i] + v2[i]);
+    CHECK(sum[i] == v1[i] + v2[i]);
   }
 }
 
@@ -54,7 +54,7 @@ TEST_CASE("Test subtraction of two small vectors") {
   std::vector<int> diff{v1 - v2};
 
   for (int i{}; i < len; ++i) {
-	CHECK(diff[i] == v1[i] - v2[i]);
+    CHECK(diff[i] == v1[i] - v2[i]);
   }
 }
 
@@ -70,7 +70,7 @@ TEST_CASE("Test subtraction of two large vectors") {
   std::vector<int> diff{v1 - v2};
 
   for (int i{}; i < len; ++i) {
-	CHECK(diff[i] == v1[i] - v2[i]);
+    CHECK(diff[i] == v1[i] - v2[i]);
   }
 }
 
@@ -85,7 +85,7 @@ TEST_CASE("Test multiplication of vector with constant of the same type") {
   std::vector<int> multiplied{constant * v};
 
   for (int i{}; i < len; ++i) {
-	CHECK(multiplied[i] == constant * v[i]);
+    CHECK(multiplied[i] == constant * v[i]);
   }
 }
 
@@ -100,7 +100,7 @@ TEST_CASE("Test multiplication of vector with constant of a different type") {
   std::vector<int> multiplied{constant * v};
 
   for (int i{}; i < len; ++i) {
-	CHECK(multiplied[i] == static_cast<int>(constant * v[i]));
+    CHECK(multiplied[i] == static_cast<int>(constant * v[i]));
   }
 }
 
@@ -112,10 +112,10 @@ TEST_CASE("Test division of vector with constant of the same type") {
   // Initialize data
   std::iota(v.begin(), v.end(), 10);
 
-  std::vector<int> divided{v / constant };
+  std::vector<int> divided{v / constant};
 
   for (int i{}; i < len; ++i) {
-	CHECK(divided[i] == v[i] / constant);
+    CHECK(divided[i] == v[i] / constant);
   }
 }
 
@@ -127,10 +127,10 @@ TEST_CASE("Test division of vector with constant of a different type") {
   // Initialize data
   std::iota(v.begin(), v.end(), 10);
 
-  std::vector<int> divided{v / constant };
+  std::vector<int> divided{v / constant};
 
   for (int i{}; i < len; ++i) {
-	CHECK(divided[i] == static_cast<int>(v[i] / constant));
+    CHECK(divided[i] == static_cast<int>(v[i] / constant));
   }
 }
 
@@ -139,7 +139,7 @@ TEST_CASE("Increment vector with a vector matrix") {
   std::vector<int> vec(len), matrix_vec(len);
 
   std::iota(vec.begin(), vec.end(), 10);
-  std::iota(matrix_vec.begin(), matrix_vec.end(), len/2);
+  std::iota(matrix_vec.begin(), matrix_vec.end(), len / 2);
 
   Matrix<int> mat(len, 1, matrix_vec);
 
@@ -147,7 +147,7 @@ TEST_CASE("Increment vector with a vector matrix") {
   vec += mat;
 
   for (int i{}; i < len; ++i) {
-	CHECK(vec[i] == vec_copy[i] + mat[i]);
+    CHECK(vec[i] == vec_copy[i] + mat[i]);
   }
 }
 
@@ -156,7 +156,7 @@ TEST_CASE("Decrement vector with a vector matrix") {
   std::vector<int> vec(len), matrix_vec(len);
 
   std::iota(vec.begin(), vec.end(), 10);
-  std::iota(matrix_vec.begin(), matrix_vec.end(), len/2);
+  std::iota(matrix_vec.begin(), matrix_vec.end(), len / 2);
 
   Matrix<int> mat(len, 1, matrix_vec);
 
@@ -164,6 +164,6 @@ TEST_CASE("Decrement vector with a vector matrix") {
   vec -= mat;
 
   for (int i{}; i < len; ++i) {
-	CHECK(vec[i] == vec_copy[i] - mat[i]);
+    CHECK(vec[i] == vec_copy[i] - mat[i]);
   }
 }

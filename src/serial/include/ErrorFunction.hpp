@@ -46,8 +46,8 @@ struct MeanSquaredError {
 
       for (int node_index{}; node_index < N; ++node_index) {
         std::vector<double> previous_delta{grad(expected_values, layer_id + 1, layers, weights)};
-        delta[node_index] =
-            act.grad((*layers[layer_id])[node_index]) * (weights[layer_id]->transpose() * previous_delta)[node_index];
+        delta[node_index] = act.grad((*layers[layer_id])[node_index]) *
+                            (weights[layer_id]->transpose() * previous_delta)[node_index];
       }
 
       return delta;

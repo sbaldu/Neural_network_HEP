@@ -13,42 +13,41 @@
 #include "DataFormats/Matrix.hpp"
 
 template <typename T>
-class Layer{
-  private:
-	std::vector<T> m_nodes;
-	int n_nodes;
+class Layer {
+private:
+  std::vector<T> m_nodes;
+  int n_nodes;
 
-  public:
-	Layer() = default;
-	Layer(int n_nodes);
-	Layer(std::vector<T> nodes);
-	Layer(std::stringstream& stream);
+public:
+  Layer() = default;
+  Layer(int n_nodes);
+  Layer(std::vector<T> nodes);
+  Layer(std::stringstream& stream);
 
-	void load(std::stringstream& stream);
+  void load(std::stringstream& stream);
 
-	// Getters
-	const std::vector<T>& nodes() const;
-	const int size() const;
+  // Getters
+  const std::vector<T>& nodes() const;
+  const int size() const;
 
-	// Setters for the node data
-	void set_node_data(int i, T value);
-	void set_node_data(std::vector<T> values);
+  // Setters for the node data
+  void set_node_data(int i, T value);
+  void set_node_data(std::vector<T> values);
 
-	// Maybe overload operator[]
-	T& operator[](int i);
-	const T& operator[](int i) const;
+  // Maybe overload operator[]
+  T& operator[](int i);
+  const T& operator[](int i) const;
 
-	// Overload ostream operator for output layer
-	template <typename E>
-	friend std::ostream& operator<<(std::ostream& out, const Layer<E>& layer);
+  // Overload ostream operator for output layer
+  template <typename E>
+  friend std::ostream& operator<<(std::ostream& out, const Layer<E>& layer);
 };
 
 template <typename T>
 Layer<T>::Layer(int n_nodes) : m_nodes(n_nodes), n_nodes{n_nodes} {}
 
 template <typename T>
-Layer<T>::Layer(std::vector<T> nodes)
-  : m_nodes{std::move(nodes)}, n_nodes{m_nodes.size()} {}
+Layer<T>::Layer(std::vector<T> nodes) : m_nodes{std::move(nodes)}, n_nodes{m_nodes.size()} {}
 
 template <typename T>
 Layer<T>::Layer(std::stringstream& stream) {
@@ -56,8 +55,8 @@ Layer<T>::Layer(std::stringstream& stream) {
   std::string value;
   int node_index{};
   while (getline(stream, value, ',')) {
-	double numeric_value{ std::stod(value) };
-	m_nodes.push_back(static_cast<T>(numeric_value));
+    double numeric_value{std::stod(value)};
+    m_nodes.push_back(static_cast<T>(numeric_value));
   }
 
   n_nodes = node_index;
@@ -69,29 +68,29 @@ void Layer<T>::load(std::stringstream& stream) {
   std::string value;
   int node_index{};
   while (getline(stream, value, ',')) {
-	double numeric_value{ std::stod(value) };
-	m_nodes[node_index] = static_cast<T>(numeric_value);
+    double numeric_value{std::stod(value)};
+    m_nodes[node_index] = static_cast<T>(numeric_value);
 
-	try {
-	  if (node_index + 1 > n_nodes) {
-		throw (node_index);
-	  }
-	  ++node_index;
-	} catch (int num) {
-	  std::cout << "The data provided exceedes the number of nodes expected for the layer\n";
-	}
+    try {
+      if (node_index + 1 > n_nodes) {
+        throw(node_index);
+      }
+      ++node_index;
+    } catch (int num) {
+      std::cout << "The data provided exceedes the number of nodes expected for the layer\n";
+    }
   }
 }
 
 template <typename T>
 void Layer<T>::set_node_data(int i, T value) {
   try {
-	if (i >= n_nodes) {
-	  throw (i);
-	}
-	m_nodes[i] = value;
+    if (i >= n_nodes) {
+      throw(i);
+    }
+    m_nodes[i] = value;
   } catch (...) {
-	std::cout << "The index " << i << " is larger than the number of nodes in the layer\n";
+    std::cout << "The index " << i << " is larger than the number of nodes in the layer\n";
   }
 }
 
@@ -123,7 +122,7 @@ const T& Layer<T>::operator[](int i) const {
 template <typename T>
 std::ostream& operator<<(std::ostream& out, const Layer<T>& layer) {
   for (auto node : layer.m_nodes) {
-	out << node << ',';
+    out << node << ',';
   }
 
   return out;

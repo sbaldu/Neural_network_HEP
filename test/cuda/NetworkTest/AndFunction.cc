@@ -12,11 +12,11 @@ int main() {
 
   int n_epochs{200};
   for (int epoch{}; epoch < n_epochs; ++epoch) {
-	for (int i{}; i < inputs.size(); ++i) {
-	  net.load_input_layer(inputs[i]);
-	  net.train(targets[i], eta);
-	  std::cout << net.output_layer()[0] << std::endl;
-	}
-	std::cout << "-------------------------------------\n";
+    for (int i{}; i < inputs.size(); ++i) {
+      net.load_input_layer(inputs[i]);
+      net.train(targets[i], eta);
+      std::cout << net.output_layer()[0] << std::endl;
+    }
+    std::cout << "-------------------------------------\n";
   }
 }

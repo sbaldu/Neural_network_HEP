@@ -189,9 +189,9 @@ TEST_CASE("Test 'ket-bra' product between two vector matrices") {
   CHECK(product.size() == N * N);
 
   for (int i{}; i < N; ++i) {
-	for (int j{}; j < N; ++j) {
-	  CHECK(product[i * N + j] == m1[i] * m2[j]);
-	}
+    for (int j{}; j < N; ++j) {
+      CHECK(product[i * N + j] == m1[i] * m2[j]);
+    }
   }
 }
 

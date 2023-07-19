@@ -13,8 +13,8 @@ TEST_CASE("Testing the export of a neural network") {
   std::vector<std::vector<int>> targets{{0}, {1}, {1}, {1}};
 
   for (int i{}; i < inputs.size(); ++i) {
-	net.load_input_layer(inputs[i]);
-	net.train(targets[i], eta);
+    net.load_input_layer(inputs[i]);
+    net.train(targets[i], eta);
   }
   net.export_network("./output_file.nn");
 };

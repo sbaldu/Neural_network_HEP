@@ -98,7 +98,7 @@ __global__ void apply(T* v1, const E* v2, int n) {
   unsigned int index{threadIdx.x + blockDim.x * blockIdx.x};
 
   if (index < n) {
-	v1[index] = Act<T>()(v2[index]);
+    v1[index] = Act<T>()(v2[index]);
   }
 }
 
@@ -107,99 +107,96 @@ __global__ void calculate_grad(double* grad, const T* node_values, int n) {
   unsigned int index{threadIdx.x + blockDim.x * blockIdx.x};
 
   if (index < n) {
-	grad[index] = Act<T>().grad(node_values[index]);
+    grad[index] = Act<T>().grad(node_values[index]);
   }
 }
 
 template <typename T>
 struct Sigmoid {
-  __host__ __device__ double operator()(double x) {
-	return 1. / (1 + exp(-x));
-  }
+  __host__ __device__ double operator()(double x) { return 1. / (1 + exp(-x)); }
 
   template <typename E>
   __host__ std::vector<T> operator()(const std::vector<E>& vec) {
-	const size_t N{vec.size()};
+    const size_t N{vec.size()};
 
-	std::vector<T> activated(N);
+    std::vector<T> activated(N);
 
-	// Allocate on device
-	T* d_act;
-	E* d_vec;
-	const size_t size_act{N * sizeof(T)};
-	const size_t size_vec{N * sizeof(E)};
-	cudaMalloc(&d_act, size_act);
-	cudaMalloc(&d_vec, size_vec);
+    // Allocate on device
+    T* d_act;
+    E* d_vec;
+    const size_t size_act{N * sizeof(T)};
+    const size_t size_vec{N * sizeof(E)};
+    cudaMalloc(&d_act, size_act);
+    cudaMalloc(&d_vec, size_vec);
 
-	// Create working division
-	const int block_size{32};
-	const int grid_size{(int)(std::ceil(N / (float)(block_size)))};
+    // Create working division
+    const int block_size{32};
+    const int grid_size{(int)(std::ceil(N / (float)(block_size)))};
 
-	// Launch kernel
-	cudaMemcpy(d_vec, vec.data(), size_vec, cudaMemcpyHostToDevice);	
-	apply<T, E, Sigmoid><<<grid_size, block_size>>>(d_act, d_vec, N);
-	cudaMemcpy(activated.data(), d_act, size_act, cudaMemcpyDeviceToHost);
+    // Launch kernel
+    cudaMemcpy(d_vec, vec.data(), size_vec, cudaMemcpyHostToDevice);
+    apply<T, E, Sigmoid><<<grid_size, block_size>>>(d_act, d_vec, N);
+    cudaMemcpy(activated.data(), d_act, size_act, cudaMemcpyDeviceToHost);
 
-	cudaFree(d_act);
-	cudaFree(d_vec);
-	
-	return activated;
+    cudaFree(d_act);
+    cudaFree(d_vec);
+
+    return activated;
   }
 
   // Derivative of the activation function
   __host__ __device__ double grad(double activated_value) {
-	return activated_value * (1 - activated_value);
+    return activated_value * (1 - activated_value);
   }
 
-
   __host__ std::vector<double> grad(shared<Layer<T>> layer) {
-	int N{layer->size()};
-	std::vector<double> gradient_values(N);
+    int N{layer->size()};
+    std::vector<double> gradient_values(N);
 
-	// Allocate on device
-	T* d_lay;
-	double* d_grad;
-	const int size_lay{N * sizeof(T)};
-	const int size_grad{N * sizeof(double)};
+    // Allocate on device
+    T* d_lay;
+    double* d_grad;
+    const int size_lay{N * sizeof(T)};
+    const int size_grad{N * sizeof(double)};
 
-	// Create working division
-	const int block_size{32};
-	const int grid_size{(int)(std::ceil(N / (float)(block_size)))};
+    // Create working division
+    const int block_size{32};
+    const int grid_size{(int)(std::ceil(N / (float)(block_size)))};
 
-	// Launch kernel
-	cudaMemcpy(d_lay, layer->nodes().data(), size_lay, cudaMemcpyHostToDevice);	
-	calculate_grad<T, Sigmoid><<<grid_size, block_size>>>(d_grad, d_lay, N);
-	cudaMemcpy(gradient_values.data(), d_grad, size_grad, cudaMemcpyDeviceToHost);
+    // Launch kernel
+    cudaMemcpy(d_lay, layer->nodes().data(), size_lay, cudaMemcpyHostToDevice);
+    calculate_grad<T, Sigmoid><<<grid_size, block_size>>>(d_grad, d_lay, N);
+    cudaMemcpy(gradient_values.data(), d_grad, size_grad, cudaMemcpyDeviceToHost);
 
-	cudaFree(d_lay);
-	cudaFree(d_grad);
+    cudaFree(d_lay);
+    cudaFree(d_grad);
 
-	return gradient_values;
+    return gradient_values;
   }
 
   __host__ std::vector<double> grad(std::vector<T> node_values) {
-	int N{node_values.size()};
-	std::vector<double> gradient_values(N);
+    int N{node_values.size()};
+    std::vector<double> gradient_values(N);
 
-	// Allocate on device
-	T* d_lay;
-	double* d_grad;
-	const int size_lay{N * sizeof(T)};
-	const int size_grad{N * sizeof(double)};
+    // Allocate on device
+    T* d_lay;
+    double* d_grad;
+    const int size_lay{N * sizeof(T)};
+    const int size_grad{N * sizeof(double)};
 
-	// Create working division
-	const int block_size{32};
-	const int grid_size{(int)(std::ceil(N / (float)(block_size)))};
+    // Create working division
+    const int block_size{32};
+    const int grid_size{(int)(std::ceil(N / (float)(block_size)))};
 
-	// Launch kernel
-	cudaMemcpy(d_lay, node_values.data(), size_lay, cudaMemcpyHostToDevice);	
-	calculate_grad<<<grid_size, block_size>>>(d_grad, d_lay, N);
-	cudaMemcpy(gradient_values.data(), d_grad, size_grad, cudaMemcpyDeviceToHost);
+    // Launch kernel
+    cudaMemcpy(d_lay, node_values.data(), size_lay, cudaMemcpyHostToDevice);
+    calculate_grad<<<grid_size, block_size>>>(d_grad, d_lay, N);
+    cudaMemcpy(gradient_values.data(), d_grad, size_grad, cudaMemcpyDeviceToHost);
 
-	cudaFree(d_lay);
-	cudaFree(d_grad);
+    cudaFree(d_lay);
+    cudaFree(d_grad);
 
-	return gradient_values;
+    return gradient_values;
   }
 };
 

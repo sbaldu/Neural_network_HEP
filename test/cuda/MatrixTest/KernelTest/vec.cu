@@ -23,11 +23,11 @@ TEST_CASE("Test vec_add_1") {
 
   cudaMemcpy(d_v1, v1.data(), size, cudaMemcpyHostToDevice);
   cudaMemcpy(d_v2, v2.data(), size, cudaMemcpyHostToDevice);
-  vec_add<<<std::ceil(N/(float)(256)), 256>>>(d_v1, d_v2, d_sum, N);
+  vec_add<<<std::ceil(N / (float)(256)), 256>>>(d_v1, d_v2, d_sum, N);
   cudaMemcpy(sum.data(), d_sum, size, cudaMemcpyDeviceToHost);
 
   for (int i{}; i < N; ++i) {
-	CHECK(sum[i] == 2*(i+1));
+    CHECK(sum[i] == 2 * (i + 1));
   }
 
   cudaFree(d_v1);
@@ -48,11 +48,11 @@ TEST_CASE("Test vec_add_2") {
 
   cudaMemcpy(d_v1, v1.data(), size, cudaMemcpyHostToDevice);
   cudaMemcpy(d_v2, v2.data(), size, cudaMemcpyHostToDevice);
-  vec_add<<<std::ceil(N/(float)(256)), 256>>>(d_v1, d_v2, N);
+  vec_add<<<std::ceil(N / (float)(256)), 256>>>(d_v1, d_v2, N);
   cudaMemcpy(v1.data(), d_v1, size, cudaMemcpyDeviceToHost);
 
   for (int i{}; i < N; ++i) {
-	CHECK(v1[i] == 2*(i+1));
+    CHECK(v1[i] == 2 * (i + 1));
   }
 
   cudaFree(d_v1);
@@ -73,11 +73,11 @@ TEST_CASE("Test vec_sub_1") {
 
   cudaMemcpy(d_v1, v1.data(), size, cudaMemcpyHostToDevice);
   cudaMemcpy(d_v2, v2.data(), size, cudaMemcpyHostToDevice);
-  vec_sub<<<std::ceil(N/(float)(256)), 256>>>(d_v1, d_v2, d_sum, N);
+  vec_sub<<<std::ceil(N / (float)(256)), 256>>>(d_v1, d_v2, d_sum, N);
   cudaMemcpy(sum.data(), d_sum, size, cudaMemcpyDeviceToHost);
 
   for (int i{}; i < N; ++i) {
-	CHECK(sum[i] == N);
+    CHECK(sum[i] == N);
   }
 
   cudaFree(d_v1);
@@ -98,11 +98,11 @@ TEST_CASE("Test vec_sub_2") {
 
   cudaMemcpy(d_v1, v1.data(), size, cudaMemcpyHostToDevice);
   cudaMemcpy(d_v2, v2.data(), size, cudaMemcpyHostToDevice);
-  vec_sub<<<std::ceil(N/(float)(256)), 256>>>(d_v1, d_v2, N);
+  vec_sub<<<std::ceil(N / (float)(256)), 256>>>(d_v1, d_v2, N);
   cudaMemcpy(v1.data(), d_v1, size, cudaMemcpyDeviceToHost);
 
   for (int i{}; i < N; ++i) {
-	CHECK(v1[i] == N);
+    CHECK(v1[i] == N);
   }
 
   cudaFree(d_v1);
@@ -120,11 +120,11 @@ TEST_CASE("Test vec_multiply") {
   cudaMalloc(&d_v, size);
 
   cudaMemcpy(d_v, v.data(), size, cudaMemcpyHostToDevice);
-  vec_multiply<<<std::ceil(N/(float)(256)), 256>>>(d_v, constant, N);
+  vec_multiply<<<std::ceil(N / (float)(256)), 256>>>(d_v, constant, N);
   cudaMemcpy(v.data(), d_v, size, cudaMemcpyDeviceToHost);
 
   for (int i{}; i < N; ++i) {
-	CHECK(v[i] == constant * i);
+    CHECK(v[i] == constant * i);
   }
 
   cudaFree(d_v);
@@ -141,11 +141,11 @@ TEST_CASE("Test vec_divide") {
   cudaMalloc(&d_v, size);
 
   cudaMemcpy(d_v, v.data(), size, cudaMemcpyHostToDevice);
-  vec_divide<<<std::ceil(N/(float)(256)), 256>>>(d_v, constant, N);
+  vec_divide<<<std::ceil(N / (float)(256)), 256>>>(d_v, constant, N);
   cudaMemcpy(v.data(), d_v, size, cudaMemcpyDeviceToHost);
 
   for (int i{}; i < N; ++i) {
-	CHECK(v[i] == i / constant);
+    CHECK(v[i] == i / constant);
   }
 
   cudaFree(d_v);
