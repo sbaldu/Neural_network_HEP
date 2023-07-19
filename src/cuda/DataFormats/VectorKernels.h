@@ -103,8 +103,8 @@ __global__ void matrix_vec_multiply(const matrix_t<T> matrix, const T* vec, T* r
   }
 }
 
-template <typename T>
-__global__ void matrix_multiply(const matrix_t<T> a, const matrix_t<T> b, matrix_t<T> c, int block_size) {
+template <typename T, typename E, typename U>
+__global__ void matrix_multiply(const matrix_t<T> a, const matrix_t<E> b, matrix_t<U> c, int block_size) {
   // Allocate memory on shared memory
   extern __shared__ int shared[];
   int *s_a{shared};
