@@ -1,12 +1,12 @@
 
 #include <iostream>
 
-#include "include/Network.hpp"
-#include "include/ErrorFunction.hpp"
+#include "include/Network.h"
+#include "include/ErrorFunction.h"
 
 int main() {
   double eta{0.1};
-  Network<int, double, Sigmoid, MeanSquaredError> net(2, {2, 1});
+  Network<int, double, Sigmoid, MeanSquaredError> net({2, 1});
   std::vector<std::vector<int>> inputs{{0, 0}, {0, 1}, {1, 0}, {1, 1}};
   std::vector<std::vector<int>> targets{{0}, {0}, {0}, {1}};
 

@@ -1,15 +1,17 @@
 
-BASE_DIR := ../../
+BASE_DIR := ../../../
 SRC_DIR := $(BASE_DIR)src/
-SERIAL_DIR := $(SRC_DIR)serial/
+CUDA_DIR := $(SRC_DIR)cuda/
 
 export CXX := g++
-CXXFLAGS = -O3 -std=c++20 -I$(SERIAL_DIR) -g
+export CUDA := nvcc
+CXXFLAGS = -O3 -std=c++20 -I$(CUDA_DIR) -g
+CUDAFLAGS = -x cu
 
 all: ./OrFunction.cc ./AndFunction.cc ./XorFunction.cc
-	$(CXX) $(CXXFLAGS) ./OrFunction.cc -o $(NetworkTestPath)Or.out ;
-	$(CXX) $(CXXFLAGS) ./AndFunction.cc -o $(NetworkTestPath)And.out ;
-	$(CXX) $(CXXFLAGS) ./XorFunction.cc -o $(NetworkTestPath)Xor.out ;
+	$(CUDA) $(CUDAFLAGS) $(CXXFLAGS) ./OrFunction.cc -o Or.out ;
+	$(CUDA) $(CUDAFLAGS) $(CXXFLAGS) ./AndFunction.cc -o And.out ;
+	$(CUDA) $(CUDAFLAGS) $(CXXFLAGS) ./XorFunction.cc -o Xor.out ;
 
 	touch Test.sh ; chmod +x Test.sh ;
 	echo "#" > Test.sh ;
@@ -20,15 +22,15 @@ all: ./OrFunction.cc ./AndFunction.cc ./XorFunction.cc
 	clear;
 
 or: ./OrFunction.cc
-	$(CXX) $(CXXFLAGS) ./OrFunction.cc -o $(NetworkTestPath)Or.out ;
+	$(CUDA) $(CUDAFLAGS) $(CXXFLAGS) ./OrFunction.cc -o Or.out ;
 	clear;
 
 and: ./AndFunction.cc
-	$(CXX) $(CXXFLAGS) ./AndFunction.cc -o $(NetworkTestPath)And.out ;
+	$(CUDA) $(CUDAFLAGS) $(CXXFLAGS) ./AndFunction.cc -o And.out ;
 	clear;
 
 xor: ./XorFunction.cc
-	$(CXX) $(CXXFLAGS) ./XorFunction.cc -o $(NetworkTestPath)Xor.out ;
+	$(CUDA) $(CUDAFLAGS) $(CXXFLAGS) ./XorFunction.cc -o Xor.out ;
 	clear;
 	
 clean:

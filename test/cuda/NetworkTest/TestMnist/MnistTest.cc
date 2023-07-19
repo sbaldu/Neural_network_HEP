@@ -3,13 +3,13 @@
 #include <fstream>
 #include <string>
 
-#include "../../../src/serial/include/Network.hpp"
-#include "../../../src/serial/include/ErrorFunction.hpp"
+#include "include/Network.h"
+#include "include/ErrorFunction.h"
 
 int main() {
   double eta{0.01};
-  Network<double, double, Sigmoid, MeanSquaredError> net(3, {785, 50, 10});
-  const std::string path_to_trainfile{"../../../data/mnist/mnist_train_norm.csv"};
+  Network<double, double, Sigmoid, MeanSquaredError> net({784, 50, 10});
+  const std::string path_to_trainfile{"../../../../data/mnist/mnist_train_norm.csv"};
 
   int n_epochs{25};
   int data_size{60000};
@@ -21,7 +21,10 @@ int main() {
     std::string file_row;
     std::string target;
     std::string input;
+	int count{};
     while (getline(file_stream, file_row)) {
+	  std::cout << count << std::endl;
+	  ++count;
       std::stringstream row_stream(file_row);
 
       // Isolate the target, which is the first value

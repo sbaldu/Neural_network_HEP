@@ -223,6 +223,34 @@ TEST_CASE("Test matrix product between two 32x32 matrices") {
   }
 }
 
+TEST_CASE("Test matrix product between two 5x5 matrices") {
+  const int N{5};
+  Matrix<int> m1(N, N);
+  Matrix<int> m2(N, N);
+
+  int index{};
+  for (int i : std::views::iota(1, N * N + 1)) {
+    m1.set_data(index, i);
+    m2.set_data(index, 2 * i);
+    ++index;
+  }
+
+  Matrix<int> product(N, N);
+  product = m1 * m2;
+
+  for (int i{}; i < N; ++i) {
+    for (int j{}; j < N; ++j) {
+      int tmp{};
+      for (int k{}; k < N; ++k) {
+        // Accumulate the partial results
+        tmp += m1[i * N + k] * m2[k * N + j];
+      }
+
+      CHECK(tmp == product[i * N + j]);
+    }
+  }
+}
+
 TEST_CASE("Test matrix product between two 4x8 and 8x4 matrices") {
   const int N{1 << 2};
   const int K{1 << 3};

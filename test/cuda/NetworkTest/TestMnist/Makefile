@@ -1,13 +1,15 @@
 
-BASE_DIR := ../../../
+BASE_DIR := ../../../../
 SRC_DIR := $(BASE_DIR)src/
-SERIAL_DIR := $(SRC_DIR)serial/
+CUDA_DIR := $(SRC_DIR)cuda/
 
 export CXX := g++
-CXXFLAGS = -O3 -std=c++20 -I$(SERIAL_DIR) -g
+export CUDA := nvcc
+CXXFLAGS = -O3 -std=c++20 -I$(CUDA_DIR) -g
+CUDAFLAGS = -x cu
 
 all: ./MnistTest.cc
-	$(CXX) $(CXXFLAGS) ./MnistTest.cc -o $(NetworkTestPath)a.out ;
+	$(CUDA) $(CUDAFLAGS) $(CXXFLAGS) ./MnistTest.cc -o mnist.out ;
 	clear
 
 clean:
