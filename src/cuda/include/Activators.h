@@ -9,7 +9,7 @@
 #include <memory>
 #include <vector>
 
-#include "Layer.hpp"
+#include "Layer.h"
 
 template <typename T>
 using shared = std::shared_ptr<T>;
@@ -93,19 +93,28 @@ struct Linear {
 };
 */
 
+template <typename T, typename E, template <typename U> typename Act>
+__global__ void apply(T* v1, const E* v2, int n) {
+  unsigned int index{threadIdx.x + blockDim.x * blockIdx.x};
+
+  if (index < n) {
+	v1[index] = Act<T>()(v2[index]);
+  }
+}
+
+template <typename T, template <typename E> typename Act>
+__global__ void calculate_grad(double* grad, const T* node_values, int n) {
+  unsigned int index{threadIdx.x + blockDim.x * blockIdx.x};
+
+  if (index < n) {
+	grad[index] = Act<T>().grad(node_values[index]);
+  }
+}
+
 template <typename T>
 struct Sigmoid {
   __host__ __device__ double operator()(double x) {
 	return 1. / (1 + exp(-x));
-  }
-
-  template <typename E>
-  __global__ void apply(T* v1, const E* v2, int n) {
-	unsigned int index{threadIdx.x + blockDim.x * blockIdx.x};
-
-	if (index < n) {
-	  v1[index] = Sigmoid()(v2[index]);
-	}
   }
 
   template <typename E>
@@ -120,7 +129,7 @@ struct Sigmoid {
 	const int size_act{N * sizeof(T)};
 	const int size_vec{N * sizeof(E)};
 	cudaMalloc(&d_act, size_act);
-	cudaMalloc(&d_v, size_vec);
+	cudaMalloc(&d_vec, size_vec);
 
 	// Create working division
 	const int block_size{32};
@@ -128,7 +137,7 @@ struct Sigmoid {
 
 	// Launch kernel
 	cudaMemcpy(d_vec, vec.data(), size_vec, cudaMemcpyHostToDevice);	
-	apply<<<grid_size, block_size>>>(d_act, d_vec, N);
+	apply<T, E, Sigmoid><<<grid_size, block_size>>>(d_act, d_vec, N);
 	cudaMemcpy(activated.data(), d_act, size_act, cudaMemcpyDeviceToHost);
 
 	cudaFree(d_act);
@@ -142,13 +151,6 @@ struct Sigmoid {
 	return activated_value * (1 - activated_value);
   }
 
-  __global__ void calculate_grad(double* grad, const T* node_values, int n) {
-	unsigned int index{threadIdx.x + blockDim.x * blockIdx.x};
-
-	if (index < n) {
-	  grad[index] = Sigmoid().grad(node_values[index]);
-	}
-  }
 
   __host__ std::vector<double> grad(shared<Layer<T>> layer) {
 	int N{layer->size()};
@@ -166,7 +168,7 @@ struct Sigmoid {
 
 	// Launch kernel
 	cudaMemcpy(d_lay, layer->nodes().data(), size_lay, cudaMemcpyHostToDevice);	
-	calculate_grad<<<grid_size, block_size>>>(d_grad, d_lay, N);
+	calculate_grad<T, Sigmoid><<<grid_size, block_size>>>(d_grad, d_lay, N);
 	cudaMemcpy(gradient_values.data(), d_grad, size_grad, cudaMemcpyDeviceToHost);
 
 	cudaFree(d_lay);
