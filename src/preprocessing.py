@@ -17,11 +17,20 @@ cols = data.columns.tolist()
 cols = cols[-1:] + cols[:-1]
 data = data[cols]
 
+# We want to remove the events where one or more features have the value '-999', because it means that
+# the feature couldn't be computed
+to_be_discarded = []
+for i, row in data.iterrows():
+    if -999.0 in row.values.tolist():
+        to_be_discarded.append(i)
+data = data.drop(to_be_discarded)
+print(data)
+
 # Standardize all the feature in the dataset
 for col in data:
-    if col[0:2] in ['DER', 'PRI']:
+    if col[0:3] in ['DER', 'PRI']:
         scaler = StandardScaler()
-        data[col] = scaler.fit_transform(data[col])
+        data[col] = scaler.fit_transform(data[col].to_numpy().reshape(-1, 1))
 
 # Remove the Event_id and weight columns since it is of no use
 data.drop(labels=['EventId', 'Weight'], axis=1, inplace=True)
@@ -36,5 +45,7 @@ print(reduced_data)
 reduced_data = pd.concat([label_columns, reduced_data], axis=1)
 print(reduced_data)
 
-data.to_csv("../data/training_processed.csv", index=None)
-reduced_data.to_csv("../data/training_processed_reduced.csv", index=None)
+data.to_csv("../data/training_filtered_processed.csv", index=None)
+reduced_data.to_csv("../data/training_filtered_processed_reduced.csv", index=None)
+# data.to_csv("../data/training_processed.csv", index=None)
+# reduced_data.to_csv("../data/training_processed_reduced.csv", index=None)
