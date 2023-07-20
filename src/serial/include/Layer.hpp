@@ -34,7 +34,6 @@ public:
   void set_node_data(int i, T value);
   void set_node_data(std::vector<T> values);
 
-  // Maybe overload operator[]
   T& operator[](int i);
   const T& operator[](int i) const;
 

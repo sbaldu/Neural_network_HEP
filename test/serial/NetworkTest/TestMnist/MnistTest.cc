@@ -3,13 +3,13 @@
 #include <fstream>
 #include <string>
 
-#include "../../../src/serial/include/Network.hpp"
-#include "../../../src/serial/include/ErrorFunction.hpp"
+#include "../../../../src/serial/include/Network.hpp"
+#include "../../../../src/serial/include/ErrorFunction.hpp"
 
 int main() {
   double eta{0.01};
-  Network<double, double, Sigmoid, MeanSquaredError> net(3, {785, 50, 10});
-  const std::string path_to_trainfile{"../../../data/mnist/mnist_train_norm.csv"};
+  Network<double, double, Sigmoid, MeanSquaredError> net({785, 50, 10});
+  const std::string path_to_trainfile{"../../../../data/mnist/mnist_train_norm.csv"};
 
   int n_epochs{25};
   int data_size{60000};

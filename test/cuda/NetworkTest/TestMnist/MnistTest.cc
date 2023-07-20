@@ -11,7 +11,7 @@ int main() {
   Network<double, double, Sigmoid, MeanSquaredError> net({784, 50, 10});
   const std::string path_to_trainfile{"../../../../data/mnist/mnist_train_norm.csv"};
 
-  int n_epochs{25};
+  int n_epochs{1};
   int data_size{60000};
   double previous_accuracy;
   for (int epoch{}; epoch < n_epochs; ++epoch) {
@@ -21,10 +21,7 @@ int main() {
     std::string file_row;
     std::string target;
     std::string input;
-    int count{};
     while (getline(file_stream, file_row)) {
-      std::cout << count << std::endl;
-      ++count;
       std::stringstream row_stream(file_row);
 
       // Isolate the target, which is the first value
