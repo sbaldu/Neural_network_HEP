@@ -72,6 +72,9 @@ public:
   void import_network(const std::string& filepath);
   void export_network(const std::string& filepath);
 
+  template <typename U>
+  double get_loss_value(const std::vector<U>& target);
+
   template <typename U,
             typename P,
             template <typename Q>
@@ -330,6 +333,17 @@ void Network<T, W, Activator, Loss>::export_network(const std::string& filepath)
   }
 
   ofile.close();
+}
+
+template <typename T,
+          typename W,
+          template <typename F>
+          typename Activator,
+          template <typename E, typename LW, template <typename K> typename Act>
+          typename Loss>
+template <typename U>
+double Network<T, W, Activator, Loss>::get_loss_value(const std::vector<U>& target) {
+  return Loss<T, W, Activator>()(m_layers[n_layers - 1]->nodes(), target);
 }
 
 template <typename T,
