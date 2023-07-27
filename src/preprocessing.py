@@ -1,6 +1,8 @@
+import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
+from psynlig import pca_residual_variance
 import pandas as pd
 
 data = pd.read_csv("../data/training.csv")
@@ -35,17 +37,31 @@ for col in data:
 # Remove the Event_id and weight columns since it is of no use
 data.drop(labels=['EventId', 'Weight'], axis=1, inplace=True)
 
-pca = PCA(n_components=10)
-label_columns = data['Label']
-reduced_data = pca.fit_transform(data)
-reduced_data = pd.DataFrame(reduced_data)
-print(f"The total explained variance ration is {np.sum(pca.explained_variance_ratio_)}")
-print(data)
-print(reduced_data)
-reduced_data = pd.concat([label_columns, reduced_data], axis=1)
-print(reduced_data)
+# Perform principal component analysis and plot the residual variance in function
+# of the number of components
+pca_r = PCA()
+pca_r.fit_transform(data)
 
-data.to_csv("../data/training_filtered_processed.csv", index=None)
-reduced_data.to_csv("../data/training_filtered_processed_reduced.csv", index=None)
+pca_residual_variance(pca_r, marker='o')
+plt.grid(linewidth=0.2)
+figure = plt.gcf()
+figure.set_size_inches(8, 5)
+plt.savefig('../tex/img/residual_variance.png', dpi = 100)
+
+# components = []
+# variance_ratios = []
+# for i in range(1, 31):
+#     pca_i = PCA(n_components=i)
+#     pca_i.fit_transform(data)
+#     components.append(i)
+#     variance_ratios.append(np.sum(pca_i.explained_variance_ratio_))
+# plt.plot(components, variance_ratios, marker='o')
+# plt.xlabel('Number of components')
+# plt.ylabel('Explained variance ratio')
+# plt.grid(linewidth=0.2)
+# plt.show()
+
+# data.to_csv("../data/training_filtered_processed.csv", index=None)
+# reduced_data.to_csv("../data/training_filtered_processed_reduced.csv", index=None)
 # data.to_csv("../data/training_processed.csv", index=None)
 # reduced_data.to_csv("../data/training_processed_reduced.csv", index=None)
