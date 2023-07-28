@@ -25,7 +25,7 @@ public:
   Matrix(int n_rows, int n_cols, std::vector<E> vec);
   // Create a matrix from a vector
   template <typename E>
-  Matrix(const std::vector<E>& vec);
+  Matrix(std::vector<E> vec);
 
   // Getters
   inline const int nrows() const;
@@ -93,17 +93,13 @@ Matrix<T>::Matrix(int n_rows, int n_cols)
 template <typename T>
 template <typename E>
 Matrix<T>::Matrix(int n_rows, int n_cols, std::vector<E> vec) : Matrix{n_rows, n_cols} {
-  for (int i{}; i < m_ncols * m_nrows; ++i) {
-    m_data[i] = vec.data()[i];
-  }
+  m_data = std::move(vec);
 }
 
 template <typename T>
 template <typename E>
-Matrix<T>::Matrix(const std::vector<E>& vec) : Matrix{static_cast<int>(vec.size()), 1} {
-  for (int i{}; i < m_ncols * m_nrows; ++i) {
-    m_data[i] = vec.data()[i];
-  }
+Matrix<T>::Matrix(std::vector<E> vec) : Matrix{static_cast<int>(vec.size()), 1} {
+  m_data = std::move(vec);
 }
 
 template <typename T>
