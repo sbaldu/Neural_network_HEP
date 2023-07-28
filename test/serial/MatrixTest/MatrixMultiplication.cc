@@ -15,8 +15,8 @@ TEST_CASE("Test scalar product between two vector matrices") {
   std::iota(v1.begin(), v1.end(), 0);
   std::iota(v2.begin(), v2.end(), 10);
 
-  Matrix<int> m1(v1);
-  Matrix<int> m2(v2);
+  Matrix<int> m1(1, len, v1);
+  Matrix<int> m2(len, 1, v2);
 
   Matrix<int> product{m1 * m2};
 
