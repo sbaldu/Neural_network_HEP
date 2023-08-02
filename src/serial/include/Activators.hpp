@@ -46,8 +46,8 @@ struct Step {
   }
 
   // Derivative of the activation function
-  double grad(double activated_value) { return 0; }
-  std::vector<double> grad(shared<Layer<T>> layer) { return std::vector<double>(layer->size(), 0); }
+  double grad(double activated_value) { return 0.; }
+  std::vector<double> grad(shared<Layer<T>> layer) { return std::vector<double>(layer->size(), 0.); }
 
   std::vector<double> grad(std::vector<T> node_values) {
     return std::vector<double>(node_values.size(), 0);
@@ -94,7 +94,7 @@ struct Sigmoid {
   std::vector<T> operator()(const std::vector<T>& vec) {
     size_t N{vec.size()};
     std::vector<T> activated(N);
-    for (int i{}; i < N; ++i) {
+    for (size_t i{}; i < N; ++i) {
       activated[i] = Sigmoid<T>()(vec[i]);
     }
 
@@ -269,8 +269,8 @@ struct Leaky_ReLU {
 
   // Derivative of the activation function
   double grad(double activated_value) {
-    if (activated_value >= 0) {
-      return 1;
+    if (activated_value >= 0.) {
+      return 1.;
     } else {
       return 0.1;
     }
@@ -324,8 +324,8 @@ struct Parametric_ReLU {
 
   // Derivative of the activation function
   double grad(double activated_value) {
-    if (activated_value >= 0) {
-      return 1;
+    if (activated_value >= 0.) {
+      return 1.;
     } else {
       return A;
     }

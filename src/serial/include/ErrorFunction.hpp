@@ -18,7 +18,7 @@ struct MeanSquaredError {
   double operator()(const std::vector<T>& node_values, const std::vector<U>& expected_values) {
     double error{};
     const size_t N{node_values.size()};
-    for (int node_index{}; node_index < N; ++node_index) {
+    for (size_t node_index{}; node_index < N; ++node_index) {
       error += pow(node_values[node_index] - expected_values[node_index], 2);
     }
     error /= N;

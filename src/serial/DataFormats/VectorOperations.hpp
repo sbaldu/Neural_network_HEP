@@ -16,7 +16,7 @@ template <typename T>
 std::vector<T> operator+(const std::vector<T>& v1, const std::vector<T>& v2) {
   std::vector<T> result(v1.size());
 
-  for (int i{}; i < v1.size(); ++i) {
+  for (size_t i{}; i < v1.size(); ++i) {
     result[i] = v1[i] + v2[i];
   }
 
@@ -50,7 +50,7 @@ std::vector<T> operator*(E constant, std::vector<T> vec) {
 // Overload of operator-= with matrices
 template <typename T>
 void operator-=(std::vector<T>& vec, const Matrix<T>& m) {
-  for (int i{}; i < vec.size(); ++i) {
+  for (size_t i{}; i < vec.size(); ++i) {
     vec[i] -= m.data()[i];
   }
 }
