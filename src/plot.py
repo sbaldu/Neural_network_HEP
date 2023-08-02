@@ -1,6 +1,4 @@
 import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
 from glob import glob
 
 fig1, ax1 = plt.subplots(2,2, sharey=None)
@@ -20,7 +18,7 @@ for file in files:
 legend = []
 for file in files:
     split_name = file.split('/')
-    num = split_name[3].split('.')[0]
+    num = split_name[3].split('.')[0].split('_')[1]
     legend.append(str(num) + ' neurons')
 
 ax1[0,0].legend(legend)
@@ -44,7 +42,7 @@ for file in files:
 legend = []
 for file in files:
     split_name = file.split('/')
-    num = split_name[3].split('.')[0]
+    num = split_name[3].split('.')[0].split('_')[1]
     legend.append(str(num) + ' neurons')
 
 ax1[0,1].legend(legend)
@@ -68,7 +66,7 @@ for file in files:
 legend = []
 for file in files:
     split_name = file.split('/')
-    num = split_name[3].split('.')[0]
+    num = split_name[3].split('.')[0].split('_')[1]
     legend.append(str(num) + ' neurons')
 
 ax1[1,0].legend(legend)
@@ -92,7 +90,7 @@ for file in files:
 legend = []
 for file in files:
     split_name = file.split('/')
-    num = split_name[3].split('.')[0]
+    num = split_name[3].split('.')[0].split('_')[1]
     legend.append(str(num) + ' neurons')
 
 ax1[1,1].legend(legend)
@@ -123,6 +121,7 @@ legend = []
 for file in training_loss_files:
     split_name = file.split('/')
     num = split_name[3].split('.')[0]
+    num = split_name[3].split('.')[0].split('_')[2]
     legend.append(str(num) + ' neurons')
 
 ax2[0,0].legend(legend)
@@ -147,6 +146,7 @@ legend = []
 for file in training_loss_files:
     split_name = file.split('/')
     num = split_name[3].split('.')[0]
+    num = split_name[3].split('.')[0].split('_')[2]
     legend.append(str(num) + ' neurons')
 
 ax2[0,1].legend(legend)
@@ -172,6 +172,7 @@ legend = []
 for file in training_loss_files:
     split_name = file.split('/')
     num = split_name[3].split('.')[0]
+    num = split_name[3].split('.')[0].split('_')[2]
     legend.append(str(num) + ' neurons')
 
 ax2[1,0].legend(legend)
@@ -196,7 +197,7 @@ for file in training_loss_files:
 legend = []
 for file in training_loss_files:
     split_name = file.split('/')
-    num = split_name[3].split('.')[0]
+    num = split_name[3].split('.')[0].split('_')[2]
     legend.append(str(num) + ' neurons')
 
 ax2[1,1].legend(legend)
