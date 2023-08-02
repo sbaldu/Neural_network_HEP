@@ -11,11 +11,14 @@ int main() {
   Network<double, double, Sigmoid, MeanSquaredError> net({785, 50, 10});
   const std::string path_to_trainfile{"../../../../data/mnist/mnist_train_norm.csv"};
 
+  std::vector<double> loss_values{};
+
   int n_epochs{25};
   int data_size{60000};
   double previous_accuracy;
   for (int epoch{}; epoch < n_epochs; ++epoch) {
     int n_correct_guesses{};
+	double training_loss{};
 
     std::ifstream file_stream(path_to_trainfile);
     std::string file_row;
@@ -41,7 +44,10 @@ int main() {
       if (guess == target_value) {
         ++n_correct_guesses;
       }
+
+	  training_loss += net.get_loss_value(target_vector);
     }
+	loss_values.push_back(training_loss);
 
     double accuracy{static_cast<double>(n_correct_guesses) * 100 / data_size};
     std::cout << "Accuracy = " << accuracy << " %" << std::endl;
@@ -55,4 +61,6 @@ int main() {
 
     file_stream.close();
   }
+
+  for (auto x : loss_values) { std::cout << x << std::endl; }
 }
