@@ -19,7 +19,6 @@ void train_and_validate(double eta, int hidden_layer_size) {
   const int n_epochs{35};
   const int training_data_size{178860};
   const int validation_data_size{22358};
-  double previous_accuracy;
   for (int epoch{}; epoch < n_epochs; ++epoch) {
 	// Training
     int n_correct_guesses{};
@@ -104,5 +103,4 @@ void train_and_validate(double eta, int hidden_layer_size) {
 
 int main(int argc, char** argv) {
   train_and_validate(0.975, 300);
-  train_and_validate(0.98, 500);
 }
