@@ -18,7 +18,7 @@ int main() {
   double previous_accuracy;
   for (int epoch{}; epoch < n_epochs; ++epoch) {
     int n_correct_guesses{};
-	double training_loss{};
+    double training_loss{};
 
     std::ifstream file_stream(path_to_trainfile);
     std::string file_row;
@@ -45,9 +45,9 @@ int main() {
         ++n_correct_guesses;
       }
 
-	  training_loss += net.get_loss_value(target_vector);
+      training_loss += net.get_loss_value(target_vector);
     }
-	loss_values.push_back(training_loss);
+    loss_values.push_back(training_loss);
 
     double accuracy{static_cast<double>(n_correct_guesses) * 100 / data_size};
     std::cout << "Accuracy = " << accuracy << " %" << std::endl;
@@ -62,5 +62,7 @@ int main() {
     file_stream.close();
   }
 
-  for (auto x : loss_values) { std::cout << x << std::endl; }
+  for (auto x : loss_values) {
+    std::cout << x << std::endl;
+  }
 }
