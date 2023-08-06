@@ -2,6 +2,7 @@
 *.pdf
 *.aux
 *.log
+*.toc
 
 # files for import/export of networks
 *.nn
