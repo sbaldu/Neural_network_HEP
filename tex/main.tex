@@ -1,15 +1,17 @@
 \documentclass[12pt]{article}
 
-\title{Developement of a neural network from scratch in C++/CUDA for particle tracking}
+\title{Developement of a neural network framework from scratch in C++ and application to a particle 
+physics dataset}
 \author{Simone Balducci}
 \date{}
 
+\usepackage[hidelinks]{hyperref}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{bbold}
-\usepackage[margin=2cm]{geometry}
+\usepackage[margin=2.8cm]{geometry}
 \usepackage{pgfplots}
 \usepackage{fancyhdr}
 \usepackage{physics}
@@ -21,6 +23,8 @@
 \usepackage{calligra}
 \usepackage{float}
 \usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
 \usepackage{listings}
 \usepackage{xcolor}
 
@@ -35,11 +39,12 @@
     keywordstyle=\color{blue},
     numberstyle=\tiny\color{codegray},
     stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\footnotesize,
+    basicstyle=\ttfamily\scriptsize,
     breakatwhitespace=false,         
     breaklines=true,                 
     captionpos=b,                    
     keepspaces=true,                 
+	columns=flexible,
     numbers=left,                    
     numbersep=5pt,                  
     showspaces=false,                
@@ -67,7 +72,31 @@
 \newcommand{\rita}{\rightarrow}
 
 \begin{document}
+
 \maketitle
+\begin{center}
+	\url{https://github.com/sbaldu/Neural_network_tracking}
+\end{center}
+
+\begin{abstract}
+  \noindent Nowadays neural networks are widely used in many branches of physics, in par\-ti\-cu\-lar 
+  in particle physics. \\
+  The Higgs ML challenge asked to classify in signal and background a set of events simulated based on the 
+  ATLAS detector. This is exactly the kind of problem that could be effectively tackled using a neural 
+  network. \\ \\
+  Nowadays there are a lot of libraries already written to work with neural networks. The first two that
+  come to mind, and also the largest ones, are Tensorflow and PyTorch, which are available in Python, C++ 
+  and other languages. \\
+  These libraries are very thoroughly written and efficient, but from an accademic point of view it is
+  instructive, in order to really understand the functioning of neural networks, to learn how to write 
+  them from scratch. \\ \\
+  The goal of this project is to write from scratch in C++ a framework for wor\-king with neu\-ral networks, 
+  test it with the MNIST dataset and finally use it to tackle the Higgs ML challenge.
+\end{abstract}
+\pagebreak
+
+\tableofcontents
+\pagebreak
 
 \section{Physical background}
 \subsection{Review of special relativity}
@@ -76,7 +105,8 @@ The most fundamental equation in special relativity defines the 4-momentum of a 
   E^2 = p^2c^2 + m^2c^4
 \label{fundamental}
 \end{equation}
-where $E$ is the energy of the particle, $p$ is its momentum, $m$ is the rest mass and $c$ is the speed of light. \\
+where $E$ is the energy of the particle, $p$ is its momentum, $m$ is the rest mass and $c$ is the speed of 
+light. \\
 In particle physics usually the following units are used:
 \begin{itemize}
   \item Energy is measured in $GeV$, where $1\,eV$ is the energy acquired by an electron accelerated by an
@@ -95,21 +125,21 @@ The relativistic momentum is defined as:
 \begin{equation}
   p = \gamma m v
 \end{equation}
-where $\gamma m$ is the relativistic mass, and $\gamma$ is a unitless constant known as the lorentz factor
+where $\gamma m$ is the relativistic mass, and $\gamma$ is a unitless constant known as the Lorentz factor
 and defined as:
 \begin{equation}
   \gamma = \frac{1}{\sqrt{1 - \beta^2}}
 \end{equation}
-where beta is $v/c$. \\
+where $\beta$ is $v/c$. \\
 The kinematics of a particle is fully defined by the combination of its energy and the three components
-of its momentum. This four quantities are known as the 4-momentum of the particle. \\ \\
-The rest mass of a particle is an intrinsic property of a particle. To measure the mass of a particle we
+of its momentum. These four quantities are known as the 4-momentum of the particle. \\ \\
+The rest mass is an intrinsic property of a particle. To measure the mass of a particle we
 need the 4-momenta of its products. \\
 If a particle $H$ decays in two generic particles $A$ and $B$, by the conservation of energy and momentum
 we can write:
-\begin{equation}
+$$
 	E_H = E_A + E_B \hspace{2cm} \vec{p}_H = \vec{p}_A + \vec{p}_B
-\end{equation}
+$$
 The 4-momenta of both $A$ and $B$ are measured in the detector, which means that we can calculate the mass
 of $H$ as:
 \begin{equation}
@@ -170,13 +200,14 @@ to zero, thus only keeping the transverse components.
 So if $\vec{a}$ and $\vec{b}$ are the 4-momenta of two particles $A$ and $B$, $m_{inv}(\vec{a},\vec{b})$ 
 and $m_{tr}(\vec{a},\vec{b})$, neglecting the two rest masses, are defined as:
 \begin{equation}
-  m_{inv}(\vec{a},\vec{b}) = \sqrt{\left(\sqrt{a_x^2 + a_y^2 + a_z^2} + \sqrt{b_x^2 + b_y^2 + b_z^2}\right)^2 
+  m_{inv}(\vec{a},\vec{b}) = \sqrt{\left(|\vec{a}| + |\vec{b}| \right)^2 
   - (a_x^2 + b_x^2)^2 - (a_y^2 + b_y^2)^2 - (a_z^2 + b_z^2)^2}
 \end{equation}
 \begin{equation}
   m_{tr}(\vec{a},\vec{b}) = \sqrt{\left(\sqrt{a_x^2 + a_y^2} + \sqrt{b_x^2 + b_y^2}\right)^2 
   - (a_x^2 + b_x^2)^2 - (a_y^2 + b_y^2)^2}
 \end{equation}
+where $|\vec{a}| = \sqrt{a_x^2 + a_y^2 + a_z^2}$. \\
 The pseudorapidity separation between two particles $A$ and $B$ is defined as:
 \begin{equation}
   |\eta_A - \eta_B|
@@ -187,23 +218,22 @@ and their R separation is:
 \end{equation}
 
 \subsection{Description of the dataset and goal of the project}
-The Higgs boson dacays into two taus leptons. This process theoretically interesting, becuase the Higgs 
+The Higgs boson dacays into two taus leptons. This process is theoretically interesting, becuase the Higgs 
 boson is the particle responsible for the mass of the other elementary particles, but it is an experimentally 
 challenging one. This difficulty is due to two reasons:
 \begin{itemize}
   \item The neutrinos are not measured in the detector, so their presence in the final state makes it 
 	difficult to evaluate the mass of the Higgs candidate
   \item The $Z$ boson can also decay in two tau leptons, and this process happens much more frequently than 
-	the decay of the Higgs boson. Furthermore, since the mass of the $Z$ and $H$ bosons are very similar (
-	respectively $91\,GeV$ and $125\,GeV$), the two events are very difficult to separate.
+	the decay of the Higgs boson. Furthermore, since the masses of the $Z$ and $H$ bosons are very similar 
+	(respectively $91\,GeV$ and $125\,GeV$), the two events are very difficult to separate.
 \end{itemize}
-
 The simulated data contains signal and background events. The signal events are those in which Higgs bosons
 are produced. The background events are generated by other well known processes which can produce events with 
 at least one electron or muon and a hadronic tau, thus mimicking the signal. For simplicity, only three
 background processes are used:
 \begin{itemize}
-  \item Decay of $Z$ boson into two taus
+  \item Decay of $Z$ boson into two tau leptons
   \item Decay of a pair of $top$ quarks into a lepton and a hadronic tau
   \item Decay of the $W$ boson into an electron or muon and a hadronic tau
 \end{itemize}
@@ -213,12 +243,56 @@ Electrons, muons and hadronic tau are the three leptons. Electrons and muons liv
 detector, so their 4-momenta can be measured directly. Taus, on the other hand, decay almost immediately 
 into either an electron and two neutrinos, a muon and two neutrinos or a charged particles and a neutrino. \\
 Jets are pseudo particles that originate from a high energy quark or gluon, and they appear in the detector 
-as collimated energy deposits.
+as collimated energy deposits. \\ \\
+The goal of the challenge is to classify each event as signal or background. Each entry of the dataset
+contains $30$ features, in addition to the classification label, the event id and some weights to be used
+in when calculating the score of the challenge. The last two are of no use for this project, so will be 
+discarded in the preprocessing of the data. \\
+The features are the measures of some primivite physical quantities of the particles, and others are more
+complex quantities calculated from the privitive ones. \\
+Here is a full list of the primitive features:
+\begin{itemize}
+  \item Transverse momentum of the hadronic tau
+  \item pseudorapidity $\eta$ of the hadronic tau
+  \item aximuth angle $\phi$ of the hadronic tau
+  \item transverse momentum of the lepton
+  \item pseudorapidity $\eta$ of the lepton
+  \item aximuth angle $\phi$ of the lepton
+  \item missing transverse energy
+  \item aximuth angle $\phi$ of the missing transverse energy
+  \item total transverse energy in the detector
+  \item number of jets
+  \item transverse momentum of the leading jet
+  \item pseudorapidity $\eta$ of the leading jet
+  \item aximuth angle $\phi$ of the leading jet
+  \item transverse momentum of the subleading jet
+  \item pseudorapidity $\eta$ of the subleading jet
+  \item aximuth angle $\phi$ of the subleading jet
+  \item scalar sum of the transverse momentum of all the jets
+\end{itemize}
+and the list of the derivate features:
+\begin{itemize}
+  \item estimated mass of the Higgs boson candidate
+  \item transverse mass between the missing transverse energy and the lepton
+  \item invariant mass of the hadronic tau and the lepton
+  \item modulus of the vector sum of the transverse momentum of the hadronic tau, the lepton and the missing 
+	transverse energy vector
+  \item absolute value of the pseudorapidity separation between the two jets
+  \item invariant mass of the two jets
+  \item product of the pseudorapidities of the two jets
+  \item $R$ separation between the hadronic tau and the lepton
+  \item the modulus of the vector sum of the missing transverse momenta and the transverse momenta of the 
+	hadronic tau, the lepton, the leading jet and the subleading jet
+  \item the sum of the moduli of the transverse momenta of the hadronic tau, the lepton, the leading jet
+	and the subleading jet and the other jets
+  \item the ratio of the transverse momenta of the lepton and the hadronic tau
+  \item the centrality of the azimuthal angle of the missing transverse energy vector with respect to the 
+	hadronic tau and the lepton
+  \item the centrality of the pseudorapidity of the lepton with respect to the two jets
+\end{itemize}
+\pagebreak
 
 \section{Implementation of the neural network framework}
-Here is described the errorb backpropagation algorithm, which is used for training the neural network. \\
-After that, there is a description of the code which constructed the neural network framework used in the 
-project. 
 \subsection{Description of the error backpropagation algorithm}
 We derive the backpropagation algorithm for a general network having a feed-forward topology, an 
 arbitrary differentiable non-linear activation function and a class of error functions. \\
@@ -245,7 +319,7 @@ where we see that the second derivative is simply $z_i$, and we call the first t
 \begin{equation}
   \delta_j = \frac{\partial E_n}{\partial a_j}
 \end{equation}
-So we thus obtain the simple equation:
+So, we thus obtain the simple equation:
 \begin{equation}
   \frac{\partial E_n}{\partial w_{ji}} = \delta_j z_i
   \label{loss_gradient_weight}
@@ -270,7 +344,8 @@ so we obtain:
   \delta_j = h'(a_j)\sum_k w_{kj}\delta_k
   \label{simplified_hidden_layer_delta}
 \end{equation}
-So we see that the value of $\delta$ for a particular hidden unit can be obtained by propagating backwards the $\delta$ values from layers higher up in the network.
+So we see that the value of $\delta$ for a particular hidden unit can be obtained by propagating backwards 
+the $\delta$ values from layers higher up in the network.
 
 \subsection{Constructing the activation functions}
 The choice of the activation function is of the highest importance when working with neural networks. \\
@@ -287,7 +362,7 @@ function, which is mathematically defined as:
 \end{equation}
 with derivative:
 $$
-  S'(x) = \frac{e^{-x}}{(1 + e^{-x})^2} = \frac{e^{-x}}{1 + e^{-x}}\frac{1}{1 + e^{-x}} 
+  S'(x) = \frac{e^{-x}}{(1 + e^{-x})^2} = \frac{e^{-x}}{1 + e^{-x}}\cdot\frac{1}{1 + e^{-x}} 
   = S(x)\left(1 - S(x)\right)
 $$
 so:
@@ -295,57 +370,9 @@ so:
   S'(x) = S(x)\left(1 - S(x)\right)
 \end{equation}
 
-\begin{lstlisting}[language=C++]
-template <typename T>
-struct Sigmoid {
-  double operator()(double x) { return 1. / (1 + std::exp(-x)); }
+\lstinputlisting[firstline=90, lastline=135, language=C++]{../src/serial/include/Activators.hpp}
 
-  std::vector<T> operator()(const std::vector<T>& vec) {
-	size_t N{vec.size()};
-	std::vector<T> activated(N);
-	for (int i{}; i < N; ++i) {
-	  activated[i] = Sigmoid<T>()(vec[i]);
-	}
-	
-	return activated;
-  }
-
-  template <typename E>
-  std::vector<T> operator()(const std::vector<E>& vec) {
-	size_t N{vec.size()};
-	std::vector<T> activated(N);
-	for (int i{}; i < N; ++i) {
-	  activated[i] = Sigmoid<T>()(static_cast<T>(vec[i]));
-	}
-	
-	return activated;
-  }
-
-  // Derivative of the activation function
-  double grad(double activated_value) {
-	return activated_value * (1 - activated_value);
-  }
-  std::vector<double> grad(shared<Layer<T>> layer) {
-	int N{layer->size()};
-	std::vector<double> gradient_values(N);
-	for (int i{}; i < N; ++i) {
-	  gradient_values[i] = grad((*layer)[i]);
-	}
-
-	return gradient_values;
-  }
-  std::vector<double> grad(std::vector<T> node_values) {
-	int N{node_values.size()};
-	std::vector<double> gradient_values(N);
-	for (int i{}; i < N; ++i) {
-	  gradient_values[i] = grad(node_values[i]);
-	}
-
-	return gradient_values;
-  }
-};
-\end{lstlisting}
-In addition to the overloads of the $operator()$, it is necessary to provide one or more methods calculating
+\noindent In addition to the overloads of the $operator()$, it is necessary to provide one or more methods calculating
 the gradient of the sigmoid for a particular value. \\ \\
 In addition to the sigmoid, other activation functions have been implemented and added to the framework. \\
 Here is a list of all the activators present in the framework:
@@ -368,7 +395,7 @@ As it's been shown in the section regarding the backpropagation algorithm, durin
 network, after each entry of the dataset the weights are adjusted using the gradient of a function called 
 the loss function. \\
 For the same reasons of the activation functions, the loss functions are also defined as functors, for which 
-are also provided methods that calculates the gradient. Considering the relation contained in Eq. 
+are also provided methods that calculate the gradient. Considering the relation contained in Eq. 
 \ref{hidden_layers_delta}, it is convenient to define the gradient methods of the functors so that they 
 return the gradient of the loss function with respect to the activated node values. \\
 For what concerns the structure of the functors, just like the activators, they must be templated on the 
@@ -382,54 +409,8 @@ The most popular loss function is the mean squared error, defined as:
 \end{equation}
 where $y_k$ are the output neurons of the network and $t_k$ are the targets of the respective neurons. \\
 Below is reported the code for the mean squared error functor:
-\begin{lstlisting}[language=C++]
-template <typename T, typename W, template <typename E> typename Activator>
-struct MeanSquaredError {
-  double operator()(const std::vector<T>& node_values, const std::vector<T>& expected_values) {
-    double error{};
-    int N{node_values.size()};
-    for (int node_index{}; node_index < N; ++node_index) {
-      error += pow(node_values[node_index] - expected_values[node_index], 2);
-    }
-    error /= N;
 
-    return error;
-  }
-
-  // Derivative of the error function with respect to the activated node values
-  template <typename U>
-  std::vector<double> grad(const std::vector<U>& expected_values,
-                           int layer_id,
-                           const std::vector<shared<Layer<T>>>& layers,
-                           const std::vector<shared<Matrix<W>>>& weights) {
-    if (layers[layer_id + 1] == nullptr) {
-      int N{layers[layer_id]->size()};
-      std::vector<double> delta(N);
-      for (int node_index{}; node_index < N; ++node_index) {
-        delta[node_index] = (*layers[layer_id])[node_index] - static_cast<T>(expected_values[node_index]);
-      }
-
-      return delta;
-    } else {
-      Activator<T> act;
-      int N{layers[layer_id]->size()};
-      std::vector<double> delta(N);
-
-      for (int node_index{}; node_index < N; ++node_index) {
-        std::vector<double> previous_delta{grad(expected_values, layer_id + 1, layers, weights)};
-        delta[node_index] =
-            act.grad((*layers[layer_id])[node_index]) * (weights[layer_id]->transpose() * previous_delta)[node_index];
-      }
-
-      return delta;
-    }
-  }
-};
-\end{lstlisting}
-
-\subsection{Constructing the layer class}
-The layer class is a simple class template, templated on the type of the neuron data, with said data being 
-stored in a vector.
+\lstinputlisting[firstline=15, lastline=57, language=C++]{../src/serial/include/ErrorFunction.hpp}
 
 \subsection{Constructing the neural network class}
 Now that we have defined the functors for the activation functions and the loss functions, we can move on to
@@ -441,21 +422,10 @@ The class needs four template parameters:
   \item One template template parameter for the activation function
   \item One template template template parameter for the loss function
 \end{itemize}
-\begin{lstlisting}[language=C++]
-template <typename T,
-          typename W,
-          template <typename F> typename Activator,
-          template <typename E, 
-					typename LW, 
-					template <typename K> typename Act> typename Loss>
-class Network {
-private:
-  int n_layers;
-  std::vector<shared<Layer<T>>> m_layers;
-  std::vector<shared<Matrix<W>>> m_weights;
-  std::vector<shared<std::vector<W>>> m_bias;
-\end{lstlisting}
-The attributes of this class are:
+
+\lstinputlisting[firstline=23, lastline=34, language=C++]{../src/serial/include/Network.hpp}
+
+\noindent The attributes of this class are:
 \begin{itemize}
   \item $n\_layers$, an integer representing the number of layers, including the input and output layer
   \item $m\_layers$, a vector containing shared pointers pointing to layers
@@ -467,44 +437,209 @@ The method $train$ calls the methods for the forward propagation and the backpro
 propagation simply consists of calculating the data values for the following layer by doing the matrix-vector 
 product of the weight matrix with the layer vector, and then applying the activation function to the 
 resulting layer.
-\begin{lstlisting}[language=C++]
-std::vector<T> forward_propatation(shared<Layer<T>> layer,
-																	 shared<Matrix<W>> weight_matrix,
-																	 shared<std::vector<W>> bias_vector) {
-  std::vector<W> next_layer_nodes{*weight_matrix * layer->nodes() 
-									+ *bias_vector};
 
-  return Activator<T>()(next_layer_nodes);
-}
+\lstinputlisting[firstline=200, lastline=225, language=C++]{../src/serial/include/Network.hpp}
 
-void forward_propatation() {
-  for (int i{}; i < n_layers - 1; ++i) {
-    std::vector<T> new_layer_data{forward_propatation(m_layers[i],
-																										  m_weights[i],
-																										  m_bias[i])};
-    m_layers[i + 1]->set_node_data(new_layer_data);
-  }
-}
-\end{lstlisting}
-After the forward propagation we use the backpropagation to update the weights of the network. To do this we
-have to apply the Eq. \ref{loss_gradient_weight}, \ref{output_delta}, \ref{simplified_hidden_layer_delta}.
-\begin{lstlisting}[language=C++]
-void back_propagation(const std::vector<U>& target, int layer_id, double eta) {
-  Loss<T, W, Activator> loss_function;
-  Matrix<W> loss_grad(loss_function.grad(target, layer_id + 1, m_layers, m_weights));
-  Matrix<T> activated_values_grad(m_layers[layer_id]->nodes());
-  *m_weights[layer_id] -= eta * (loss_grad * activated_values_grad.transpose());
-  *m_bias[layer_id] -= eta * loss_grad;
-}
+\noindent After the forward propagation we use the backpropagation to update the weights of the network. To 
+do this we have to apply the Eq. \ref{loss_gradient_weight}, \ref{output_delta} and 
+\ref{simplified_hidden_layer_delta}.
 
-void back_propagation(double eta, const std::vector<U>& target) {
-  for (int layer_id{n_layers - 2}; layer_id >= 0; --layer_id) {
-    back_propagation(target, layer_id, eta);
-  }
-}
-\end{lstlisting}
-The main is that when calculating the gradient of the loss we must differentiate between output and hidden 
+\lstinputlisting[firstline=227, lastline=255, language=C++]{../src/serial/include/Network.hpp}
+\noindent The main is that when calculating the gradient of the loss we must differentiate between output 
+and hidden 
 layers. This is done by adding an additional $nullptr$ to $m\_layers$ , so that if the pointer corresponding
 to the next layer is null, the current layer is the output layer, otherwise it's an hidden layer.
+\subsection{Testing with the MNIST dataset}
+The MNIST dataset is the "hello world" dataset in machine learning. Thus, it makes sense to test the 
+framework on this dataset and see if it works correctly and is able to obtain a good value of accuracy. \\ \\
+We construct a neural network with $784$ neurons in the input layer (the images in the dataset are 
+$28 \times 28$, and the features are the pixel grey levels), $50$ neurons in the hidden layer and $10$
+neurons in the output layer. At the end of each forward propagation one of the output neurons will have value
+$1$, and that neuron will indicate the digit guessed by the network. To train this network we use a sigmoid
+activation function, a mean squared error loss function and use a learning rate $\eta = 0.01$. \\
+We train the network for $15$ epochs, and the accuracy plot can be found in Fig. \ref{mnist}.
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{./img/mnist.png}	
+  \label{mnist}
+  \caption{Accuracy plot of the MNIST dataset. The network is made up by one hidden layer with $50$ neurons, 
+  and has been trained with a sigmoid activation function and a learning rate $\eta = 0.01$.}
+\end{figure}
+We can see that the network is able to learn the dataset and achieves very good accuracy values, just above
+$98 \%$. This is confirmation that the framework actually works, and can be used to tackle real ploblems.
+\newpage
+\pagebreak
+
+\section{Applying the neural network to the Higgs ML challenge}
+\subsection{Preprocessing of the data}
+The first step was to process the data, in order to make it more understandable for the network. \\ \\
+The labels of the events are provided as chars, with $s$ indicating $signal$ events and $b$ representing 
+$background$ events. These labels have been converted to integers, with $1$ indicating signal and $0$ 
+indicating background. \\ \\
+The dataset originally contains $818238$ events, but we can reduce this number drastically. In the 
+documentation of the challenge is specified that when the value of a certain feature for an event can't be
+calculated or is meaningless, it is given the value $-999.0$. This value was chosen because it is out of the 
+range for all the features. So, in order to filter out incomplete events, we can discard all the events where
+one or more feature have value $-999.0$. With this filter, the number of events goes from $818238$ to 
+$223574$, thus making it much easier for the network to train on the dataset and greatly decreasing the 
+execution times required by the training. \\
+Now that we have cleaned the dataset, we proceed to divide it into the training, validation and test 
+datasets. To do this we use the common rule of $80$/$10$/$10$, so $80\%$ of the events go in the training 
+dataset, $10 \%$ in the validation dataset and the remaining $10 \%$ in the test dataset. \\ \\
+Now we must prepare the feature values that we insert in the input layer of the network. We normalize the 
+features with a standard scaler, so that we have mean $0$ and standard deviation $1$. This step is crucial
+for this dataset, because the values of the features are very different between one another and span over 
+very wide ranges, so if we didn't normalize these values we would need very high learning rates, high values 
+for the weights and a lot of epochs in order to train the network. We first standardize the training dataset,
+and then standardize the validation and test datasets with the mean and standard deviation calculated for
+the training. It's important to normalize the data after the subdivision in training/validation/test, 
+because otherwise we would normalize the training data with the test data, but they must be completely 
+separate, so this would imply a contamination of the training dataset. \\ \\
+As a last step, we could try to reduce the dimensionality using PCA. This isn't mandatory for this particular
+dataset, because the number of features is already quite small ($d = 30$), but it's still interesing to 
+perform a PCA to see how many of these features are needed to get a high residual value. \\
+By performing PCA increasing the number of components we get the plot on the left in Fig. \ref{pca}, 
+where it can be seen that to have a residual variance close to $0$ we need at least $25$ components, 
+which means that for this dataset performing dimensionality reduction with PCA is not really a viable option.
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.45]{./img/pca.png}
+  \label{pca}
+  \caption{On the left is the plot of the fractional residual variance obtained by perfoming a PCA on 
+  the training dataset, as a function of the number of components. On the right is the scatter plot of 
+  the two classes of events projected on the plane defined by the first two principal axis.}
+\end{figure}
+Considering the results obtained with the PCA, we try to plot the projection of the data onto the plane
+defined by the eigenvectors of the first two principal components. Due to the low explained variance 
+obtained with just two components, we would expect the two classes of points to overlap greatly, thus 
+being impossible to separate, and this is in fact what we see in the right plot in Fig. \ref{pca}.
+
+\subsection{Training, validation and testing}
+For the challenge we used a fully connected neural network with $30$ neurons in the input layer, an hidden 
+layer with $300$ nodes and a single neuron in the output layer, and is trained using a learning rate 
+$\eta = 0.975$. \\
+For classification problems with only two possible classes, like in this case, there are two alternatives: 
+using one or two output neurons. These two possibilities are usually e\-qui\-va\-lent, but in this case 
+we have opted for using a single neuron, because it has the simple advantage of decreasing the complexity 
+of the calculations. \\ \\
+To find the best architecture for the network and the optimal learning rate, we first do some tests to find 
+the range of $\eta$ values which give the best accuracy. \\
+We take learning rate values in the range $\eta \in [0.97, 0.99]$, where it was found that the accuracy
+values were the highest, and for values in this range we train the network for several epochs, changing the
+size of the hidden layer, and we observe the change in the accuracy values. \\
+We take the learning rate values $\eta = 0.97, 0.975, 0.98, 0.985$ and train each neural network for $35$ 
+epochs. The results are shown in the plots in Fig. \ref{accuracy_plots}, where it can be seen that the 
+highest accuracy values are found for networks with between $300$ and $500$ neurons in the hidden layer
+and trained with a learning rate between $\eta = 0.975$ and $\eta = 0.98$. \\
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.35]{./img/accuracy_plots.png}
+  \label{accuracy_plots}
+  \caption{Trends of accuracy on the training dataset in function of the number of the epochs. The measures
+  have been repeated for different values of the learning rate, and for each one different sizes of the 
+  hidden layer have been tested. It can be seen that the best accuracy is achieved with $\eta = 0.975$ and
+  $N_h = 300$.}
+\end{figure}
+It is also interesting to observe, for the same values of $\eta$, the trend of the training loss as a 
+function of the number of epochs. These trends are shown in the plots in Fig. \ref{training_loss}. We
+can see that the values of the training loss are decreasing with the number of epochs, as they should, 
+and the configurations $N_h = 300$, $N_h = 400$, $N_h = 500$ give some of the lowest values, for 
+$\eta = 0.975$ and $\eta = 0.98$.
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.35]{./img/training_loss_plots.png}
+  \label{training_loss}
+  \caption{Trends of the training loss in function of the number of epochs. The measures have been repeated
+  for different learning rates and changing the size of the hidden layer.}
+\end{figure}
+We thus decide to train and validate a neural network with $N_h = 300$ and using a learning rate 
+$\eta = 0.975$. This choice is also motivated by the fact that, like we can see in Fig. \ref{accuracy_plots},
+at the 35th epoch the accuracy is still in an increasing trend, which means that the network is not
+overfitting the training data. \\
+\tikzset{
+  every neuron/.style={
+    circle,
+    draw,
+    minimum size=0.7cm
+  },
+  neuron missing/.style={
+    draw=none, 
+    scale=3,
+    text height=0.233cm,
+    execute at begin node=\color{black}$\vdots$
+  },
+}
+
+\begin{figure}
+  \centering
+  \begin{tikzpicture}[x=1.5cm, y=1.5cm, >=stealth]
+
+  \foreach \m/\l [count=\y] in {1,2,3,missing,4}
+	\node [every neuron/.try, neuron \m/.try] (input-\m) at (0,2.5-\y*0.7) {};
+
+  \foreach \m [count=\y] in {1,missing,2}
+	\node [every neuron/.try, neuron \m/.try ] (hidden-\m) at (2,2.3-\y*0.9) {};
+
+  \foreach \m [count=\y] in {1}
+	\node [every neuron/.try, neuron \m/.try ] (output-\m) at (4,1.6-\y) {};
+
+  \foreach \l [count=\i] in {1,2,3,30}
+	\draw [<-] (input-\i) -- ++(-1,0)
+	  node [above, midway] {$I_{\l}$};
+
+  \foreach \l [count=\i] in {1,300}
+	\node [above] at (hidden-\i.north) {$H_{\l}$};
+
+  \foreach \l [count=\i] in {1}
+	\draw [->] (output-\i) -- ++(1,0)
+	  node [above, midway] {$O_\l$};
+
+  \foreach \i in {1,...,4}
+	\foreach \j in {1,...,2}
+	  \draw [->] (input-\i) -- (hidden-\j);
+
+  \foreach \i in {1,...,2}
+	\foreach \j in {1}
+	  \draw [->] (hidden-\i) -- (output-\j);
+
+  \foreach \l [count=\x from 0] in {Input, Hidden, Ouput}
+	\node [align=center, above] at (\x*2,2) {\l \\ layer};
+
+  \end{tikzpicture}
+  \caption{Diagram of the neural network used for the challenge. The network has one hidden layer with 
+  $400$ neurons and a single neuron in the output layer. One output neuron is enough since there are 
+  only two categories, signal and background.}
+\end{figure}
+\noindent Now that we have found the best structure for the network, we repeat the training and perform 
+the validation. \\
+As can be seen in Fig. \ref{tv}, the accuracy values of the validation dataset are a lot more shaky and 
+unstable, but this is very typical. By looking at the plots we see that the best accuracy values for both
+training and validation are obtained with $22$ epochs. So, at this point the only thing left to do is to
+repeat the training with $22$ epochs and test the result by executing a forward propagation on the test
+dataset, and then calculate the accuracy. \\
+The accuracy thus obtained on the test dataset is $79.5 \%$, which is a very good result, considering the 
+simplicity of the network used for the task.
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.45]{./img/training_validation.png}
+  \label{tv}
+  \caption{On the left is the trend of the training accuracy in function of the number of epochs against the
+  validation accuracy. On the right is the trend of the training loss against the validation loss.}
+\end{figure}
+\pagebreak
+
+\section{Conclusions}
+The neural network framework implemented in C++ has been tested on the MNIST dataset, achieving good values
+of accuracy, which indicates that it works as expected and with reasonable execution times. \\
+Then the framework has been applied to the Higgs ML challenge, whose goal is to classify a set of events
+in signal and background, where the signal events consist of the decay of the Higgs boson, whereas 
+background events consist of other decay processes with similar decay products, i.e. a pair of leptons. \\
+This challenge has been tackled with a neural network consisting of a single hidden layer with $300$
+neurons and a single output neuron, since the task is a classification problem. The network was then 
+trained with a sigmoid activation function and a learning rate $\eta = 0.975$. \\
+After the training and validation step, the optimal number of epochs was found to be $22$, so the network
+was then trained again and tested on the test dataset, achieving an accuracy of $79.5 \%$. \\
+This value of accuracy is quite good, especially considering that the winning solution of the challenge
+used a bag of $70$ neural networks, made up by three hidden layers containing $600$ neurons each.
 
 \end{document}
