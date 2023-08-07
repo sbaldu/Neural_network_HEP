@@ -3,6 +3,11 @@
 *.aux
 *.log
 *.toc
+*.bbl
+*.bcf
+*.blg
+*.lol
+*.run.xml
 
 # files for import/export of networks
 *.nn
