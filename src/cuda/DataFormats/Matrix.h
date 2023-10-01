@@ -21,13 +21,18 @@ private:
   std::vector<T> m_data;
 
 public:
+  // Public matrix with data allocated on device
+  matrix_t<T> dev_matrix;
+
   Matrix() = default;
   Matrix(int n_rows, int n_cols);
   template <typename E>
   Matrix(int n_rows, int n_cols, std::vector<E> vec);
   // Create a matrix from a vector
   template <typename E>
-  Matrix(const std::vector<E>& vec);
+  Matrix(std::vector<E> vec);
+
+  ~Matrix();
 
   // Getters
   inline int nrows() const;
@@ -51,6 +56,9 @@ public:
 
   T& operator[](int index);
   const T& operator[](int index) const;
+
+  __host__ void memCpyHtD();
+  __host__ void memCpyDtH();
 
   template <typename E>
   friend Matrix<E> operator+(const Matrix<E>& m1, const Matrix<E>& m2);
@@ -90,22 +98,31 @@ public:
 
 template <typename T>
 Matrix<T>::Matrix(int n_rows, int n_cols)
-    : m_nrows{n_rows}, m_ncols{n_cols}, m_size{n_rows * n_cols}, m_data(n_rows * n_cols) {}
+    : m_nrows{n_rows},
+      m_ncols{n_cols},
+      m_size{n_rows * n_cols},
+      m_data(n_rows * n_cols),
+      dev_matrix{matrix_t<T>(n_rows, n_cols)} {}
 
 template <typename T>
 template <typename E>
 Matrix<T>::Matrix(int n_rows, int n_cols, std::vector<E> vec) : Matrix{n_rows, n_cols} {
-  for (int i{}; i < m_ncols * m_nrows; ++i) {
-    m_data[i] = vec.data()[i];
-  }
+  m_data = std::move(vec);
+
+  cudaMemcpy(dev_matrix.data, m_data.data(), sizeof(T) * m_size, cudaMemcpyHostToDevice);
 }
 
 template <typename T>
 template <typename E>
-Matrix<T>::Matrix(const std::vector<E>& vec) : Matrix{static_cast<int>(vec.size()), 1} {
-  for (int i{}; i < m_ncols * m_nrows; ++i) {
-    m_data[i] = vec.data()[i];
-  }
+Matrix<T>::Matrix(std::vector<E> vec) : Matrix{static_cast<int>(vec.size()), 1} {
+  m_data = std::move(vec);
+
+  cudaMemcpy(dev_matrix.data, m_data.data(), sizeof(T) * m_size, cudaMemcpyHostToDevice);
+}
+
+template <typename T>
+Matrix<T>::~Matrix<T>() {
+  cudaFree(dev_matrix.data);
 }
 
 template <typename T>
@@ -174,6 +191,9 @@ void Matrix<T>::set_data(int index, T data) {
 template <typename T>
 void Matrix<T>::set_data(std::vector<T> data_vec) {
   m_data = std::move(data_vec);
+
+  // Copy data to the matrix_t pointer on device memory
+  cudaMemcpy(dev_matrix.data, m_data.data(), sizeof(T) * m_size, cudaMemcpyHostToDevice);
 }
 
 template <typename T>
@@ -205,29 +225,27 @@ const T& Matrix<T>::operator[](int index) const {
 }
 
 template <typename T>
+__host__ void Matrix<T>::memCpyHtD() {
+  cudaMemcpy(this->dev_matrix.data, this->m_data.data(), sizeof(T) * m_size, cudaMemcpyHostToDevice);
+}
+
+template <typename T>
+__host__ void Matrix<T>::memCpyDtH() {
+  cudaMemcpy(this->m_data.data(), this->dev_matrix.data, sizeof(T) * m_size, cudaMemcpyDeviceToHost);
+}
+
+template <typename T>
 __host__ Matrix<T> operator+(const Matrix<T>& m1, const Matrix<T>& m2) {
   Matrix<T> result(m1.m_nrows, m1.m_ncols);
 
   const int N{result.m_size};
   const int block_size{256};
   const int grid_size{(int)std::ceil(N / (float)(block_size))};
-  const size_t size{sizeof(T) * N};
-
-  // Allocate on device
-  T *d_res, *d_m1, *d_m2;
-  cudaMalloc(&d_res, size);
-  cudaMalloc(&d_m1, size);
-  cudaMalloc(&d_m2, size);
+  /* const size_t size{sizeof(T) * N}; */
 
   // Launch kernel
-  cudaMemcpy(d_m1, m1.m_data.data(), size, cudaMemcpyHostToDevice);
-  cudaMemcpy(d_m2, m2.m_data.data(), size, cudaMemcpyHostToDevice);
-  vec_add<<<grid_size, block_size>>>(d_m1, d_m2, d_res, N);
-  cudaMemcpy(result.m_data.data(), d_res, size, cudaMemcpyDeviceToHost);
-
-  cudaFree(d_res);
-  cudaFree(d_m1);
-  cudaFree(d_m2);
+  vec_add<<<grid_size, block_size>>>(m1.dev_matrix.data, m1.dev_matrix.data, result.dev_matrix.data, N);
+  /* cudaMemcpy(result.m_data.data(), result.dev_matrix.data, size, cudaMemcpyDeviceToHost); */
 
   return result;
 }
@@ -240,21 +258,13 @@ Matrix<T> operator*(E constant, const Matrix<T>& m) {
   const int N{result.size()};
   const int block_size{256};
   const int grid_size{(int)std::ceil(N / (float)(block_size))};
-  const size_t size{sizeof(T) * N};
-
-  // Allocate on device
-  T *d_res, *d_m;
-  cudaMalloc(&d_res, size);
-  cudaMalloc(&d_m, size);
+  /* const size_t size{sizeof(T) * N}; */
 
   // Launch kernel
-  cudaMemcpy(d_res, result.data().data(), size, cudaMemcpyHostToDevice);
-  cudaMemcpy(d_m, m.data().data(), size, cudaMemcpyHostToDevice);
-  vec_add<<<grid_size, block_size>>>(d_res, d_m, N);
-  cudaMemcpy(const_cast<T*>(result.data().data()), d_res, size, cudaMemcpyDeviceToHost);
-
-  cudaFree(d_res);
-  cudaFree(d_m);
+  /* cudaMemcpy(d_res, result.data().data(), size, cudaMemcpyHostToDevice); */
+  /* cudaMemcpy(d_m, m.data().data(), size, cudaMemcpyHostToDevice); */
+  vec_add<<<grid_size, block_size>>>(result.dev_matrix.data, m.dev_matrix.data, N);
+  /* cudaMemcpy(const_cast<T*>(result.data().data()), d_res, size, cudaMemcpyDeviceToHost); */
 
   return result;
 }
@@ -275,18 +285,9 @@ Matrix<T> operator*(const Matrix<T>& m1, const Matrix<T>& m2) {
 
   Matrix<T> result(N, M);
 
-  const size_t size_a{N * K * sizeof(T)};
-  const size_t size_b{K * M * sizeof(T)};
-  const size_t size_c{N * M * sizeof(T)};
-
-  T *d_a, *d_b, *d_c;
-  cudaMalloc(&d_a, size_a);
-  cudaMalloc(&d_b, size_b);
-  cudaMalloc(&d_c, size_c);
-
-  matrix_t<T> m_a(N, K, d_a);
-  matrix_t<T> m_b(K, M, d_b);
-  matrix_t<T> m_c(N, M, d_c);
+  /* const size_t size_a{N * K * sizeof(T)}; */
+  /* const size_t size_b{K * M * sizeof(T)}; */
+  /* const size_t size_c{N * M * sizeof(T)}; */
 
   auto block_size{std::min({N, K, M})};
   if (block_size > 32) {
@@ -298,15 +299,12 @@ Matrix<T> operator*(const Matrix<T>& m1, const Matrix<T>& m2) {
   dim3 block(block_size, block_size);
   dim3 grid(grid_x, grid_y);
 
-  cudaMemcpy(m_a.data, m1.data().data(), size_a, cudaMemcpyHostToDevice);
-  cudaMemcpy(m_b.data, m2.data().data(), size_b, cudaMemcpyHostToDevice);
+  /* cudaMemcpy(m_a.data, m1.data().data(), size_a, cudaMemcpyHostToDevice); */
+  /* cudaMemcpy(m_b.data, m2.data().data(), size_b, cudaMemcpyHostToDevice); */
   const size_t shared_size{2 * block_size * block_size * sizeof(T)};
-  matrix_multiply<<<grid, block, shared_size>>>(m_a, m_b, m_c, block_size);
-  cudaMemcpy(const_cast<T*>(result.data().data()), m_c.data, size_c, cudaMemcpyDeviceToHost);
-
-  cudaFree(d_a);
-  cudaFree(d_b);
-  cudaFree(d_c);
+  matrix_multiply<<<grid, block, shared_size>>>(
+      m1.dev_matrix, m2.dev_matrix, result.dev_matrix, block_size);
+  /* cudaMemcpy(const_cast<T*>(result.data().data()), m_c.data, size_c, cudaMemcpyDeviceToHost); */
 
   return result;
 }
@@ -327,19 +325,9 @@ Matrix<T> operator*(const Matrix<T>& m1, const Matrix<E>& m2) {
 
   Matrix<T> result(N, M);
 
-  const size_t size_a{N * K * sizeof(T)};
-  const size_t size_b{K * M * sizeof(E)};
-  const size_t size_c{N * M * sizeof(T)};
-
-  T *d_a, *d_c;
-  E* d_b;
-  cudaMalloc(&d_a, size_a);
-  cudaMalloc(&d_b, size_b);
-  cudaMalloc(&d_c, size_c);
-
-  matrix_t<T> m_a(N, K, d_a);
-  matrix_t<E> m_b(K, M, d_b);
-  matrix_t<T> m_c(N, M, d_c);
+  /* const size_t size_a{N * K * sizeof(T)}; */
+  /* const size_t size_b{K * M * sizeof(E)}; */
+  /* const size_t size_c{N * M * sizeof(T)}; */
 
   int block_size{std::min({N, K, M})};
   if (block_size > 32) {
@@ -351,15 +339,12 @@ Matrix<T> operator*(const Matrix<T>& m1, const Matrix<E>& m2) {
   dim3 block(block_size, block_size);
   dim3 grid(grid_x, grid_y);
 
-  cudaMemcpy(m_a.data, m1.data().data(), size_a, cudaMemcpyHostToDevice);
-  cudaMemcpy(m_b.data, m2.data().data(), size_b, cudaMemcpyHostToDevice);
+  /* cudaMemcpy(m_a.data, m1.data().data(), size_a, cudaMemcpyHostToDevice); */
+  /* cudaMemcpy(m_b.data, m2.data().data(), size_b, cudaMemcpyHostToDevice); */
   const size_t shared_size{2 * block_size * block_size * sizeof(T)};
-  matrix_multiply<<<grid, block, shared_size>>>(m_a, m_b, m_c, block_size);
-  cudaMemcpy(const_cast<T*>(result.data().data()), m_c.data, size_c, cudaMemcpyDeviceToHost);
-
-  cudaFree(d_a);
-  cudaFree(d_b);
-  cudaFree(d_c);
+  matrix_multiply<<<grid, block, shared_size>>>(
+      m1.dev_matrix, m2.dev_matrix, result.dev_matrix, block_size);
+  /* cudaMemcpy(const_cast<T*>(result.data().data()), m_c.data, size_c, cudaMemcpyDeviceToHost); */
 
   return result;
 }
@@ -387,21 +372,13 @@ Matrix<T>& Matrix<T>::operator+=(const Matrix<T>& other) {
   const int N{m_size};
   const int block_size{256};
   const int grid_size{(int)std::ceil(N / (float)(block_size))};
-  const size_t size{sizeof(T) * m_size};
-
-  // Allocate on device
-  T *d_vec, *d_other;
-  cudaMalloc(&d_vec, size);
-  cudaMalloc(&d_other, size);
+  /* const size_t size{sizeof(T) * m_size}; */
 
   // Launch kernel
-  cudaMemcpy(d_vec, this->m_data.data(), size, cudaMemcpyHostToDevice);
-  cudaMemcpy(d_other, other.m_data.data(), size, cudaMemcpyHostToDevice);
-  vec_add<<<grid_size, block_size>>>(d_vec, d_other, m_size);
-  cudaMemcpy(this->m_data.data(), d_vec, size, cudaMemcpyDeviceToHost);
-
-  cudaFree(d_vec);
-  cudaFree(d_other);
+  /* cudaMemcpy(d_vec, this->m_data.data(), size, cudaMemcpyHostToDevice); */
+  /* cudaMemcpy(d_other, other.m_data.data(), size, cudaMemcpyHostToDevice); */
+  vec_add<<<grid_size, block_size>>>(this->dev_matrix.data, other.dev_matrix.data, m_size);
+  /* cudaMemcpy(this->m_data.data(), d_vec, size, cudaMemcpyDeviceToHost); */
 
   return *this;
 }
@@ -412,23 +389,14 @@ Matrix<T>& Matrix<T>::operator+=(const Matrix<E>& other) {
   const int N{m_size};
   const int block_size{256};
   const int grid_size{(int)std::ceil(N / (float)(block_size))};
-  const size_t size_src{sizeof(T) * m_size};
-  const size_t size_other{sizeof(E) * m_size};
-
-  // Allocate on device
-  T* d_vec;
-  E* d_other;
-  cudaMalloc(&d_vec, size_src);
-  cudaMalloc(&d_other, size_other);
+  /* const size_t size_src{sizeof(T) * m_size}; */
+  /* const size_t size_other{sizeof(E) * m_size}; */
 
   // Launch kernel
-  cudaMemcpy(d_vec, this->m_data.data(), size_src, cudaMemcpyHostToDevice);
-  cudaMemcpy(d_other, other.data().data(), size_other, cudaMemcpyHostToDevice);
-  vec_add<<<grid_size, block_size>>>(d_vec, d_other, m_size);
-  cudaMemcpy(this->m_data.data(), d_vec, size_src, cudaMemcpyDeviceToHost);
-
-  cudaFree(d_vec);
-  cudaFree(d_other);
+  /* cudaMemcpy(d_vec, this->m_data.data(), size_src, cudaMemcpyHostToDevice); */
+  /* cudaMemcpy(d_other, other.data().data(), size_other, cudaMemcpyHostToDevice); */
+  vec_add<<<grid_size, block_size>>>(this->dev_matrix.data, other.dev_matrix.data, m_size);
+  /* cudaMemcpy(this->m_data.data(), d_vec, size_src, cudaMemcpyDeviceToHost); */
 
   return *this;
 }
@@ -438,21 +406,13 @@ Matrix<T>& Matrix<T>::operator-=(const Matrix<T>& other) {
   const int N{m_size};
   const int block_size{256};
   const int grid_size{(int)std::ceil(N / (float)(block_size))};
-  const size_t size{sizeof(T) * m_size};
-
-  // Allocate on device
-  T *d_vec, *d_other;
-  cudaMalloc(&d_vec, size);
-  cudaMalloc(&d_other, size);
+  /* const size_t size{sizeof(T) * m_size}; */
 
   // Launch kernel
-  cudaMemcpy(d_vec, this->m_data.data(), size, cudaMemcpyHostToDevice);
-  cudaMemcpy(d_other, other.m_data.data(), size, cudaMemcpyHostToDevice);
-  vec_sub<<<grid_size, block_size>>>(d_vec, d_other, m_size);
-  cudaMemcpy(this->m_data.data(), d_vec, size, cudaMemcpyDeviceToHost);
-
-  cudaFree(d_vec);
-  cudaFree(d_other);
+  /* cudaMemcpy(d_vec, this->m_data.data(), size, cudaMemcpyHostToDevice); */
+  /* cudaMemcpy(d_other, other.m_data.data(), size, cudaMemcpyHostToDevice); */
+  vec_sub<<<grid_size, block_size>>>(this->dev_matrix.data, other.dev_matrix.data, m_size);
+  /* cudaMemcpy(this->m_data.data(), d_vec, size, cudaMemcpyDeviceToHost); */
 
   return *this;
 }
@@ -463,23 +423,14 @@ Matrix<T>& Matrix<T>::operator-=(const Matrix<E>& other) {
   const int N{m_size};
   const int block_size{256};
   const int grid_size{(int)std::ceil(N / (float)(block_size))};
-  const size_t size_src{sizeof(T) * m_size};
-  const size_t size_other{sizeof(E) * m_size};
-
-  // Allocate on device
-  T* d_vec;
-  E* d_other;
-  cudaMalloc(&d_vec, size_src);
-  cudaMalloc(&d_other, size_other);
+  /* const size_t size_src{sizeof(T) * m_size}; */
+  /* const size_t size_other{sizeof(E) * m_size}; */
 
   // Launch kernel
-  cudaMemcpy(d_vec, this->m_data.data(), size_src, cudaMemcpyHostToDevice);
-  cudaMemcpy(d_other, other.data().data(), size_other, cudaMemcpyHostToDevice);
-  vec_sub<<<grid_size, block_size>>>(d_vec, d_other, m_size);
-  cudaMemcpy(this->m_data.data(), d_vec, size_src, cudaMemcpyDeviceToHost);
-
-  cudaFree(d_vec);
-  cudaFree(d_other);
+  /* cudaMemcpy(d_vec, this->m_data.data(), size_src, cudaMemcpyHostToDevice); */
+  /* cudaMemcpy(d_other, other.data().data(), size_other, cudaMemcpyHostToDevice); */
+  vec_sub<<<grid_size, block_size>>>(this->dev_matrix.data, other.dev_matrix.data, m_size);
+  /* cudaMemcpy(this->m_data.data(), d_vec, size_src, cudaMemcpyDeviceToHost); */
 
   return *this;
 }
@@ -490,18 +441,12 @@ Matrix<T>& Matrix<T>::operator*=(E constant) {
   const int N{m_size};
   const int block_size{256};
   const int grid_size{(int)std::ceil(N / (float)(block_size))};
-  const size_t size{sizeof(T) * m_size};
-
-  // Allocate on device
-  T* d_vec;
-  cudaMalloc(&d_vec, size);
+  /* const size_t size{sizeof(T) * m_size}; */
 
   // Launch kernel
-  cudaMemcpy(d_vec, this->m_data.data(), size, cudaMemcpyHostToDevice);
-  vec_multiply<<<grid_size, block_size>>>(d_vec, constant, m_size);
-  cudaMemcpy(this->m_data.data(), d_vec, size, cudaMemcpyDeviceToHost);
-
-  cudaFree(d_vec);
+  /* cudaMemcpy(d_vec, this->m_data.data(), size, cudaMemcpyHostToDevice); */
+  vec_multiply<<<grid_size, block_size>>>(this->dev_matrix.data, constant, m_size);
+  /* cudaMemcpy(this->m_data.data(), d_vec, size, cudaMemcpyDeviceToHost); */
 
   return *this;
 }
@@ -512,18 +457,12 @@ __host__ Matrix<T>& Matrix<T>::operator/=(E constant) {
   const int N{m_size};
   const int block_size{256};
   const int grid_size{(int)std::ceil(N / (float)(block_size))};
-  const size_t size{sizeof(T) * m_size};
-
-  // Allocate on device
-  T* d_vec;
-  cudaMalloc(&d_vec, size);
+  /* const size_t size{sizeof(T) * m_size}; */
 
   // Launch kernel
-  cudaMemcpy(d_vec, this->m_data.data(), size, cudaMemcpyHostToDevice);
-  vec_divide<<<grid_size, block_size>>>(d_vec, constant, m_size);
-  cudaMemcpy(this->m_data.data(), d_vec, size, cudaMemcpyDeviceToHost);
-
-  cudaFree(d_vec);
+  /* cudaMemcpy(d_vec, this->m_data.data(), size, cudaMemcpyHostToDevice); */
+  vec_divide<<<grid_size, block_size>>>(this->dev_matrix.data, constant, m_size);
+  /* cudaMemcpy(this->m_data.data(), d_vec, size, cudaMemcpyDeviceToHost); */
 
   return *this;
 }

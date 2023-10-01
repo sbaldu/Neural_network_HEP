@@ -19,6 +19,7 @@ TEST_CASE("Test sum of two vector matrices") {
   Matrix<int> m2(v2);
 
   Matrix<int> sum{m1 + m2};
+  sum.memCpyDtH();
 
   for (int i{}; i < len; ++i) {
     CHECK(sum[i] == m1[i] + m2[i]);
@@ -36,6 +37,7 @@ TEST_CASE("Test increment of a matrix with another") {
   Matrix<int> m1_copy(m1);
 
   m1 += m2;
+  m1.memCpyDtH();
 
   for (int i{}; i < len; ++i) {
     CHECK(m1[i] == m1_copy[i] + m2[i]);
@@ -54,12 +56,12 @@ TEST_CASE("Test overload increment of a matrix with another") {
   Matrix<int> m1_copy(m1);
 
   m1 += m2;
+  m1.memCpyDtH();
 
   for (int i{}; i < len; ++i) {
     CHECK(m1[i] == m1_copy[i] + m2[i]);
   }
 }
-
 TEST_CASE("Test overload increment with swapped types") {
   const int len{1 << 10};
   std::vector<int> v1(len);
@@ -72,6 +74,7 @@ TEST_CASE("Test overload increment with swapped types") {
   Matrix<double> m2_copy(m2);
 
   m2 += m1;
+  m2.memCpyDtH();
 
   for (int i{}; i < len; ++i) {
     CHECK(m2[i] == m2_copy[i] + m1[i]);
@@ -89,6 +92,7 @@ TEST_CASE("Test decrement of a matrix with another") {
   Matrix<int> m2_copy(m2);
 
   m2 -= m1;
+  m2.memCpyDtH();
 
   for (int i{}; i < len; ++i) {
     CHECK(m2[i] == len);
@@ -108,6 +112,7 @@ TEST_CASE("Test overload decrement of a matrix with another") {
   Matrix<double> m2_copy(m2);
 
   m2 -= m1;
+  m2.memCpyDtH();
 
   for (int i{}; i < len; ++i) {
     CHECK(m2[i] == len);
@@ -129,6 +134,7 @@ TEST_CASE("Test multiplication of matrix by a constant") {
   // Multiply by constant
   const double c{3.5};
   m *= c;
+  m.memCpyDtH();
 
   for (int i{}; i < N * M; ++i) {
     CHECK(m[i] == static_cast<int>(m_copy[i] * c));
@@ -149,6 +155,7 @@ TEST_CASE("Test division of matrix by a constant") {
   // Multiply by constant
   const double c{3.5};
   m /= c;
+  m.memCpyDtH();
 
   for (int i{}; i < N * M; ++i) {
     CHECK(m[i] == static_cast<int>(m_copy[i] / c));
@@ -165,6 +172,7 @@ TEST_CASE("Test scalar product between two vector matrices") {
   Matrix<int> m2(len, 1, v2);
 
   Matrix<int> product{m1 * m2};
+  product.memCpyDtH();
 
   CHECK(product.size() == 1);
 
@@ -185,6 +193,7 @@ TEST_CASE("Test 'ket-bra' product between two vector matrices") {
   Matrix<int> m2(1, N, v2);
 
   Matrix<int> product{m1 * m2};
+  product.memCpyDtH();
 
   CHECK(product.size() == N * N);
 
@@ -206,9 +215,12 @@ TEST_CASE("Test matrix product between two 32x32 matrices") {
     m2.set_data(index, 2 * i);
     ++index;
   }
+  m1.memCpyHtD();
+  m2.memCpyHtD();
 
   Matrix<int> product(N, N);
   product = m1 * m2;
+  product.memCpyDtH();
 
   for (int i{}; i < N; ++i) {
     for (int j{}; j < N; ++j) {
@@ -234,9 +246,12 @@ TEST_CASE("Test matrix product between two 5x5 matrices") {
     m2.set_data(index, 2 * i);
     ++index;
   }
+  m1.memCpyHtD();
+  m2.memCpyHtD();
 
   Matrix<int> product(N, N);
   product = m1 * m2;
+  product.memCpyDtH();
 
   for (int i{}; i < N; ++i) {
     for (int j{}; j < N; ++j) {
@@ -264,9 +279,12 @@ TEST_CASE("Test matrix product between two 4x8 and 8x4 matrices") {
     m2.set_data(index, i);
     ++index;
   }
+  m1.memCpyHtD();
+  m2.memCpyHtD();
 
   Matrix<int> product(N, M);
   product = m1 * m2;
+  product.memCpyDtH();
 
   for (int i{}; i < N; ++i) {
     for (int j{}; j < M; ++j) {
@@ -294,9 +312,12 @@ TEST_CASE("Test matrix product between two 512x1024 and 1024x512 matrices") {
     m2.set_data(index, i);
     ++index;
   }
+  m1.memCpyHtD();
+  m2.memCpyHtD();
 
   Matrix<int> product(N, M);
   product = m1 * m2;
+  product.memCpyDtH();
 
   for (int i{}; i < N; ++i) {
     for (int j{}; j < M; ++j) {
@@ -324,9 +345,12 @@ TEST_CASE("Test matrix product between two 8x4 and 4x8 matrices") {
     m2.set_data(index, i);
     ++index;
   }
+  m1.memCpyHtD();
+  m2.memCpyHtD();
 
   Matrix<int> product(N, M);
   product = m1 * m2;
+  product.memCpyDtH();
 
   for (int i{}; i < N; ++i) {
     for (int j{}; j < M; ++j) {
@@ -354,9 +378,12 @@ TEST_CASE("Test matrix product between two 1024x512 and 512x1024 matrices") {
     m2.set_data(index, i);
     ++index;
   }
+  m1.memCpyHtD();
+  m2.memCpyHtD();
 
   Matrix<int> product(N, M);
   product = m1 * m2;
+  product.memCpyDtH();
 
   for (int i{}; i < N; ++i) {
     for (int j{}; j < M; ++j) {
@@ -380,12 +407,14 @@ TEST_CASE("Test multiplication of a small column vector with a matrix") {
     m.set_data(index, i);
     ++index;
   }
+  m.memCpyHtD();
 
   std::vector<int> vec(N);
   std::iota(vec.begin(), vec.end(), 1);
   Matrix<int> m2(vec);
 
   Matrix<int> product{m * m2};
+  product.memCpyDtH();
 
   for (int i{}; i < N; ++i) {
     int tmp{};
@@ -407,12 +436,14 @@ TEST_CASE("Test multiplication of a large column vector with a matrix") {
     m.set_data(index, i);
     ++index;
   }
+  m.memCpyHtD();
 
   std::vector<int> vec(N);
   std::iota(vec.begin(), vec.end(), 1);
   Matrix<int> m2(vec);
 
   Matrix<int> product{m * m2};
+  product.memCpyDtH();
 
   for (int i{}; i < N; ++i) {
     int tmp{};

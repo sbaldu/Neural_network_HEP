@@ -355,6 +355,9 @@ inline void random_matrix(shared<Matrix<W>> matrix) {
   for (int i{}; i < matrix->size(); ++i) {
     matrix->set_data(i, dis(gen));
   }
+
+  // Copy data to the matrix_t pointer on device memory
+  cudaMemcpy(dev_matrix.data, m_data.data(), sifeof(T) * m_size, cudaMemcpyHostToDevice);
 }
 
 #endif

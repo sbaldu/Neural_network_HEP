@@ -12,6 +12,10 @@ struct matrix_t {
   int cols;
   T* data;
 
+  matrix_t(int n_rows, int n_cols) : rows{n_rows}, cols{n_cols} {
+    const size_t size{sizeof(T) * n_rows * n_cols};
+    cudaMalloc(&data, size);
+  }
   matrix_t(int n_rows, int n_cols, T* data) : rows{n_rows}, cols{n_cols}, data{data} {}
 
   __host__ __device__ T& operator[](int index) { return data[index]; }
