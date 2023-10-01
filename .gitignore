@@ -20,3 +20,6 @@
 
 # valgrind files
 *vgcore*
+
+# CMake build folders
+*build/
