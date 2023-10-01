@@ -28,9 +28,9 @@ public:
   Matrix(std::vector<E> vec);
 
   // Getters
-  inline const int nrows() const;
-  inline const int ncols() const;
-  inline const int size() const;
+  inline int nrows() const;
+  inline int ncols() const;
+  inline int size() const;
   inline const std::vector<T>& data() const;
 
   // Setters for dimensions
@@ -103,17 +103,17 @@ Matrix<T>::Matrix(std::vector<E> vec) : Matrix{static_cast<int>(vec.size()), 1} 
 }
 
 template <typename T>
-const int Matrix<T>::nrows() const {
+int Matrix<T>::nrows() const {
   return m_nrows;
 }
 
 template <typename T>
-const int Matrix<T>::ncols() const {
+int Matrix<T>::ncols() const {
   return m_ncols;
 }
 
 template <typename T>
-const int Matrix<T>::size() const {
+int Matrix<T>::size() const {
   return m_size;
 }
 
