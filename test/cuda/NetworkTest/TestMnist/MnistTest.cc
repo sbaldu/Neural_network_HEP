@@ -13,7 +13,7 @@ int main() {
 
   int n_epochs{1};
   int data_size{60000};
-  double previous_accuracy;
+  double previous_accuracy = 0.;
   for (int epoch{}; epoch < n_epochs; ++epoch) {
     int n_correct_guesses{};
 
