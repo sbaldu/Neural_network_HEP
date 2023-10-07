@@ -342,9 +342,10 @@ Matrix<T>& Matrix<T>::operator-=(const Matrix<E>& other) {
 template <typename T>
 template <typename E>
 Matrix<T>& Matrix<T>::operator*=(E constant) {
-  for (auto& x : this->m_data) {
-    x *= constant;
-  }
+  std::transform(this->m_data.cbegin(), this->m_data.cend(), this->m_data.begin(), [constant](auto x) {
+	x *= constant;
+    return x;
+  });
 
   return *this;
 }
@@ -352,9 +353,10 @@ Matrix<T>& Matrix<T>::operator*=(E constant) {
 template <typename T>
 template <typename E>
 Matrix<T>& Matrix<T>::operator/=(E constant) {
-  for (auto& x : this->m_data) {
-    x /= constant;
-  }
+  std::transform(this->m_data.cbegin(), this->m_data.cend(), this->m_data.begin(), [constant](auto x) {
+	x /= constant;
+    return x;
+  });
 
   return *this;
 }
