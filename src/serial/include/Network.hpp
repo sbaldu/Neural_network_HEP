@@ -35,7 +35,7 @@ private:
 
 public:
   Network() = delete;
-  Network(const std::vector<int>& nodes_per_layer);
+  explicit Network(const std::vector<T>& nodes_per_layer);
 
   void load_input_layer(std::stringstream& stream);
   void load_input_layer(const std::vector<T>& vec);

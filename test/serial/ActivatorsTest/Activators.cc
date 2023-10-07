@@ -33,9 +33,9 @@ TEST_CASE("Test the Elu functor") {
   CHECK(e(1.) == 1.);
   CHECK(e(0.) == 0.);
   CHECK(e(std::numeric_limits<double>::max()) == std::numeric_limits<double>::max());
-  CHECK(e(-1) == 0.5 * (std::exp(-1) - 1));
+  CHECK(e(-1) == 0.5 * (std::expm1(-1)));
   CHECK(e(-std::numeric_limits<double>::max()) ==
-        0.5 * (std::exp(-std::numeric_limits<double>::max()) - 1));
+        0.5 * (std::expm1(-std::numeric_limits<double>::max())));
 }
 
 TEST_CASE("Test the Leaky Elu functor") {

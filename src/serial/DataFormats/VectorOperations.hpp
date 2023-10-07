@@ -40,9 +40,10 @@ template <typename T, std::convertible_to<T> E>
 std::vector<T> operator*(E constant, std::vector<T> vec) {
   std::vector<T> result{vec};
 
-  for (auto& element : result) {
-    element *= constant;
-  }
+  std::transform(result.cbegin(), result.cend(), result.begin(), [constant](auto x) {
+	x *= constant;
+    return x;
+  });
 
   return result;
 }

@@ -189,7 +189,7 @@ struct Elu {
     if (x >= 0) {
       return x;
     } else {
-      return A * (std::exp(x) - 1);
+      return A * (std::expm1(x));
     }
   }
 

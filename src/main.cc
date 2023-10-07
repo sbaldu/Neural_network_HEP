@@ -9,19 +9,21 @@
 #include "serial/include/Network.hpp"
 
 int main(int argc, char** argv) {
-  double eta{0.98};
-  Network<double, double, Sigmoid, MeanSquaredError> net({30, atoi(argv[1]), 1});
-  const std::string path_to_trainfile{"../data/training_filtered_processed.csv"};
+  double eta{0.975};
+  /* double eta{atof(argv[1])}; */
+  Network<double, double, Sigmoid, MeanSquaredError> net({30, std::strtol(argv[1], NULL, 10), 1});
+  /* Network<double, double, Sigmoid, MeanSquaredError> net({30, 1000, 1}); */
+  const std::string path_to_trainfile{"../data/new_training_data.csv"};
   /* const std::string path_to_trainfile{"../data/training_processed.csv"}; */
-  /* Network<double, double, Sigmoid, MeanSquaredError> net({10, 10, 10, 1}); */
-  /* const std::string path_to_trainfile{"../data/training_processed_reduced.csv"}; */
 
-  const int n_epochs{30};
-  const int data_size{68113};
-  /* const int data_size{250000}; */
-  double previous_accuracy;
+  std::vector<double> training_loss_values{};
+
+  const int n_epochs{35};
+  /* const int data_size{68113}; */
+  const int data_size{178860};
   for (int epoch{}; epoch < n_epochs; ++epoch) {
     int n_correct_guesses{};
+    double training_loss{};
 
     std::ifstream file_stream(path_to_trainfile);
     std::string file_row;
@@ -29,11 +31,11 @@ int main(int argc, char** argv) {
     std::string input;
 
     // Get rid of the header row
-	/* int count{}; */
+    /* int count{}; */
     getline(file_stream, file_row);
     while (getline(file_stream, file_row)) {
-	  /* std::cout << count << '\n'; */
-	  /* ++count; */
+      /* std::cout << count << '\n'; */
+      /* ++count; */
       std::stringstream row_stream(file_row);
 
       // Isolate the target, which is the first value
@@ -51,18 +53,21 @@ int main(int argc, char** argv) {
       if (guess == target_value) {
         ++n_correct_guesses;
       }
+
+      // We also want to keep track of the value of the loss function
+      std::vector<int> target_vec{target_value};
+      training_loss += net.get_loss_value(target_vec);
     }
 
-    double accuracy{static_cast<double>(n_correct_guesses) * 100 / data_size};
-    std::cout << "Accuracy = " << accuracy << " %" << std::endl;
-    std::cout << "-------------------------------------\n";
+    training_loss_values.push_back(training_loss);
 
-    /* if (accuracy - previous_accuracy > 0.1) { */
-    /*   previous_accuracy = accuracy; */
-    /* } else { */
-    /*   break; */
-    /* } */
+    double accuracy{static_cast<double>(n_correct_guesses) * 100 / data_size};
+    std::cout << accuracy << std::endl;
 
     file_stream.close();
+  }
+
+  for (auto x : training_loss_values) {
+    std::cout << x << std::endl;
   }
 }

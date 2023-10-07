@@ -20,9 +20,9 @@ private:
 
 public:
   Layer() = default;
-  Layer(int n_nodes);
-  Layer(std::vector<T> nodes);
-  Layer(std::stringstream& stream);
+  explicit Layer(int n_nodes);
+  explicit Layer(std::vector<T> nodes);
+  explicit Layer(std::stringstream& stream);
 
   void load(std::stringstream& stream);
 
