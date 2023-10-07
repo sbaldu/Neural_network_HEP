@@ -92,12 +92,15 @@ Matrix<T>::Matrix(int n_rows, int n_cols)
 
 template <typename T>
 template <typename E>
-Matrix<T>::Matrix(int n_rows, int n_cols, std::vector<E> vec)
-    : Matrix{n_rows, n_cols}, m_data{std::move(vec)} {}
+Matrix<T>::Matrix(int n_rows, int n_cols, std::vector<E> vec) : Matrix{n_rows, n_cols} {
+  m_data = std::move(vec);
+}
 
 template <typename T>
 template <typename E>
-Matrix<T>::Matrix(std::vector<E> vec) : Matrix{static_cast<int>(vec.size()), 1}, m_data{std::move(vec)} {}
+Matrix<T>::Matrix(std::vector<E> vec) : Matrix{static_cast<int>(vec.size()), 1} {
+  m_data = std::move(vec);
+}
 
 template <typename T>
 int Matrix<T>::nrows() const {
@@ -340,7 +343,7 @@ template <typename T>
 template <typename E>
 Matrix<T>& Matrix<T>::operator*=(E constant) {
   std::transform(this->m_data.cbegin(), this->m_data.cend(), this->m_data.begin(), [constant](auto x) {
-	x *= constant;
+    x *= constant;
     return x;
   });
 
@@ -351,7 +354,7 @@ template <typename T>
 template <typename E>
 Matrix<T>& Matrix<T>::operator/=(E constant) {
   std::transform(this->m_data.cbegin(), this->m_data.cend(), this->m_data.begin(), [constant](auto x) {
-	x /= constant;
+    x /= constant;
     return x;
   });
 
