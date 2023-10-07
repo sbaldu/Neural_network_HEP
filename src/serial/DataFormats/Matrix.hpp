@@ -25,7 +25,7 @@ public:
   Matrix(int n_rows, int n_cols, std::vector<E> vec);
   // Create a matrix from a vector
   template <typename E>
-  Matrix(std::vector<E> vec);
+  explicit Matrix(std::vector<E> vec);
 
   // Getters
   inline int nrows() const;
