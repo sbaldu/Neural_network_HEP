@@ -41,7 +41,7 @@ std::vector<T> operator*(E constant, std::vector<T> vec) {
   std::vector<T> result{vec};
 
   std::transform(result.cbegin(), result.cend(), result.begin(), [constant](auto x) {
-	x *= constant;
+    x *= constant;
     return x;
   });
 
