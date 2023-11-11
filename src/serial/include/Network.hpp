@@ -102,7 +102,7 @@ public:
   /// @return The values of the next layer
   std::vector<T> forward_propatation(shared<Layer<T>>, shared<Matrix<W>>, shared<std::vector<W>>);
   /// @brief Forward propagate the values of the network
-  ///  
+  ///
   /// @details This function is used to forward propagate the values of the
   /// network. The values of the input layer are used as input to the network.
   /// The values of the output layer are stored in the output layer of the

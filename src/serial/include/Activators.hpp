@@ -4,7 +4,7 @@
 ///
 /// @details The activation functions are implemented as structs with a
 /// templated operator() that can be used to activate a single value or a vector
-/// of values. 
+/// of values.
 
 #ifndef Activators_h
 #define Activators_h

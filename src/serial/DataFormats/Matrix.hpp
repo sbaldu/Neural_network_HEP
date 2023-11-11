@@ -67,7 +67,7 @@ public:
   /// @param n_cols The number of columns of the matrix
   void set_ncols(int n_cols);
   /// @brief Set the number of rows and columns of the matrix
-  /// @param n_rows The number of rows of the matrix	
+  /// @param n_rows The number of rows of the matrix
   void set_dim(int n_rows, int n_cols);
   /// @brief Set the data of the matrix
   /// @param i The row index of the element to set
@@ -88,7 +88,7 @@ public:
   /// @return The element of the matrix
   inline const T get(int i, int j) const;
 
-  /// 
+  ///
   inline Matrix transpose();
 
   /// @brief Get an element of the matrix
