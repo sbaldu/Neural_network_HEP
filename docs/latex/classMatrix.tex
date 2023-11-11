@@ -1,0 +1,726 @@
+\doxysection{Matrix\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classMatrix}{}\label{classMatrix}\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+
+
+\doxylink{classMatrix}{Matrix} class.  
+
+
+
+
+{\ttfamily \#include $<$Matrix.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classMatrix_a8f3dfbe2a101bdc58c768d315dbc1234}\label{classMatrix_a8f3dfbe2a101bdc58c768d315dbc1234} 
+{\bfseries Matrix} ()=\mbox{\hyperlink{structStep}{default}}
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classMatrix_a8eb2069811295ea871b8f0a690aa734f}{Matrix}} (\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{n\+\_\+rows}}, \mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{n\+\_\+cols}})
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ }\\\mbox{\hyperlink{classMatrix_adf1a5abbfb32dd9846f6fe6e98d35636}{Matrix}} (\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{n\+\_\+rows}}, \mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{n\+\_\+cols}}, std\+::vector$<$ \mbox{\hyperlink{structStep}{E}} $>$ \mbox{\hyperlink{structStep}{vec}})
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ }\\\mbox{\hyperlink{classMatrix_a8a9dca4bf94170f4b17321685b8e770d}{Matrix}} (std\+::vector$<$ \mbox{\hyperlink{structStep}{E}} $>$ \mbox{\hyperlink{structStep}{vec}})
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{classMatrix_a93ed0fb2463ca9a5eefb9f1f790c9dda}{nrows}} () \mbox{\hyperlink{structStep}{const}}
+\begin{DoxyCompactList}\small\item\em Get the number of rows of the matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{classMatrix_a32c8e2b1065d1cebe70d41594977b501}{ncols}} () \mbox{\hyperlink{structStep}{const}}
+\begin{DoxyCompactList}\small\item\em Get the number of columns of the matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{classMatrix_a3a952058b788b08f01c07c0154e7ebc2}{size}} () \mbox{\hyperlink{structStep}{const}}
+\begin{DoxyCompactList}\small\item\em Get the size of the matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \& \mbox{\hyperlink{classMatrix_adfa161d9da2df98adb0a2d14475cc29c}{data}} () \mbox{\hyperlink{structStep}{const}}
+\begin{DoxyCompactList}\small\item\em Get the data of the matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classMatrix_a51d79023506f02f047bfd34218e619ee}{set\+\_\+nrows}} (\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{n\+\_\+rows}})
+\begin{DoxyCompactList}\small\item\em Set the number of rows of the matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classMatrix_ad939de6540b6f17be7adc55485631d0e}{set\+\_\+ncols}} (\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{n\+\_\+cols}})
+\begin{DoxyCompactList}\small\item\em Set the number of columns of the matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classMatrix_a297358af4e6077c86a1bc3e734cabf78}{set\+\_\+dim}} (\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{n\+\_\+rows}}, \mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{n\+\_\+cols}})
+\begin{DoxyCompactList}\small\item\em Set the number of rows and columns of the matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classMatrix_ae08fea001a58e567d30817ebefdeed8a}{set\+\_\+data}} (\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{i}}, \mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{j}}, \mbox{\hyperlink{structStep}{T}} \mbox{\hyperlink{classMatrix_adfa161d9da2df98adb0a2d14475cc29c}{data}})
+\begin{DoxyCompactList}\small\item\em Set the data of the matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classMatrix_aed1bb48f5348245c3f75cb0ed8985b85}{set\+\_\+data}} (\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{index}}, \mbox{\hyperlink{structStep}{T}} \mbox{\hyperlink{classMatrix_adfa161d9da2df98adb0a2d14475cc29c}{data}})
+\begin{DoxyCompactList}\small\item\em Set the data of the matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classMatrix_a430dcb233c7d1bc6aebc575f27954c64}{set\+\_\+data}} (std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{structStep}{data\+\_\+vec}})
+\begin{DoxyCompactList}\small\item\em Set the data of the matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{structStep}{T}} \mbox{\hyperlink{classMatrix_a2ffa45a2b9aeb5fffc5bd5fb7fe5d955}{get}} (\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{i}}, \mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{j}}) \mbox{\hyperlink{structStep}{const}}
+\begin{DoxyCompactList}\small\item\em Get an element of the matrix. \end{DoxyCompactList}\item 
+\Hypertarget{classMatrix_aa86cb7b257ff8aacf44ea42e94b5099f}\label{classMatrix_aa86cb7b257ff8aacf44ea42e94b5099f} 
+\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries transpose} ()
+\item 
+\mbox{\hyperlink{structStep}{T}} \& \mbox{\hyperlink{classMatrix_a0ad8a60347fc935e75aa904722667a9d}{operator\mbox{[}$\,$\mbox{]}}} (\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{index}})
+\begin{DoxyCompactList}\small\item\em Get an element of the matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{structStep}{T}} \& \mbox{\hyperlink{classMatrix_af05077126d5e87712182a0560a7fd4a6}{operator\mbox{[}$\,$\mbox{]}}} (\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{index}}) \mbox{\hyperlink{structStep}{const}}
+\begin{DoxyCompactList}\small\item\em Get an element of the matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \& \mbox{\hyperlink{classMatrix_a414ac57670f9f2c295eb095cff79e8fb}{operator+=}} (\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{other}})
+\begin{DoxyCompactList}\small\item\em In-\/place addition of two matrices. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \& \mbox{\hyperlink{classMatrix_adc1cbc4b3a401198aa308469918416ae}{operator+=}} (\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&\mbox{\hyperlink{structStep}{other}})
+\begin{DoxyCompactList}\small\item\em In-\/place addition of two matrices. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \& \mbox{\hyperlink{classMatrix_aa85fd66aea47fc0354649d8c2fad91f6}{operator-\/=}} (\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{other}})
+\begin{DoxyCompactList}\small\item\em In-\/place subtraction of two matrices. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \& \mbox{\hyperlink{classMatrix_a3d4c75f46ffe93002597501f06081032}{operator-\/=}} (\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&\mbox{\hyperlink{structStep}{other}})
+\begin{DoxyCompactList}\small\item\em In-\/place subtraction of two matrices. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \& \mbox{\hyperlink{classMatrix_a30529a9080b0d8a051cd9bf2a2f17fe7}{operator\texorpdfstring{$\ast$}{*}=}} (\mbox{\hyperlink{structStep}{E}} \mbox{\hyperlink{structStep}{constant}})
+\begin{DoxyCompactList}\small\item\em In-\/place multiplication of a matrix by a constant. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \& \mbox{\hyperlink{classMatrix_a62167dadf267ad74c7aacb6552dc1a9d}{operator/=}} (\mbox{\hyperlink{structStep}{E}} \mbox{\hyperlink{structStep}{constant}})
+\begin{DoxyCompactList}\small\item\em In-\/place division of a matrix by a constant. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \mbox{\hyperlink{classMatrix_a0f4bb6bbbe9aa3b9b6dcc73507b3c8bb}{operator+}} (\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&\mbox{\hyperlink{structStep}{m1}}, \mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&\mbox{\hyperlink{structStep}{m2}})
+\begin{DoxyCompactList}\small\item\em Add two matrices. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} , std\+::convertible\+\_\+to$<$ \mbox{\hyperlink{structStep}{U}} $>$ E$>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{classMatrix_aaee43b33e841761c945b9f856633f0f0}{operator\texorpdfstring{$\ast$}{*}}} (\mbox{\hyperlink{structStep}{E}} \mbox{\hyperlink{structStep}{constant}}, \mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{m}})
+\begin{DoxyCompactList}\small\item\em Multiply a matrix by a constant. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \mbox{\hyperlink{classMatrix_a034cc37fb82b172c484d561116ce6dcc}{operator\texorpdfstring{$\ast$}{*}}} (\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&\mbox{\hyperlink{structStep}{m1}}, \mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&\mbox{\hyperlink{structStep}{m2}})
+\begin{DoxyCompactList}\small\item\em Multiply two matrices. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} , std\+::convertible\+\_\+to$<$ \mbox{\hyperlink{structStep}{U}} $>$ E$>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{U}} $>$ \mbox{\hyperlink{classMatrix_ae1e8bd35fac7bf215ab36118f77c5bc9}{operator\texorpdfstring{$\ast$}{*}}} (\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{U}} $>$ \&\mbox{\hyperlink{structStep}{m1}}, \mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&\mbox{\hyperlink{structStep}{m2}})
+\begin{DoxyCompactList}\small\item\em Multiply two matrices. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ }\\std\+::vector$<$ \mbox{\hyperlink{structStep}{E}} $>$ \mbox{\hyperlink{classMatrix_a7af836f1bd37f2d11df10eb60400fc64}{operator\texorpdfstring{$\ast$}{*}}} (\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&\mbox{\hyperlink{structStep}{matrix}}, \mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&\mbox{\hyperlink{structStep}{vec}})
+\begin{DoxyCompactList}\small\item\em Multiply a matrix by a vector. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} , std\+::convertible\+\_\+to$<$ \mbox{\hyperlink{structStep}{U}} $>$ E$>$ }\\std\+::vector$<$ \mbox{\hyperlink{structStep}{U}} $>$ \mbox{\hyperlink{classMatrix_a26dcf54c5ae18e9ee682c7035d340bb8}{operator\texorpdfstring{$\ast$}{*}}} (\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{U}} $>$ \&\mbox{\hyperlink{structStep}{matrix}}, \mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&\mbox{\hyperlink{structStep}{vec}})
+\begin{DoxyCompactList}\small\item\em Multiply a matrix by a vector. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} $>$ }\\std\+::ostream \& \mbox{\hyperlink{classMatrix_a728d68b101809123ad8443f085210bea}{operator$<$$<$}} (std\+::ostream \&\mbox{\hyperlink{structStep}{out}}, \mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{U}} $>$ \&\mbox{\hyperlink{structStep}{m}})
+\begin{DoxyCompactList}\small\item\em Print the matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}}$>$\newline
+class Matrix$<$ T $>$}
+\doxylink{classMatrix}{Matrix} class. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type of the elements of the matrix \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classMatrix_a8eb2069811295ea871b8f0a690aa734f}\label{classMatrix_a8eb2069811295ea871b8f0a690aa734f} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!Matrix@{Matrix}}
+\index{Matrix@{Matrix}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Matrix()}{Matrix()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{classMatrix}{\+::\+Matrix}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{int}}}]{n\+\_\+rows,  }\item[{\mbox{\hyperlink{structStep}{int}}}]{n\+\_\+cols }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+\_\+rows} & The number of rows of the matrix \\
+\hline
+{\em n\+\_\+cols} & The number of columns of the matrix \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classMatrix_adf1a5abbfb32dd9846f6fe6e98d35636}\label{classMatrix_adf1a5abbfb32dd9846f6fe6e98d35636} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!Matrix@{Matrix}}
+\index{Matrix@{Matrix}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Matrix()}{Matrix()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ \\
+\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{classMatrix}{\+::\+Matrix}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{int}}}]{n\+\_\+rows,  }\item[{\mbox{\hyperlink{structStep}{int}}}]{n\+\_\+cols,  }\item[{std\+::vector$<$ \mbox{\hyperlink{structStep}{E}} $>$}]{vec }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em E} & The type of the elements of the vector \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em n\+\_\+rows} & The number of rows of the matrix \\
+\hline
+{\em n\+\_\+cols} & The number of columns of the matrix \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classMatrix_a8a9dca4bf94170f4b17321685b8e770d}\label{classMatrix_a8a9dca4bf94170f4b17321685b8e770d} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!Matrix@{Matrix}}
+\index{Matrix@{Matrix}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Matrix()}{Matrix()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ \\
+\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{classMatrix}{\+::\+Matrix}} (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{structStep}{E}} $>$}]{vec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em E} & The type of the elements of the vector \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em vec} & The vector to initialize the matrix with\\
+\hline
+\end{DoxyParams}
+The matrix is initialized with the vector as a column vector 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classMatrix_adfa161d9da2df98adb0a2d14475cc29c}\label{classMatrix_adfa161d9da2df98adb0a2d14475cc29c} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!data@{data}}
+\index{data@{data}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{data()}{data()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \& \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the data of the matrix. 
+
+\begin{DoxyReturn}{Returns}
+The data of the matrix 
+\end{DoxyReturn}
+\Hypertarget{classMatrix_a2ffa45a2b9aeb5fffc5bd5fb7fe5d955}\label{classMatrix_a2ffa45a2b9aeb5fffc5bd5fb7fe5d955} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!get@{get}}
+\index{get@{get}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{structStep}{T}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::get (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{int}}}]{i,  }\item[{\mbox{\hyperlink{structStep}{int}}}]{j }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get an element of the matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The row index of the element to get \\
+\hline
+{\em j} & The column index of the element to get \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The element of the matrix 
+\end{DoxyReturn}
+\Hypertarget{classMatrix_a32c8e2b1065d1cebe70d41594977b501}\label{classMatrix_a32c8e2b1065d1cebe70d41594977b501} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!ncols@{ncols}}
+\index{ncols@{ncols}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{ncols()}{ncols()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::ncols (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the number of columns of the matrix. 
+
+\begin{DoxyReturn}{Returns}
+The number of columns of the matrix 
+\end{DoxyReturn}
+\Hypertarget{classMatrix_a93ed0fb2463ca9a5eefb9f1f790c9dda}\label{classMatrix_a93ed0fb2463ca9a5eefb9f1f790c9dda} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!nrows@{nrows}}
+\index{nrows@{nrows}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{nrows()}{nrows()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::nrows (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the number of rows of the matrix. 
+
+\begin{DoxyReturn}{Returns}
+The number of rows of the matrix 
+\end{DoxyReturn}
+\Hypertarget{classMatrix_a30529a9080b0d8a051cd9bf2a2f17fe7}\label{classMatrix_a30529a9080b0d8a051cd9bf2a2f17fe7} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!operator\texorpdfstring{$\ast$}{*}=@{operator\texorpdfstring{$\ast$}{*}=}}
+\index{operator\texorpdfstring{$\ast$}{*}=@{operator\texorpdfstring{$\ast$}{*}=}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}=()}{operator*=()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ \\
+\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \& \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{structStep}{\+::operator}}\texorpdfstring{$\ast$}{*}= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{E}}}]{constant }\end{DoxyParamCaption})}
+
+
+
+In-\/place multiplication of a matrix by a constant. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em E} & The type of the elements of the matrix \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em constant} & The constant to multiply the matrix by \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The current matrix 
+\end{DoxyReturn}
+\Hypertarget{classMatrix_adc1cbc4b3a401198aa308469918416ae}\label{classMatrix_adc1cbc4b3a401198aa308469918416ae} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator+=()}{operator+=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ \\
+\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \& \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{structStep}{\+::operator}}+= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&}]{other }\end{DoxyParamCaption})}
+
+
+
+In-\/place addition of two matrices. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em E} & The type of the elements of the matrix \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The matrix to add to the current matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The current matrix
+\end{DoxyReturn}
+This function is used to add two matrices of different types \Hypertarget{classMatrix_a414ac57670f9f2c295eb095cff79e8fb}\label{classMatrix_a414ac57670f9f2c295eb095cff79e8fb} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator+=()}{operator+=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \& \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{structStep}{\+::operator}}+= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&}]{other }\end{DoxyParamCaption})}
+
+
+
+In-\/place addition of two matrices. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em E} & The type of the elements of the matrix \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The matrix to add to the current matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The current matrix 
+\end{DoxyReturn}
+\Hypertarget{classMatrix_a3d4c75f46ffe93002597501f06081032}\label{classMatrix_a3d4c75f46ffe93002597501f06081032} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!operator-\/=@{operator-\/=}}
+\index{operator-\/=@{operator-\/=}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator-\/=()}{operator-=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ \\
+\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \& \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{structStep}{\+::operator}}-\/= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&}]{other }\end{DoxyParamCaption})}
+
+
+
+In-\/place subtraction of two matrices. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em E} & The type of the elements of the matrix \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The matrix to subtract from the current matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The current matrix
+\end{DoxyReturn}
+This function is used to subtract two matrices of different types \Hypertarget{classMatrix_aa85fd66aea47fc0354649d8c2fad91f6}\label{classMatrix_aa85fd66aea47fc0354649d8c2fad91f6} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!operator-\/=@{operator-\/=}}
+\index{operator-\/=@{operator-\/=}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator-\/=()}{operator-=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \& \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{structStep}{\+::operator}}-\/= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&}]{other }\end{DoxyParamCaption})}
+
+
+
+In-\/place subtraction of two matrices. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em E} & The type of the elements of the matrix \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The matrix to subtract from the current matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The current matrix 
+\end{DoxyReturn}
+\Hypertarget{classMatrix_a62167dadf267ad74c7aacb6552dc1a9d}\label{classMatrix_a62167dadf267ad74c7aacb6552dc1a9d} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!operator/=@{operator/=}}
+\index{operator/=@{operator/=}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator/=()}{operator/=()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ \\
+\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \& \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{structStep}{\+::operator}}/= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{E}}}]{constant }\end{DoxyParamCaption})}
+
+
+
+In-\/place division of a matrix by a constant. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em E} & The type of the elements of the matrix \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em constant} & The constant to divide the matrix by \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The current matrix 
+\end{DoxyReturn}
+\Hypertarget{classMatrix_a0ad8a60347fc935e75aa904722667a9d}\label{classMatrix_a0ad8a60347fc935e75aa904722667a9d} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{T}} \& \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{structStep}{\+::operator}}\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{int}}}]{index }\end{DoxyParamCaption})}
+
+
+
+Get an element of the matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & The index of the element to get \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The element of the matrix 
+\end{DoxyReturn}
+\Hypertarget{classMatrix_af05077126d5e87712182a0560a7fd4a6}\label{classMatrix_af05077126d5e87712182a0560a7fd4a6} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{structStep}{T}} \& \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{structStep}{\+::operator}}\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{int}}}]{index }\end{DoxyParamCaption}) const}
+
+
+
+Get an element of the matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & The index of the element to get \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The element of the matrix 
+\end{DoxyReturn}
+\Hypertarget{classMatrix_ae08fea001a58e567d30817ebefdeed8a}\label{classMatrix_ae08fea001a58e567d30817ebefdeed8a} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!set\_data@{set\_data}}
+\index{set\_data@{set\_data}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{set\_data()}{set\_data()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::set\+\_\+data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{int}}}]{i,  }\item[{\mbox{\hyperlink{structStep}{int}}}]{j,  }\item[{\mbox{\hyperlink{structStep}{T}}}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the data of the matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The row index of the element to set \\
+\hline
+{\em j} & The column index of the element to set \\
+\hline
+{\em data} & The data to set the element to \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classMatrix_aed1bb48f5348245c3f75cb0ed8985b85}\label{classMatrix_aed1bb48f5348245c3f75cb0ed8985b85} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!set\_data@{set\_data}}
+\index{set\_data@{set\_data}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{set\_data()}{set\_data()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::set\+\_\+data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{int}}}]{index,  }\item[{\mbox{\hyperlink{structStep}{T}}}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the data of the matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & The index of the element to set \\
+\hline
+{\em data} & The data to set the element to \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classMatrix_a430dcb233c7d1bc6aebc575f27954c64}\label{classMatrix_a430dcb233c7d1bc6aebc575f27954c64} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!set\_data@{set\_data}}
+\index{set\_data@{set\_data}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{set\_data()}{set\_data()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::set\+\_\+data (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$}]{data\+\_\+vec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the data of the matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data\+\_\+vec} & The data to set the matrix to \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classMatrix_a297358af4e6077c86a1bc3e734cabf78}\label{classMatrix_a297358af4e6077c86a1bc3e734cabf78} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!set\_dim@{set\_dim}}
+\index{set\_dim@{set\_dim}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{set\_dim()}{set\_dim()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::set\+\_\+dim (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{int}}}]{n\+\_\+rows,  }\item[{\mbox{\hyperlink{structStep}{int}}}]{n\+\_\+cols }\end{DoxyParamCaption})}
+
+
+
+Set the number of rows and columns of the matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+\_\+rows} & The number of rows of the matrix ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classMatrix_ad939de6540b6f17be7adc55485631d0e}\label{classMatrix_ad939de6540b6f17be7adc55485631d0e} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!set\_ncols@{set\_ncols}}
+\index{set\_ncols@{set\_ncols}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{set\_ncols()}{set\_ncols()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::set\+\_\+ncols (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{int}}}]{n\+\_\+cols }\end{DoxyParamCaption})}
+
+
+
+Set the number of columns of the matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+\_\+cols} & The number of columns of the matrix \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classMatrix_a51d79023506f02f047bfd34218e619ee}\label{classMatrix_a51d79023506f02f047bfd34218e619ee} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!set\_nrows@{set\_nrows}}
+\index{set\_nrows@{set\_nrows}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{set\_nrows()}{set\_nrows()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::set\+\_\+nrows (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{int}}}]{n\+\_\+rows }\end{DoxyParamCaption})}
+
+
+
+Set the number of rows of the matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+\_\+rows} & The number of rows of the matrix \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classMatrix_a3a952058b788b08f01c07c0154e7ebc2}\label{classMatrix_a3a952058b788b08f01c07c0154e7ebc2} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!size@{size}}
+\index{size@{size}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the size of the matrix. 
+
+\begin{DoxyReturn}{Returns}
+The size of the matrix 
+\end{DoxyReturn}
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{classMatrix_a034cc37fb82b172c484d561116ce6dcc}\label{classMatrix_a034cc37fb82b172c484d561116ce6dcc} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}}{operator*}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ \\
+\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \mbox{\hyperlink{structStep}{operator}}\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&}]{m1,  }\item[{\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&}]{m2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Multiply two matrices. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em E} & The type of the elements of the matrix \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em m1} & The first matrix \\
+\hline
+{\em m2} & The second matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The product of the two matrices 
+\end{DoxyReturn}
+\Hypertarget{classMatrix_a7af836f1bd37f2d11df10eb60400fc64}\label{classMatrix_a7af836f1bd37f2d11df10eb60400fc64} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}}{operator*}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ \\
+std\+::vector$<$ \mbox{\hyperlink{structStep}{E}} $>$ \mbox{\hyperlink{structStep}{operator}}\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&}]{matrix,  }\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&}]{vec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Multiply a matrix by a vector. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em E} & The type of the elements of the matrix \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em matrix} & The matrix \\
+\hline
+{\em vec} & The vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The product of the matrix and the vector 
+\end{DoxyReturn}
+\Hypertarget{classMatrix_ae1e8bd35fac7bf215ab36118f77c5bc9}\label{classMatrix_ae1e8bd35fac7bf215ab36118f77c5bc9} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}}{operator*}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} , std\+::convertible\+\_\+to$<$ \mbox{\hyperlink{structStep}{U}} $>$ E$>$ \\
+\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{U}} $>$ \mbox{\hyperlink{structStep}{operator}}\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{U}} $>$ \&}]{m1,  }\item[{\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&}]{m2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Multiply two matrices. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em E} & The type of the elements of the matrix \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em m1} & The first matrix \\
+\hline
+{\em m2} & The second matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The product of the two matrices 
+\end{DoxyReturn}
+\Hypertarget{classMatrix_a26dcf54c5ae18e9ee682c7035d340bb8}\label{classMatrix_a26dcf54c5ae18e9ee682c7035d340bb8} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}}{operator*}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} , std\+::convertible\+\_\+to$<$ \mbox{\hyperlink{structStep}{U}} $>$ E$>$ \\
+std\+::vector$<$ \mbox{\hyperlink{structStep}{U}} $>$ \mbox{\hyperlink{structStep}{operator}}\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{U}} $>$ \&}]{matrix,  }\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&}]{vec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Multiply a matrix by a vector. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em E} & The type of the elements of the matrix \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em matrix} & The matrix \\
+\hline
+{\em vec} & The vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The product of the matrix and the vector 
+\end{DoxyReturn}
+\Hypertarget{classMatrix_aaee43b33e841761c945b9f856633f0f0}\label{classMatrix_aaee43b33e841761c945b9f856633f0f0} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}}{operator*}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} , std\+::convertible\+\_\+to$<$ \mbox{\hyperlink{structStep}{U}} $>$ E$>$ \\
+\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{structStep}{operator}}\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{E}}}]{constant,  }\item[{\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Multiply a matrix by a constant. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em E} & The type of the elements of the matrix \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em constant} & The constant to multiply the matrix by \\
+\hline
+{\em m} & The matrix to multiply \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The product of the matrix and the constant 
+\end{DoxyReturn}
+\Hypertarget{classMatrix_a0f4bb6bbbe9aa3b9b6dcc73507b3c8bb}\label{classMatrix_a0f4bb6bbbe9aa3b9b6dcc73507b3c8bb} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!operator+@{operator+}}
+\index{operator+@{operator+}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator+}{operator+}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ \\
+\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \mbox{\hyperlink{structStep}{operator}}+ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&}]{m1,  }\item[{\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&}]{m2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Add two matrices. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em E} & The type of the elements of the matrix \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em m1} & The first matrix \\
+\hline
+{\em m2} & The second matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The sum of the two matrices 
+\end{DoxyReturn}
+\Hypertarget{classMatrix_a728d68b101809123ad8443f085210bea}\label{classMatrix_a728d68b101809123ad8443f085210bea} 
+\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} $>$ \\
+std\+::ostream \& \mbox{\hyperlink{structStep}{operator}}$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out,  }\item[{\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{U}} $>$ \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Print the matrix. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em E} & The type of the elements of the matrix \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em out} & The stream to print to \\
+\hline
+{\em m} & The matrix to print \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The stream 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/serial/\+Data\+Formats/\mbox{\hyperlink{Matrix_8hpp}{Matrix.\+hpp}}\end{DoxyCompactItemize}

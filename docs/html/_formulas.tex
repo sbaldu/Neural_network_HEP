@@ -1,0 +1,83 @@
+\documentclass{article}
+\usepackage{ifthen}
+\usepackage{epsfig}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{newunicodechar}
+  \makeatletter
+    \def\doxynewunicodechar#1#2{%
+    \@tempswafalse
+    \edef\nuc@tempa{\detokenize{#1}}%
+    \if\relax\nuc@tempa\relax
+      \nuc@emptyargerr
+    \else
+      \edef\@tempb{\expandafter\@car\nuc@tempa\@nil}%
+      \nuc@check
+      \if@tempswa
+        \@namedef{u8:\nuc@tempa}{#2}%
+      \fi
+    \fi
+  }
+  \makeatother
+  \doxynewunicodechar{⁻}{${}^{-}$}% Superscript minus
+  \doxynewunicodechar{²}{${}^{2}$}% Superscript two
+  \doxynewunicodechar{³}{${}^{3}$}% Superscript three
+
+\pagestyle{empty}
+\begin{document}
+\[
+f(x) = \frac{1}{1 + e^{-x}}
+\]
+\pagebreak
+
+\[
+f'(x) = f(x)(1 - f(x))
+\]
+\pagebreak
+
+\[
+f(x) = \begin{cases}
+x & \text{if } x \geq 0 \\
+A(e^x - 1) & \text{if } x < 0
+\end{cases}
+\]
+\pagebreak
+
+\[
+f'(x) = \begin{cases}
+1 & \text{if } x \geq 0 \\
+f(x) + A & \text{if } x < 0
+\end{cases}
+\]
+\pagebreak
+
+$A$
+\pagebreak
+
+\[
+f(x) = \max(0.1x, x)
+\]
+\pagebreak
+
+\[
+f'(x) = \begin{cases}
+1 & \text{if } x \geq 0 \\
+0.1 & \text{if } x < 0
+\end{cases}
+\]
+\pagebreak
+
+\[
+ f(x) = \max(0, x)
+ \]
+\pagebreak
+
+\[
+ f'(x) = \begin{cases}
+ 1 & \text{if } x \geq 0 \\
+ 0 & \text{if } x < 0
+ \end{cases}
+ \]
+\pagebreak
+
+\end{document}

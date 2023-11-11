@@ -1,0 +1,100 @@
+\doxysection{Mean\+Squared\+Error\texorpdfstring{$<$}{<} T, W, Activator \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structMeanSquaredError}{}\label{structMeanSquaredError}\index{MeanSquaredError$<$ T, W, Activator $>$@{MeanSquaredError$<$ T, W, Activator $>$}}
+
+
+Mean squared error function.  
+
+
+
+
+{\ttfamily \#include $<$Error\+Function.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} $>$ }\\\mbox{\hyperlink{structStep}{double}} \mbox{\hyperlink{structMeanSquaredError_a32ce19120ae7060275c3aa2f28b0403c}{operator()}} (\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{node\+\_\+values}}, \mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{U}} $>$ \&\mbox{\hyperlink{structStep}{expected\+\_\+values}})
+\begin{DoxyCompactList}\small\item\em Calculate the error of the network. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} $>$ }\\std\+::vector$<$ \mbox{\hyperlink{structStep}{double}} $>$ \mbox{\hyperlink{structMeanSquaredError_ad83906b2e531838c9e890f0aeafa516c}{grad}} (\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{U}} $>$ \&\mbox{\hyperlink{structStep}{expected\+\_\+values}}, \mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{layer\+\_\+id}}, \mbox{\hyperlink{structStep}{const}} std\+::vector$<$ shared$<$ \mbox{\hyperlink{classLayer}{Layer}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ $>$ $>$ \&\mbox{\hyperlink{structStep}{layers}}, \mbox{\hyperlink{structStep}{const}} std\+::vector$<$ shared$<$ \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{W}} $>$ $>$ $>$ \&\mbox{\hyperlink{structStep}{weights}})
+\begin{DoxyCompactList}\small\item\em Calculate the gradient of the error with respect to the weights and biases of the network. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator$>$\newline
+struct Mean\+Squared\+Error$<$ T, W, Activator $>$}
+Mean squared error function. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type of the node values \\
+\hline
+{\em W} & The type of the weights \\
+\hline
+{\em Activator} & The activation function used by the network \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structMeanSquaredError_ad83906b2e531838c9e890f0aeafa516c}\label{structMeanSquaredError_ad83906b2e531838c9e890f0aeafa516c} 
+\index{MeanSquaredError$<$ T, W, Activator $>$@{MeanSquaredError$<$ T, W, Activator $>$}!grad@{grad}}
+\index{grad@{grad}!MeanSquaredError$<$ T, W, Activator $>$@{MeanSquaredError$<$ T, W, Activator $>$}}
+\doxysubsubsection{\texorpdfstring{grad()}{grad()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator$>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} $>$ \\
+std\+::vector$<$ \mbox{\hyperlink{structStep}{double}} $>$ \mbox{\hyperlink{structMeanSquaredError}{Mean\+Squared\+Error}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}} $>$\+::grad (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{U}} $>$ \&}]{expected\+\_\+values,  }\item[{\mbox{\hyperlink{structStep}{int}}}]{layer\+\_\+id,  }\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ shared$<$ \mbox{\hyperlink{classLayer}{Layer}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ $>$ $>$ \&}]{layers,  }\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ shared$<$ \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{W}} $>$ $>$ $>$ \&}]{weights }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calculate the gradient of the error with respect to the weights and biases of the network. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em U} & The type of the expected values \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em expected\+\_\+values} & The expected values of the nodes in the network \\
+\hline
+{\em layer\+\_\+id} & The id of the layer to calculate the gradient for \\
+\hline
+{\em layers} & The layers of the network \\
+\hline
+{\em weights} & The weights of the network \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The gradient of the error with respect to the weights and biases of the network 
+\end{DoxyReturn}
+\Hypertarget{structMeanSquaredError_a32ce19120ae7060275c3aa2f28b0403c}\label{structMeanSquaredError_a32ce19120ae7060275c3aa2f28b0403c} 
+\index{MeanSquaredError$<$ T, W, Activator $>$@{MeanSquaredError$<$ T, W, Activator $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!MeanSquaredError$<$ T, W, Activator $>$@{MeanSquaredError$<$ T, W, Activator $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator$>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} $>$ \\
+\mbox{\hyperlink{structStep}{double}} \mbox{\hyperlink{structMeanSquaredError}{Mean\+Squared\+Error}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}} $>$\mbox{\hyperlink{structStep}{\+::operator}}() (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&}]{node\+\_\+values,  }\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{U}} $>$ \&}]{expected\+\_\+values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calculate the error of the network. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em U} & The type of the expected values \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em node\+\_\+values} & The values of the nodes in the network \\
+\hline
+{\em expected\+\_\+values} & The expected values of the nodes in the network \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The error of the network
+\end{DoxyReturn}
+The error is calculated by taking the mean of the squared difference between the node values and the expected values. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/serial/include/\mbox{\hyperlink{ErrorFunction_8hpp}{Error\+Function.\+hpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,29 @@
+\doxysection{src/serial/include/\+Error\+Function.hpp File Reference}
+\hypertarget{ErrorFunction_8hpp}{}\label{ErrorFunction_8hpp}\index{src/serial/include/ErrorFunction.hpp@{src/serial/include/ErrorFunction.hpp}}
+
+
+Error functions for neural networks.  
+
+
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include "{}Data\+Formats/\+Matrix.\+hpp"{}}\newline
+{\ttfamily \#include "{}Layer.\+hpp"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structMeanSquaredError}{Mean\+Squared\+Error$<$ T, W, Activator $>$}}
+\begin{DoxyCompactList}\small\item\em Mean squared error function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{ErrorFunction_8hpp_a1c6c460e61d9aebedc1589f47e266976}\label{ErrorFunction_8hpp_a1c6c460e61d9aebedc1589f47e266976} 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ }\\\mbox{\hyperlink{structStep}{using}} {\bfseries shared} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structStep}{T}} $>$
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Error functions for neural networks. 
+
+Error functions are used to determine the error of a neural network by comparing the output of the network to the expected output. The error function is used to determine the gradient of the error with respect to the weights and biases of the network. The gradient is then used to update the weights and biases of the network using gradient descent. 

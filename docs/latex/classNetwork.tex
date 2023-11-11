@@ -1,0 +1,483 @@
+\doxysection{Network\texorpdfstring{$<$}{<} T, W, Activator, Loss \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classNetwork}{}\label{classNetwork}\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+
+
+Neural network.  
+
+
+
+
+{\ttfamily \#include $<$Network.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classNetwork_ad1658ca5f45046f909cab016e8a52f15}\label{classNetwork_ad1658ca5f45046f909cab016e8a52f15} 
+{\bfseries Network} ()=\mbox{\hyperlink{structStep}{delete}}
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classNetwork_a1a55875cae17b31f91afb1fe90f649cb}{Network}} (\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{nodes\+\_\+per\+\_\+layer}})
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork_a55b01a4b4eaff75e8e1d9b5454257cd6}{load\+\_\+input\+\_\+layer}} (std\+::stringstream \&\mbox{\hyperlink{structStep}{stream}})
+\begin{DoxyCompactList}\small\item\em Load the values of the input layer from a stream. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork_a05c27ea3df7d1e0b13e880809c9ccf50}{load\+\_\+input\+\_\+layer}} (\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{vec}})
+\begin{DoxyCompactList}\small\item\em Load the values of the input layer from a vector. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork_a2299244b923aab7219947166ca664589}{load\+\_\+from\+\_\+file}} (\mbox{\hyperlink{structStep}{const}} std\+::string \&\mbox{\hyperlink{structStep}{path\+\_\+to\+\_\+file}})
+\begin{DoxyCompactList}\small\item\em Load the values of the network from a file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{const}} shared$<$ \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{W}} $>$ $>$ \mbox{\hyperlink{classNetwork_a36bbbf2e42b1d425de29e69e8e7e07e4}{weight\+\_\+matrix}} (\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{layer\+\_\+id}}) \mbox{\hyperlink{structStep}{const}}
+\begin{DoxyCompactList}\small\item\em Get the weight matrix of a layer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \& \mbox{\hyperlink{classNetwork_a5e05289bde87050fcf56598b1291b6de}{output\+\_\+layer}} () \mbox{\hyperlink{structStep}{const}}
+\begin{DoxyCompactList}\small\item\em Get the values of the output layer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork_ae3367f76297c84f54882749ed2c420f8}{set\+\_\+matrix\+\_\+data}} (\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{layer\+\_\+id}}, \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{W}} $>$ \mbox{\hyperlink{classNetwork_a36bbbf2e42b1d425de29e69e8e7e07e4}{weight\+\_\+matrix}})
+\begin{DoxyCompactList}\small\item\em Setters for the weight matrices. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork_a50a64b15916eeebae41e19224d2a5828}{set\+\_\+matrix\+\_\+data}} (\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{layer\+\_\+id}}, shared$<$ \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{W}} $>$ $>$ \mbox{\hyperlink{structStep}{weight\+\_\+matrix\+\_\+ptr}})
+\begin{DoxyCompactList}\small\item\em Setters for the weight matrices. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork_a1c3d808c5e742ec60a5e8fa16363e397}{set\+\_\+bias\+\_\+data}} (\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{layer\+\_\+id}}, std\+::vector$<$ \mbox{\hyperlink{structStep}{W}} $>$ \mbox{\hyperlink{structStep}{bias\+\_\+vector}})
+\begin{DoxyCompactList}\small\item\em Setters for the bias vectors. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork_a61cecfeed54a3a1d298dcdd86c9048f1}{set\+\_\+bias\+\_\+data}} (\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{layer\+\_\+id}}, shared$<$ std\+::vector$<$ \mbox{\hyperlink{structStep}{W}} $>$ $>$ \mbox{\hyperlink{structStep}{bias\+\_\+vector\+\_\+ptr}})
+\begin{DoxyCompactList}\small\item\em Setters for the bias vectors. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{classNetwork_a0c20f8b49ce5006330540bc0d261a541}{forward\+\_\+propatation}} (shared$<$ \mbox{\hyperlink{classLayer}{Layer}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ $>$, shared$<$ \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{W}} $>$ $>$, shared$<$ std\+::vector$<$ \mbox{\hyperlink{structStep}{W}} $>$ $>$)
+\begin{DoxyCompactList}\small\item\em Forward propagate the values of the network. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork_a71f73809a21777ba2bdc4499af328ce8}{forward\+\_\+propatation}} ()
+\begin{DoxyCompactList}\small\item\em Forward propagate the values of the network. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} $>$ }\\\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork_a18d37691006f360ddf65bd704e506406}{back\+\_\+propagation}} (\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{U}} $>$ \&\mbox{\hyperlink{structStep}{target}}, \mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{layer\+\_\+id}}, \mbox{\hyperlink{structStep}{double}} \mbox{\hyperlink{structStep}{eta}})
+\begin{DoxyCompactList}\small\item\em Back propagate the error of the network. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} $>$ }\\\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork_a735f8809694d59d5aa9ec68dad045b2a}{back\+\_\+propagation}} (\mbox{\hyperlink{structStep}{double}} \mbox{\hyperlink{structStep}{eta}}, \mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{U}} $>$ \&\mbox{\hyperlink{structStep}{target}})
+\begin{DoxyCompactList}\small\item\em Back propagate the error of the network. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} $>$ }\\\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork_a80ea11b234a4f9b7be75ac8111d57c12}{train}} (\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{U}} $>$ \&\mbox{\hyperlink{structStep}{target}}, \mbox{\hyperlink{structStep}{double}} \mbox{\hyperlink{structStep}{eta}})
+\begin{DoxyCompactList}\small\item\em Train the network. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} $>$ }\\\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork_a650b99c86f1b4214705bda6f1d7a5351}{train}} (\mbox{\hyperlink{structStep}{U}} \mbox{\hyperlink{structStep}{target}}, \mbox{\hyperlink{structStep}{double}} \mbox{\hyperlink{structStep}{eta}})
+\begin{DoxyCompactList}\small\item\em Train the network. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork_ab36042828a8f643182ff1d4fca7c9488}{import\+\_\+network}} (\mbox{\hyperlink{structStep}{const}} std\+::string \&\mbox{\hyperlink{structStep}{filepath}})
+\begin{DoxyCompactList}\small\item\em Import the values of the network from a file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork_aa734bb0383965c6742a0de6ca2cb4a4c}{export\+\_\+network}} (\mbox{\hyperlink{structStep}{const}} std\+::string \&\mbox{\hyperlink{structStep}{filepath}})
+\begin{DoxyCompactList}\small\item\em Export the values of the network to a file. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} $>$ }\\\mbox{\hyperlink{structStep}{double}} \mbox{\hyperlink{classNetwork_a9aa383cb5e2ad7a1bcb24da4f71471a9}{get\+\_\+loss\+\_\+value}} (\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{U}} $>$ \&\mbox{\hyperlink{structStep}{target}})
+\begin{DoxyCompactList}\small\item\em Get the value of the error for the output values with respect to the target. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{P}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Q}} $>$ \mbox{\hyperlink{structStep}{typename}} A, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LP}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Y}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Ac}} $>$ \mbox{\hyperlink{structStep}{typename}} L$>$ }\\std\+::ostream \& \mbox{\hyperlink{classNetwork_ace937449a3482df69777109773e1571e}{operator$<$$<$}} (std\+::ostream \&\mbox{\hyperlink{structStep}{out}}, \mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{U}}, \mbox{\hyperlink{structStep}{P}}, A, \mbox{\hyperlink{structStep}{L}} $>$ \&\mbox{\hyperlink{structStep}{Net}})
+\begin{DoxyCompactList}\small\item\em Print the network. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$\newline
+class Network$<$ T, W, Activator, Loss $>$}
+Neural network. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type of the node values \\
+\hline
+{\em W} & The type of the weights \\
+\hline
+{\em Activator} & The activation function used by the network \\
+\hline
+{\em Loss} & The error function used by the network \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classNetwork_a1a55875cae17b31f91afb1fe90f649cb}\label{classNetwork_a1a55875cae17b31f91afb1fe90f649cb} 
+\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}!Network@{Network}}
+\index{Network@{Network}!Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+\doxysubsubsection{\texorpdfstring{Network()}{Network()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ \\
+\mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}}, \mbox{\hyperlink{structStep}{Loss}} $>$\mbox{\hyperlink{classNetwork}{\+::\+Network}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&}]{nodes\+\_\+per\+\_\+layer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nodes\+\_\+per\+\_\+layer} & The number of nodes in each layer of the network \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classNetwork_a18d37691006f360ddf65bd704e506406}\label{classNetwork_a18d37691006f360ddf65bd704e506406} 
+\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}!back\_propagation@{back\_propagation}}
+\index{back\_propagation@{back\_propagation}!Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+\doxysubsubsection{\texorpdfstring{back\_propagation()}{back\_propagation()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} $>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}}, \mbox{\hyperlink{structStep}{Loss}} $>$\+::back\+\_\+propagation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{U}} $>$ \&}]{target,  }\item[{\mbox{\hyperlink{structStep}{int}}}]{layer\+\_\+id,  }\item[{\mbox{\hyperlink{structStep}{double}}}]{eta }\end{DoxyParamCaption})}
+
+
+
+Back propagate the error of the network. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em U} & The type of the expected values \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em target} & The expected values of the output layer \\
+\hline
+{\em layer\+\_\+id} & The id of the layer to back propagate \\
+\hline
+{\em eta} & The learning rate of the network \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNetwork_a735f8809694d59d5aa9ec68dad045b2a}\label{classNetwork_a735f8809694d59d5aa9ec68dad045b2a} 
+\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}!back\_propagation@{back\_propagation}}
+\index{back\_propagation@{back\_propagation}!Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+\doxysubsubsection{\texorpdfstring{back\_propagation()}{back\_propagation()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} $>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}}, \mbox{\hyperlink{structStep}{Loss}} $>$\+::back\+\_\+propagation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{double}}}]{eta,  }\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{U}} $>$ \&}]{target }\end{DoxyParamCaption})}
+
+
+
+Back propagate the error of the network. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em U} & The type of the expected values \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em target} & The expected values of the output layer \\
+\hline
+{\em eta} & The learning rate of the network \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNetwork_aa734bb0383965c6742a0de6ca2cb4a4c}\label{classNetwork_aa734bb0383965c6742a0de6ca2cb4a4c} 
+\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}!export\_network@{export\_network}}
+\index{export\_network@{export\_network}!Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+\doxysubsubsection{\texorpdfstring{export\_network()}{export\_network()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}}, \mbox{\hyperlink{structStep}{Loss}} $>$\+::export\+\_\+network (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} std\+::string \&}]{filepath }\end{DoxyParamCaption})}
+
+
+
+Export the values of the network to a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filepath} & The path to the file to write the values to\\
+\hline
+\end{DoxyParams}
+The values are provided in csv format \Hypertarget{classNetwork_a71f73809a21777ba2bdc4499af328ce8}\label{classNetwork_a71f73809a21777ba2bdc4499af328ce8} 
+\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}!forward\_propatation@{forward\_propatation}}
+\index{forward\_propatation@{forward\_propatation}!Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+\doxysubsubsection{\texorpdfstring{forward\_propatation()}{forward\_propatation()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}}, \mbox{\hyperlink{structStep}{Loss}} $>$\+::forward\+\_\+propatation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Forward propagate the values of the network. 
+
+This function is used to forward propagate the values of the network. The values of the input layer are used as input to the network. The values of the output layer are stored in the output layer of the network. \Hypertarget{classNetwork_a0c20f8b49ce5006330540bc0d261a541}\label{classNetwork_a0c20f8b49ce5006330540bc0d261a541} 
+\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}!forward\_propatation@{forward\_propatation}}
+\index{forward\_propatation@{forward\_propatation}!Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+\doxysubsubsection{\texorpdfstring{forward\_propatation()}{forward\_propatation()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ \\
+std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}}, \mbox{\hyperlink{structStep}{Loss}} $>$\+::forward\+\_\+propatation (\begin{DoxyParamCaption}\item[{shared$<$ \mbox{\hyperlink{classLayer}{Layer}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ $>$}]{layer,  }\item[{shared$<$ \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{W}} $>$ $>$}]{weight\+\_\+matrix,  }\item[{shared$<$ std\+::vector$<$ \mbox{\hyperlink{structStep}{W}} $>$ $>$}]{bias\+\_\+vector }\end{DoxyParamCaption})}
+
+
+
+Forward propagate the values of the network. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em layer} & The layer to forward propagate \\
+\hline
+{\em weight\+\_\+matrix} & The weight matrix to use \\
+\hline
+{\em bias\+\_\+vector} & The bias vector to use \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The values of the next layer 
+\end{DoxyReturn}
+\Hypertarget{classNetwork_a9aa383cb5e2ad7a1bcb24da4f71471a9}\label{classNetwork_a9aa383cb5e2ad7a1bcb24da4f71471a9} 
+\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}!get\_loss\_value@{get\_loss\_value}}
+\index{get\_loss\_value@{get\_loss\_value}!Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+\doxysubsubsection{\texorpdfstring{get\_loss\_value()}{get\_loss\_value()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} $>$ \\
+\mbox{\hyperlink{structStep}{double}} \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}}, \mbox{\hyperlink{structStep}{Loss}} $>$\+::get\+\_\+loss\+\_\+value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{U}} $>$ \&}]{target }\end{DoxyParamCaption})}
+
+
+
+Get the value of the error for the output values with respect to the target. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em U} & The type of the expected values \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em target} & The expected values of the output layer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The error value of the network 
+\end{DoxyReturn}
+\Hypertarget{classNetwork_ab36042828a8f643182ff1d4fca7c9488}\label{classNetwork_ab36042828a8f643182ff1d4fca7c9488} 
+\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}!import\_network@{import\_network}}
+\index{import\_network@{import\_network}!Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+\doxysubsubsection{\texorpdfstring{import\_network()}{import\_network()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}}, \mbox{\hyperlink{structStep}{Loss}} $>$\+::import\+\_\+network (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} std\+::string \&}]{filepath }\end{DoxyParamCaption})}
+
+
+
+Import the values of the network from a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filepath} & The path to the file to read the values from\\
+\hline
+\end{DoxyParams}
+The values are expected to be provided in csv format \Hypertarget{classNetwork_a2299244b923aab7219947166ca664589}\label{classNetwork_a2299244b923aab7219947166ca664589} 
+\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}!load\_from\_file@{load\_from\_file}}
+\index{load\_from\_file@{load\_from\_file}!Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+\doxysubsubsection{\texorpdfstring{load\_from\_file()}{load\_from\_file()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}}, \mbox{\hyperlink{structStep}{Loss}} $>$\+::load\+\_\+from\+\_\+file (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} std\+::string \&}]{path\+\_\+to\+\_\+file }\end{DoxyParamCaption})}
+
+
+
+Load the values of the network from a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path\+\_\+to\+\_\+file} & The path to the file to read the values from\\
+\hline
+\end{DoxyParams}
+The values are expected to be provided in csv format \Hypertarget{classNetwork_a05c27ea3df7d1e0b13e880809c9ccf50}\label{classNetwork_a05c27ea3df7d1e0b13e880809c9ccf50} 
+\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}!load\_input\_layer@{load\_input\_layer}}
+\index{load\_input\_layer@{load\_input\_layer}!Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+\doxysubsubsection{\texorpdfstring{load\_input\_layer()}{load\_input\_layer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}}, \mbox{\hyperlink{structStep}{Loss}} $>$\+::load\+\_\+input\+\_\+layer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&}]{vec }\end{DoxyParamCaption})}
+
+
+
+Load the values of the input layer from a vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vec} & The vector to read the values from \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNetwork_a55b01a4b4eaff75e8e1d9b5454257cd6}\label{classNetwork_a55b01a4b4eaff75e8e1d9b5454257cd6} 
+\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}!load\_input\_layer@{load\_input\_layer}}
+\index{load\_input\_layer@{load\_input\_layer}!Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+\doxysubsubsection{\texorpdfstring{load\_input\_layer()}{load\_input\_layer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}}, \mbox{\hyperlink{structStep}{Loss}} $>$\+::load\+\_\+input\+\_\+layer (\begin{DoxyParamCaption}\item[{std\+::stringstream \&}]{stream }\end{DoxyParamCaption})}
+
+
+
+Load the values of the input layer from a stream. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em stream} & The stream to read the values from\\
+\hline
+\end{DoxyParams}
+The values are expected to be provided in csv format \Hypertarget{classNetwork_a5e05289bde87050fcf56598b1291b6de}\label{classNetwork_a5e05289bde87050fcf56598b1291b6de} 
+\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}!output\_layer@{output\_layer}}
+\index{output\_layer@{output\_layer}!Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+\doxysubsubsection{\texorpdfstring{output\_layer()}{output\_layer()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ \\
+\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \& \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}}, \mbox{\hyperlink{structStep}{Loss}} $>$\+::output\+\_\+layer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the values of the output layer. 
+
+\begin{DoxyReturn}{Returns}
+The values of the output layer 
+\end{DoxyReturn}
+\Hypertarget{classNetwork_a61cecfeed54a3a1d298dcdd86c9048f1}\label{classNetwork_a61cecfeed54a3a1d298dcdd86c9048f1} 
+\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}!set\_bias\_data@{set\_bias\_data}}
+\index{set\_bias\_data@{set\_bias\_data}!Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+\doxysubsubsection{\texorpdfstring{set\_bias\_data()}{set\_bias\_data()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}}, \mbox{\hyperlink{structStep}{Loss}} $>$\+::set\+\_\+bias\+\_\+data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{int}}}]{layer\+\_\+id,  }\item[{shared$<$ std\+::vector$<$ \mbox{\hyperlink{structStep}{W}} $>$ $>$}]{bias\+\_\+vector\+\_\+ptr }\end{DoxyParamCaption})}
+
+
+
+Setters for the bias vectors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em layer\+\_\+id} & The id of the layer \\
+\hline
+{\em bias\+\_\+vector\+\_\+ptr} & The bias vector to set \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNetwork_a1c3d808c5e742ec60a5e8fa16363e397}\label{classNetwork_a1c3d808c5e742ec60a5e8fa16363e397} 
+\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}!set\_bias\_data@{set\_bias\_data}}
+\index{set\_bias\_data@{set\_bias\_data}!Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+\doxysubsubsection{\texorpdfstring{set\_bias\_data()}{set\_bias\_data()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}}, \mbox{\hyperlink{structStep}{Loss}} $>$\+::set\+\_\+bias\+\_\+data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{int}}}]{layer\+\_\+id,  }\item[{std\+::vector$<$ \mbox{\hyperlink{structStep}{W}} $>$}]{bias\+\_\+vector }\end{DoxyParamCaption})}
+
+
+
+Setters for the bias vectors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em layer\+\_\+id} & The id of the layer \\
+\hline
+{\em bias\+\_\+vector} & The bias vector to set \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNetwork_ae3367f76297c84f54882749ed2c420f8}\label{classNetwork_ae3367f76297c84f54882749ed2c420f8} 
+\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}!set\_matrix\_data@{set\_matrix\_data}}
+\index{set\_matrix\_data@{set\_matrix\_data}!Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+\doxysubsubsection{\texorpdfstring{set\_matrix\_data()}{set\_matrix\_data()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}}, \mbox{\hyperlink{structStep}{Loss}} $>$\+::set\+\_\+matrix\+\_\+data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{int}}}]{layer\+\_\+id,  }\item[{\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{W}} $>$}]{weight\+\_\+matrix }\end{DoxyParamCaption})}
+
+
+
+Setters for the weight matrices. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em layer\+\_\+id} & The id of the layer \\
+\hline
+{\em weight\+\_\+matrix} & The weight matrix to set \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNetwork_a50a64b15916eeebae41e19224d2a5828}\label{classNetwork_a50a64b15916eeebae41e19224d2a5828} 
+\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}!set\_matrix\_data@{set\_matrix\_data}}
+\index{set\_matrix\_data@{set\_matrix\_data}!Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+\doxysubsubsection{\texorpdfstring{set\_matrix\_data()}{set\_matrix\_data()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}}, \mbox{\hyperlink{structStep}{Loss}} $>$\+::set\+\_\+matrix\+\_\+data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{int}}}]{layer\+\_\+id,  }\item[{shared$<$ \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{W}} $>$ $>$}]{weight\+\_\+matrix\+\_\+ptr }\end{DoxyParamCaption})}
+
+
+
+Setters for the weight matrices. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em layer\+\_\+id} & The id of the layer \\
+\hline
+{\em weight\+\_\+matrix\+\_\+ptr} & The weight matrix to set \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNetwork_a80ea11b234a4f9b7be75ac8111d57c12}\label{classNetwork_a80ea11b234a4f9b7be75ac8111d57c12} 
+\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}!train@{train}}
+\index{train@{train}!Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+\doxysubsubsection{\texorpdfstring{train()}{train()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} $>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}}, \mbox{\hyperlink{structStep}{Loss}} $>$\+::train (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{U}} $>$ \&}]{target,  }\item[{\mbox{\hyperlink{structStep}{double}}}]{eta }\end{DoxyParamCaption})}
+
+
+
+Train the network. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em U} & The type of the expected values \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em target} & The expected values of the output layer \\
+\hline
+{\em eta} & The learning rate of the network \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNetwork_a650b99c86f1b4214705bda6f1d7a5351}\label{classNetwork_a650b99c86f1b4214705bda6f1d7a5351} 
+\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}!train@{train}}
+\index{train@{train}!Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+\doxysubsubsection{\texorpdfstring{train()}{train()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} $>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}}, \mbox{\hyperlink{structStep}{Loss}} $>$\+::train (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{U}}}]{target,  }\item[{\mbox{\hyperlink{structStep}{double}}}]{eta }\end{DoxyParamCaption})}
+
+
+
+Train the network. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em U} & The type of the expected values \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em target} & The expected values of the output layer \\
+\hline
+{\em eta} & The learning rate of the network \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNetwork_a36bbbf2e42b1d425de29e69e8e7e07e4}\label{classNetwork_a36bbbf2e42b1d425de29e69e8e7e07e4} 
+\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}!weight\_matrix@{weight\_matrix}}
+\index{weight\_matrix@{weight\_matrix}!Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+\doxysubsubsection{\texorpdfstring{weight\_matrix()}{weight\_matrix()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ \\
+\mbox{\hyperlink{structStep}{const}} shared$<$ \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{W}} $>$ $>$ \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}}, \mbox{\hyperlink{structStep}{Loss}} $>$\+::weight\+\_\+matrix (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{int}}}]{layer\+\_\+id }\end{DoxyParamCaption}) const}
+
+
+
+Get the weight matrix of a layer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em layer\+\_\+id} & The id of the layer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The weight matrix of the layer 
+\end{DoxyReturn}
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{classNetwork_ace937449a3482df69777109773e1571e}\label{classNetwork_ace937449a3482df69777109773e1571e} 
+\index{Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Network$<$ T, W, Activator, Loss $>$@{Network$<$ T, W, Activator, Loss $>$}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{P}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Q}} $>$ \mbox{\hyperlink{structStep}{typename}} A, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LP}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Y}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Ac}} $>$ \mbox{\hyperlink{structStep}{typename}} L$>$ \\
+std\+::ostream \& \mbox{\hyperlink{structStep}{operator}}$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out,  }\item[{\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{U}}, \mbox{\hyperlink{structStep}{P}}, A, \mbox{\hyperlink{structStep}{L}} $>$ \&}]{Net }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Print the network. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em U} & The type of the node values \\
+\hline
+{\em P} & The type of the weights \\
+\hline
+{\em A} & The activation function used by the network \\
+\hline
+{\em L} & The error function used by the network \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em out} & The stream to print to \\
+\hline
+{\em Net} & The network to print \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The stream 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/serial/include/\mbox{\hyperlink{Network_8hpp}{Network.\+hpp}}\end{DoxyCompactItemize}

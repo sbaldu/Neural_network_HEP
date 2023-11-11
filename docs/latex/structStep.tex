@@ -1,0 +1,161 @@
+\doxysection{Step\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structStep}{}\label{structStep}\index{Step$<$ T $>$@{Step$<$ T $>$}}
+
+
+The identity function.  
+
+
+
+
+{\ttfamily \#include $<$Activators.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structStep}{short}} \mbox{\hyperlink{structStep_abe9fe90505e81fd019aa0aba6644fd48}{operator()}} (\mbox{\hyperlink{structStep}{double}} \mbox{\hyperlink{structStep}{x}})
+\begin{DoxyCompactList}\small\item\em The identity function. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{structStep}{short}} $>$ \mbox{\hyperlink{structStep_ad69934d546f5549cb9a789722ac0a386}{operator()}} (\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{vec}})
+\begin{DoxyCompactList}\small\item\em The identity function. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ }\\std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{structStep_aeb8f64221a72578f0c00f5223a9ca232}{operator()}} (\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&\mbox{\hyperlink{structStep}{vec}})
+\begin{DoxyCompactList}\small\item\em The identity function. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{double}} \mbox{\hyperlink{structStep_aba67f3bb89a6c2fbb4712696c8a58c74}{grad}} (\mbox{\hyperlink{structStep}{double}} \mbox{\hyperlink{structStep}{activated\+\_\+value}})
+\begin{DoxyCompactList}\small\item\em The derivative of the identity function. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{structStep}{double}} $>$ \mbox{\hyperlink{structStep_a7490a0194d91bb34ff3b0f4cb26e9f39}{grad}} (shared$<$ \mbox{\hyperlink{classLayer}{Layer}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ $>$ \mbox{\hyperlink{structStep}{layer}})
+\begin{DoxyCompactList}\small\item\em The derivative of the identity function. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{structStep}{double}} $>$ \mbox{\hyperlink{structStep_aeb3343c4f868814b89ee753720d297c3}{grad}} (std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{structStep}{node\+\_\+values}})
+\begin{DoxyCompactList}\small\item\em The derivative of the identity function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+struct Step$<$ T $>$}
+The identity function. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type of the input. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structStep_aba67f3bb89a6c2fbb4712696c8a58c74}\label{structStep_aba67f3bb89a6c2fbb4712696c8a58c74} 
+\index{Step$<$ T $>$@{Step$<$ T $>$}!grad@{grad}}
+\index{grad@{grad}!Step$<$ T $>$@{Step$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{grad()}{grad()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{double}} \mbox{\hyperlink{structStep}{Step}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::grad (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{double}}}]{activated\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The derivative of the identity function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em activated\+\_\+value} & The value of the activated node. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The derivative of the identity function.
+\end{DoxyReturn}
+The derivative of the identity function is always 0. \Hypertarget{structStep_a7490a0194d91bb34ff3b0f4cb26e9f39}\label{structStep_a7490a0194d91bb34ff3b0f4cb26e9f39} 
+\index{Step$<$ T $>$@{Step$<$ T $>$}!grad@{grad}}
+\index{grad@{grad}!Step$<$ T $>$@{Step$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{grad()}{grad()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+std\+::vector$<$ \mbox{\hyperlink{structStep}{double}} $>$ \mbox{\hyperlink{structStep}{Step}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::grad (\begin{DoxyParamCaption}\item[{shared$<$ \mbox{\hyperlink{classLayer}{Layer}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ $>$}]{layer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The derivative of the identity function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em layer} & The layer of nodes. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The derivative of the identity function.
+\end{DoxyReturn}
+The derivative of the identity function is always 0. \Hypertarget{structStep_aeb3343c4f868814b89ee753720d297c3}\label{structStep_aeb3343c4f868814b89ee753720d297c3} 
+\index{Step$<$ T $>$@{Step$<$ T $>$}!grad@{grad}}
+\index{grad@{grad}!Step$<$ T $>$@{Step$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{grad()}{grad()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+std\+::vector$<$ \mbox{\hyperlink{structStep}{double}} $>$ \mbox{\hyperlink{structStep}{Step}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::grad (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$}]{node\+\_\+values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The derivative of the identity function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em node\+\_\+values} & The values of the nodes. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The derivative of the identity function.
+\end{DoxyReturn}
+The derivative of the identity function is always 0. \Hypertarget{structStep_aeb8f64221a72578f0c00f5223a9ca232}\label{structStep_aeb8f64221a72578f0c00f5223a9ca232} 
+\index{Step$<$ T $>$@{Step$<$ T $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!Step$<$ T $>$@{Step$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ \\
+std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{structStep}{Step}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{structStep}{\+::operator}}() (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&}]{vec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The identity function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vec} & The input vector. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The input vector.
+\end{DoxyReturn}
+This is an overload of the operator() for vectors of a different type than the one specified in the template. \Hypertarget{structStep_ad69934d546f5549cb9a789722ac0a386}\label{structStep_ad69934d546f5549cb9a789722ac0a386} 
+\index{Step$<$ T $>$@{Step$<$ T $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!Step$<$ T $>$@{Step$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+std\+::vector$<$ \mbox{\hyperlink{structStep}{short}} $>$ \mbox{\hyperlink{structStep}{Step}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{structStep}{\+::operator}}() (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&}]{vec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The identity function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vec} & The input vector. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The input vector. 
+\end{DoxyReturn}
+\Hypertarget{structStep_abe9fe90505e81fd019aa0aba6644fd48}\label{structStep_abe9fe90505e81fd019aa0aba6644fd48} 
+\index{Step$<$ T $>$@{Step$<$ T $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!Step$<$ T $>$@{Step$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{short}} \mbox{\hyperlink{structStep}{Step}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{structStep}{\+::operator}}() (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{double}}}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The identity function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The input value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The input value. 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/serial/include/\mbox{\hyperlink{Activators_8hpp}{Activators.\+hpp}}\end{DoxyCompactItemize}

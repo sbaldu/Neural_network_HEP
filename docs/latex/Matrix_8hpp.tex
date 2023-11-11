@@ -1,0 +1,94 @@
+\doxysection{src/serial/\+Data\+Formats/\+Matrix.hpp File Reference}
+\hypertarget{Matrix_8hpp}{}\label{Matrix_8hpp}\index{src/serial/DataFormats/Matrix.hpp@{src/serial/DataFormats/Matrix.hpp}}
+
+
+This file contains the declaration of the \doxylink{classMatrix}{Matrix} class.  
+
+
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$concepts$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$iterator$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classMatrix}{Matrix$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em \doxylink{classMatrix}{Matrix} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{Matrix_8hpp_a41c44412b6560b707e6f9c59eaf99add}\label{Matrix_8hpp_a41c44412b6560b707e6f9c59eaf99add} 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ {\bfseries operator+} (\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{m1}}, \mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{m2}})
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , std\+::convertible\+\_\+to$<$ \mbox{\hyperlink{structStep}{T}} $>$ E$>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{Matrix_8hpp_aaee43b33e841761c945b9f856633f0f0}{operator\texorpdfstring{$\ast$}{*}}} (\mbox{\hyperlink{structStep}{E}} \mbox{\hyperlink{structStep}{constant}}, \mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{m}})
+\item 
+\Hypertarget{Matrix_8hpp_a42bcd397e30c95d3e5775fc06f82b9ea}\label{Matrix_8hpp_a42bcd397e30c95d3e5775fc06f82b9ea} 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ {\bfseries operator\texorpdfstring{$\ast$}{*}} (\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{m1}}, \mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{m2}})
+\item 
+\Hypertarget{Matrix_8hpp_a1f2436872aff206f1a096a035f4afca0}\label{Matrix_8hpp_a1f2436872aff206f1a096a035f4afca0} 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , std\+::convertible\+\_\+to$<$ \mbox{\hyperlink{structStep}{T}} $>$ E$>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ {\bfseries operator\texorpdfstring{$\ast$}{*}} (\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{m1}}, \mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&\mbox{\hyperlink{structStep}{m2}})
+\item 
+\Hypertarget{Matrix_8hpp_a60031d00552297ab469c984a58340da1}\label{Matrix_8hpp_a60031d00552297ab469c984a58340da1} 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ }\\std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ {\bfseries operator\texorpdfstring{$\ast$}{*}} (\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{matrix}}, \mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{vec}})
+\item 
+\Hypertarget{Matrix_8hpp_ada4e98ecb848227d69889387109149b9}\label{Matrix_8hpp_ada4e98ecb848227d69889387109149b9} 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , std\+::convertible\+\_\+to$<$ \mbox{\hyperlink{structStep}{T}} $>$ E$>$ }\\std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ {\bfseries operator\texorpdfstring{$\ast$}{*}} (\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{matrix}}, \mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&\mbox{\hyperlink{structStep}{vec}})
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} $>$ }\\std\+::ostream \& \mbox{\hyperlink{Matrix_8hpp_a728d68b101809123ad8443f085210bea}{operator$<$$<$}} (std\+::ostream \&\mbox{\hyperlink{structStep}{out}}, \mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{U}} $>$ \&\mbox{\hyperlink{structStep}{m}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains the declaration of the \doxylink{classMatrix}{Matrix} class. 
+
+\begin{DoxyAuthor}{Author}
+Simone Balducci
+\end{DoxyAuthor}
+The \doxylink{classMatrix}{Matrix} class is a class that represents a matrix of any size. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{Matrix_8hpp_aaee43b33e841761c945b9f856633f0f0}\label{Matrix_8hpp_aaee43b33e841761c945b9f856633f0f0} 
+\index{Matrix.hpp@{Matrix.hpp}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!Matrix.hpp@{Matrix.hpp}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , std\+::convertible\+\_\+to$<$ \mbox{\hyperlink{structStep}{T}} $>$ E$>$ \\
+\mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{structStep}{operator}}\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{E}}}]{constant,  }\item[{\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&}]{m }\end{DoxyParamCaption})}
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em E} & The type of the elements of the matrix \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em constant} & The constant to multiply the matrix by \\
+\hline
+{\em m} & The matrix to multiply \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The product of the matrix and the constant 
+\end{DoxyReturn}
+\Hypertarget{Matrix_8hpp_a728d68b101809123ad8443f085210bea}\label{Matrix_8hpp_a728d68b101809123ad8443f085210bea} 
+\index{Matrix.hpp@{Matrix.hpp}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Matrix.hpp@{Matrix.hpp}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{U}} $>$ \\
+std\+::ostream \& \mbox{\hyperlink{structStep}{operator}}$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out,  }\item[{\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{U}} $>$ \&}]{m }\end{DoxyParamCaption})}
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em E} & The type of the elements of the matrix \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em out} & The stream to print to \\
+\hline
+{\em m} & The matrix to print \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The stream 
+\end{DoxyReturn}

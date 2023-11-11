@@ -1,0 +1,44 @@
+\doxysection{src/serial/include/\+Activators.hpp File Reference}
+\hypertarget{Activators_8hpp}{}\label{Activators_8hpp}\index{src/serial/include/Activators.hpp@{src/serial/include/Activators.hpp}}
+
+
+Contains the declaration of the activation functions and their derivatives.  
+
+
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include "{}Layer.\+hpp"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structStep}{Step$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em The identity function. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structLinear}{Linear$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em The linear activation function. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structSigmoid}{Sigmoid$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em The sigmoid activation function. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structTanh}{Tanh$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em The hyperbolic tangent activation function. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structElu}{Elu$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em The \doxylink{structElu}{Elu} activation function. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structLeaky__ReLU}{Leaky\+\_\+\+Re\+LU$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em The Leaky Re\+LU activation function. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structParametric__ReLU}{Parametric\+\_\+\+Re\+LU$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em The Re\+LU activation function. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structSwish}{Swish$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em The Re\+LU activation function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{Activators_8hpp_a1c6c460e61d9aebedc1589f47e266976}\label{Activators_8hpp_a1c6c460e61d9aebedc1589f47e266976} 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ }\\\mbox{\hyperlink{structStep}{using}} {\bfseries shared} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structStep}{T}} $>$
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains the declaration of the activation functions and their derivatives. 
+
+The activation functions are implemented as structs with a templated operator() that can be used to activate a single value or a vector of values. ~\newline
+ 
