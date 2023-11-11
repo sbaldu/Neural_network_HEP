@@ -1,0 +1,76 @@
+\doxysection{Error\+Function.\+hpp}
+\hypertarget{ErrorFunction_8hpp_source}{}\label{ErrorFunction_8hpp_source}\index{src/serial/include/ErrorFunction.hpp@{src/serial/include/ErrorFunction.hpp}}
+\mbox{\hyperlink{ErrorFunction_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ ErrorFunction\_h}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ ErrorFunction\_h}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Matrix_8hpp}{DataFormats/Matrix.hpp}}"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Layer_8hpp}{Layer.hpp}}"{}}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00021\ \textcolor{keyword}{using\ }shared\ =\ std::shared\_ptr<T>;}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ W,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}}>}
+\DoxyCodeLine{00028\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structMeanSquaredError}{MeanSquaredError}}\ \{}
+\DoxyCodeLine{00037\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structMeanSquaredError_a32ce19120ae7060275c3aa2f28b0403c}{operator()}}(\textcolor{keyword}{const}\ std::vector<T>\&\ \mbox{\hyperlink{structStep}{node\_values}},\ \textcolor{keyword}{const}\ std::vector<U>\&\ \mbox{\hyperlink{structStep}{expected\_values}})\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{error}}\{\};}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{node\_values}}.size()\};}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structStep}{node\_index}}\{\};\ \mbox{\hyperlink{structStep}{node\_index}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{node\_index}})\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{error}}\ +=\ \mbox{\hyperlink{structStep}{pow}}(\mbox{\hyperlink{structStep}{node\_values}}[\mbox{\hyperlink{structStep}{node\_index}}]\ -\/\ \mbox{\hyperlink{structStep}{expected\_values}}[\mbox{\hyperlink{structStep}{node\_index}}],\ 2);}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{structStep}{error}}\ /=\ \mbox{\hyperlink{structStep}{N}};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{error}};}
+\DoxyCodeLine{00047\ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00058\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00059\ \ \ std::vector<double>\ \mbox{\hyperlink{structMeanSquaredError_ad83906b2e531838c9e890f0aeafa516c}{grad}}(\textcolor{keyword}{const}\ std::vector<U>\&\ \mbox{\hyperlink{structStep}{expected\_values}},}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{layer\_id}},}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<shared<\mbox{\hyperlink{structStep}{Layer<T>}}>>\&\ \mbox{\hyperlink{structStep}{layers}},}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<shared<\mbox{\hyperlink{structStep}{Matrix<W>}}>>\&\ \mbox{\hyperlink{structStep}{weights}})\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structStep}{layers}}[\mbox{\hyperlink{structStep}{layer\_id}}\ +\ 1]\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{layers}}[\mbox{\hyperlink{structStep}{layer\_id}}]-\/>size()\};}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{structStep}{delta}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{node\_index}}\{\};\ \mbox{\hyperlink{structStep}{node\_index}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{node\_index}})\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{delta}}[\mbox{\hyperlink{structStep}{node\_index}}]\ =\ (*\mbox{\hyperlink{structStep}{layers}}[\mbox{\hyperlink{structStep}{layer\_id}}])[\mbox{\hyperlink{structStep}{node\_index}}]\ -\/\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{structStep}{T}}\textcolor{keyword}{>}(\mbox{\hyperlink{structStep}{expected\_values}}[\mbox{\hyperlink{structStep}{node\_index}}]);}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{delta}};}
+\DoxyCodeLine{00071\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{Activator<T>}}\ \mbox{\hyperlink{structStep}{act}};}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{layers}}[\mbox{\hyperlink{structStep}{layer\_id}}]-\/>size()\};}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{structStep}{delta}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{node\_index}}\{\};\ \mbox{\hyperlink{structStep}{node\_index}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{node\_index}})\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{structStep}{previous\_delta}}\{\mbox{\hyperlink{structMeanSquaredError_ad83906b2e531838c9e890f0aeafa516c}{grad}}(\mbox{\hyperlink{structStep}{expected\_values}},\ \mbox{\hyperlink{structStep}{layer\_id}}\ +\ 1,\ \mbox{\hyperlink{structStep}{layers}},\ \mbox{\hyperlink{structStep}{weights}})\};}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{delta}}[\mbox{\hyperlink{structStep}{node\_index}}]\ =\ \mbox{\hyperlink{structStep}{act}}.\mbox{\hyperlink{structStep_aba67f3bb89a6c2fbb4712696c8a58c74}{grad}}((*\mbox{\hyperlink{structStep}{layers}}[\mbox{\hyperlink{structStep}{layer\_id}}])[\mbox{\hyperlink{structStep}{node\_index}}])\ *}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{structStep}{weights}}[\mbox{\hyperlink{structStep}{layer\_id}}]-\/>transpose()\ *\ \mbox{\hyperlink{structStep}{previous\_delta}})[\mbox{\hyperlink{structStep}{node\_index}}];}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{delta}};}
+\DoxyCodeLine{00083\ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \}}
+\DoxyCodeLine{00085\ \};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{comment}{//\ TODO:\ Implement\ other\ error\ functions}}
+\DoxyCodeLine{00088\ \textcolor{comment}{/*\ struct\ MeanAbsoluteError\ \{\ */}}
+\DoxyCodeLine{00089\ \textcolor{comment}{/*\ \ \ double\ operator()()\ \{\}\ */}}
+\DoxyCodeLine{00090\ \textcolor{comment}{/*\ \ \ double\ grad()\ \{\}\ */}}
+\DoxyCodeLine{00091\ \textcolor{comment}{/*\ \};\ */}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{comment}{/*\ struct\ LogLoss\ \{\ */}}
+\DoxyCodeLine{00094\ \textcolor{comment}{/*\ \ \ double\ operator()()\ \{\}\ */}}
+\DoxyCodeLine{00095\ \textcolor{comment}{/*\ \ \ double\ grad()\ \{\}\ */}}
+\DoxyCodeLine{00096\ \textcolor{comment}{/*\ \};\ */}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

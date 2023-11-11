@@ -1,0 +1,174 @@
+\doxysection{Parametric\+\_\+\+Re\+LU\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structParametric__ReLU}{}\label{structParametric__ReLU}\index{Parametric\_ReLU$<$ T $>$@{Parametric\_ReLU$<$ T $>$}}
+
+
+The Re\+LU activation function.  
+
+
+
+
+{\ttfamily \#include $<$Activators.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structStep}{double}} \mbox{\hyperlink{structParametric__ReLU_a5ca0c100f14ca98944086d6631e14adc}{operator()}} (\mbox{\hyperlink{structStep}{double}} \mbox{\hyperlink{structStep}{x}})
+\begin{DoxyCompactList}\small\item\em The Re\+LU activation function. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{structParametric__ReLU_a077bf1a24ca7dc60a1127c65a4df3509}{operator()}} (\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{vec}})
+\begin{DoxyCompactList}\small\item\em The Re\+LU activation function. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ }\\std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{structParametric__ReLU_a5d9ad6be7a8ed40006419ba1e6196e78}{operator()}} (\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&\mbox{\hyperlink{structStep}{vec}})
+\begin{DoxyCompactList}\small\item\em The Re\+LU activation function. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{double}} \mbox{\hyperlink{structParametric__ReLU_a8f3b8948ebf6cb502b1dfccf65f15214}{grad}} (\mbox{\hyperlink{structStep}{double}} \mbox{\hyperlink{structStep}{activated\+\_\+value}})
+\begin{DoxyCompactList}\small\item\em The derivative of the Re\+LU activation function. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{structStep}{double}} $>$ \mbox{\hyperlink{structParametric__ReLU_a1834371b644aa8baa785efbec79b3a1a}{grad}} (shared$<$ \mbox{\hyperlink{classLayer}{Layer}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ $>$ \mbox{\hyperlink{structStep}{layer}})
+\begin{DoxyCompactList}\small\item\em The derivative of the Re\+LU activation function. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{structStep}{double}} $>$ \mbox{\hyperlink{structParametric__ReLU_a35e27bd59f64e042a00af8d5d12c55ca}{grad}} (std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{structStep}{node\+\_\+values}})
+\begin{DoxyCompactList}\small\item\em The derivative of the Re\+LU activation function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structParametric__ReLU_a905863b7bc6de17dea07630c49e82b27}\label{structParametric__ReLU_a905863b7bc6de17dea07630c49e82b27} 
+\mbox{\hyperlink{structStep}{double}} {\bfseries A}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}}$>$\newline
+struct Parametric\+\_\+\+Re\+LU$<$ T $>$}
+The Re\+LU activation function. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type of the input.\\
+\hline
+\end{DoxyTemplParams}
+The Re\+LU activation function is defined as\+:  \[
+ f(x) = \max(0, x)
+ \] and its derivative is\+:  \[
+ f\textnormal{\textquotesingle}(x) = \begin{cases}
+ 1 & \text{if } x \geq 0 \\
+ 0 & \text{if } x < 0
+ \end{cases}
+ \] 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structParametric__ReLU_a8f3b8948ebf6cb502b1dfccf65f15214}\label{structParametric__ReLU_a8f3b8948ebf6cb502b1dfccf65f15214} 
+\index{Parametric\_ReLU$<$ T $>$@{Parametric\_ReLU$<$ T $>$}!grad@{grad}}
+\index{grad@{grad}!Parametric\_ReLU$<$ T $>$@{Parametric\_ReLU$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{grad()}{grad()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{double}} \mbox{\hyperlink{structParametric__ReLU}{Parametric\+\_\+\+Re\+LU}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::grad (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{double}}}]{activated\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The derivative of the Re\+LU activation function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em activated\+\_\+value} & The value of the activated node. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The derivative of the Re\+LU activation function. 
+\end{DoxyReturn}
+\Hypertarget{structParametric__ReLU_a1834371b644aa8baa785efbec79b3a1a}\label{structParametric__ReLU_a1834371b644aa8baa785efbec79b3a1a} 
+\index{Parametric\_ReLU$<$ T $>$@{Parametric\_ReLU$<$ T $>$}!grad@{grad}}
+\index{grad@{grad}!Parametric\_ReLU$<$ T $>$@{Parametric\_ReLU$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{grad()}{grad()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+std\+::vector$<$ \mbox{\hyperlink{structStep}{double}} $>$ \mbox{\hyperlink{structParametric__ReLU}{Parametric\+\_\+\+Re\+LU}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::grad (\begin{DoxyParamCaption}\item[{shared$<$ \mbox{\hyperlink{classLayer}{Layer}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ $>$}]{layer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The derivative of the Re\+LU activation function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em layer} & The layer of nodes. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The derivative of the Re\+LU activation function. 
+\end{DoxyReturn}
+\Hypertarget{structParametric__ReLU_a35e27bd59f64e042a00af8d5d12c55ca}\label{structParametric__ReLU_a35e27bd59f64e042a00af8d5d12c55ca} 
+\index{Parametric\_ReLU$<$ T $>$@{Parametric\_ReLU$<$ T $>$}!grad@{grad}}
+\index{grad@{grad}!Parametric\_ReLU$<$ T $>$@{Parametric\_ReLU$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{grad()}{grad()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+std\+::vector$<$ \mbox{\hyperlink{structStep}{double}} $>$ \mbox{\hyperlink{structParametric__ReLU}{Parametric\+\_\+\+Re\+LU}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::grad (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$}]{node\+\_\+values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The derivative of the Re\+LU activation function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em node\+\_\+values} & The values of the nodes. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The derivative of the Re\+LU activation function. 
+\end{DoxyReturn}
+\Hypertarget{structParametric__ReLU_a5d9ad6be7a8ed40006419ba1e6196e78}\label{structParametric__ReLU_a5d9ad6be7a8ed40006419ba1e6196e78} 
+\index{Parametric\_ReLU$<$ T $>$@{Parametric\_ReLU$<$ T $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!Parametric\_ReLU$<$ T $>$@{Parametric\_ReLU$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ \\
+std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{structParametric__ReLU}{Parametric\+\_\+\+Re\+LU}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{structStep}{\+::operator}}() (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&}]{vec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The Re\+LU activation function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vec} & The input vector. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The input vector. 
+\end{DoxyReturn}
+\Hypertarget{structParametric__ReLU_a077bf1a24ca7dc60a1127c65a4df3509}\label{structParametric__ReLU_a077bf1a24ca7dc60a1127c65a4df3509} 
+\index{Parametric\_ReLU$<$ T $>$@{Parametric\_ReLU$<$ T $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!Parametric\_ReLU$<$ T $>$@{Parametric\_ReLU$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{structParametric__ReLU}{Parametric\+\_\+\+Re\+LU}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{structStep}{\+::operator}}() (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&}]{vec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The Re\+LU activation function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vec} & The input vector. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The input vector. 
+\end{DoxyReturn}
+\Hypertarget{structParametric__ReLU_a5ca0c100f14ca98944086d6631e14adc}\label{structParametric__ReLU_a5ca0c100f14ca98944086d6631e14adc} 
+\index{Parametric\_ReLU$<$ T $>$@{Parametric\_ReLU$<$ T $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!Parametric\_ReLU$<$ T $>$@{Parametric\_ReLU$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{double}} \mbox{\hyperlink{structParametric__ReLU}{Parametric\+\_\+\+Re\+LU}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{structStep}{\+::operator}}() (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{double}}}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The Re\+LU activation function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The input value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The input value. 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/serial/include/\mbox{\hyperlink{Activators_8hpp}{Activators.\+hpp}}\end{DoxyCompactItemize}

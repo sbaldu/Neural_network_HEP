@@ -1,0 +1,73 @@
+\doxysection{Vector\+Operations.\+hpp}
+\hypertarget{VectorOperations_8hpp_source}{}\label{VectorOperations_8hpp_source}\index{src/serial/DataFormats/VectorOperations.hpp@{src/serial/DataFormats/VectorOperations.hpp}}
+\mbox{\hyperlink{VectorOperations_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#ifndef\ vec\_operations\_h}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#define\ vec\_operations\_h}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <concepts>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <ostream>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Matrix_8hpp}{Matrix.hpp}}"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00022\ std::vector<T>\ \mbox{\hyperlink{VectorOperations_8hpp_adf95996cfb162766870a90f19a0b56f5}{operator+}}(\textcolor{keyword}{const}\ std::vector<T>\&\ v1,\ \textcolor{keyword}{const}\ std::vector<T>\&\ v2)\ \{}
+\DoxyCodeLine{00023\ \ \ std::vector<T>\ result(v1.size());}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\{\};\ i\ <\ v1.size();\ ++i)\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ result[i]\ =\ v1[i]\ +\ v2[i];}
+\DoxyCodeLine{00027\ \ \ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00030\ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00038\ std::vector<T>\ \mbox{\hyperlink{VectorOperations_8hpp_ad0e96b85f48e368800e3c08f7768539e}{operator-\/}}(\textcolor{keyword}{const}\ std::vector<T>\&\ v1,\ \textcolor{keyword}{const}\ std::vector<T>\&\ v2)\ \{}
+\DoxyCodeLine{00039\ \ \ std::vector<T>\ result(v1.size());}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\{\};\ i\ <\ v1.size();\ ++i)\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ result[i]\ =\ v1[i]\ -\/\ v2[i];}
+\DoxyCodeLine{00043\ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00046\ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ std::convertible\_to<T>\ E>}
+\DoxyCodeLine{00055\ std::vector<T>\ \mbox{\hyperlink{VectorOperations_8hpp_a3679f68d4b858c669441fe9e573b286d}{operator*}}(E\ constant,\ std::vector<T>\ vec)\ \{}
+\DoxyCodeLine{00056\ \ \ std::vector<T>\ result\{vec\};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ std::transform(result.cbegin(),\ result.cend(),\ result.begin(),\ [constant](\textcolor{keyword}{auto}\ x)\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ x\ *=\ constant;}
+\DoxyCodeLine{00060\ \ \ \ \ return\ x;}
+\DoxyCodeLine{00061\ \ \ \});}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00064\ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00072\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{VectorOperations_8hpp_a5c97c6230265533a5d140d655c5b8540}{operator-\/=}}(std::vector<T>\&\ vec,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classMatrix}{Matrix<T>}}\&\ m)\ \{}
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\{\};\ i\ <\ vec.size();\ ++i)\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ vec[i]\ -\/=\ m.\mbox{\hyperlink{classMatrix_adfa161d9da2df98adb0a2d14475cc29c}{data}}()[i];}
+\DoxyCodeLine{00075\ \ \ \}}
+\DoxyCodeLine{00076\ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00084\ std::ostream\&\ \mbox{\hyperlink{VectorOperations_8hpp_a2d677a923f4dc4c31e302b0c3bb692f0}{operator<<}}(std::ostream\&\ out,\ \textcolor{keyword}{const}\ std::vector<T>\&\ vec)\ \{}
+\DoxyCodeLine{00085\ \ \ out\ <<\ *vec.begin();}
+\DoxyCodeLine{00086\ \ \ std::for\_each(vec.begin()\ +\ 1,\ vec.end(),\ [\&out](T\ x)\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ out\ <<\ \textcolor{stringliteral}{','};}
+\DoxyCodeLine{00088\ \ \ \ \ out\ <<\ x;}
+\DoxyCodeLine{00089\ \ \ \});}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00092\ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

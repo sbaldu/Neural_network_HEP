@@ -1,0 +1,252 @@
+\doxysection{Layer\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classLayer}{}\label{classLayer}\index{Layer$<$ T $>$@{Layer$<$ T $>$}}
+
+
+\doxylink{classLayer}{Layer} of a neural network.  
+
+
+
+
+{\ttfamily \#include $<$Layer.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classLayer_a7db1fc76bec3431efbb0984192e2ae23}\label{classLayer_a7db1fc76bec3431efbb0984192e2ae23} 
+{\bfseries Layer} ()=\mbox{\hyperlink{structStep}{default}}
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classLayer_aaaa2139819afe0c00314d74ec9ff3a6b}{Layer}} (\mbox{\hyperlink{structStep}{int}} n\+\_\+nodes)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classLayer_ae69dad8150fdc28bd93e298731054b2b}{Layer}} (std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{classLayer_a3a59731181e7be3f96be1143efb1de34}{nodes}})
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classLayer_a96098dda4ea2f92b07ceaa60efb5c1cb}{Layer}} (std\+::stringstream \&\mbox{\hyperlink{structStep}{stream}})
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classLayer_a82ded53d18c6d73495b85af1c9b6aeed}{load}} (std\+::stringstream \&\mbox{\hyperlink{structStep}{stream}})
+\begin{DoxyCompactList}\small\item\em Load the node values from a stream. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \& \mbox{\hyperlink{classLayer_a3a59731181e7be3f96be1143efb1de34}{nodes}} () \mbox{\hyperlink{structStep}{const}}
+\begin{DoxyCompactList}\small\item\em Get the node values. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{classLayer_ada6eba3ff461cfc84f8ccd9624990c27}{size}} () \mbox{\hyperlink{structStep}{const}}
+\begin{DoxyCompactList}\small\item\em Get the number of nodes in the layer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classLayer_aaeee16187505eb983ec4fa01f49e8ada}{set\+\_\+node\+\_\+data}} (\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{i}}, \mbox{\hyperlink{structStep}{T}} \mbox{\hyperlink{structStep}{value}})
+\begin{DoxyCompactList}\small\item\em Set the values of the nodes. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classLayer_afce4ba63f49f53108e12b817adfb21bb}{set\+\_\+node\+\_\+data}} (std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{structStep}{values}})
+\begin{DoxyCompactList}\small\item\em Set the values of the nodes. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{T}} \& \mbox{\hyperlink{classLayer_ac02289096c7105a36328358d3f666c2e}{operator\mbox{[}$\,$\mbox{]}}} (\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{i}})
+\begin{DoxyCompactList}\small\item\em Get the value of a node. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{structStep}{T}} \& \mbox{\hyperlink{classLayer_a2250a10f96c89cd416ed1e01b27a67ba}{operator\mbox{[}$\,$\mbox{]}}} (\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{structStep}{i}}) \mbox{\hyperlink{structStep}{const}}
+\begin{DoxyCompactList}\small\item\em Get the value of a node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ }\\std\+::ostream \& \mbox{\hyperlink{classLayer_aec94ad6a60e05de9b5c066f7010cf0b8}{operator$<$$<$}} (std\+::ostream \&\mbox{\hyperlink{structStep}{out}}, \mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classLayer}{Layer}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&\mbox{\hyperlink{structStep}{layer}})
+\begin{DoxyCompactList}\small\item\em Print the layer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}}$>$\newline
+class Layer$<$ T $>$}
+\doxylink{classLayer}{Layer} of a neural network. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type of the node values \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classLayer_aaaa2139819afe0c00314d74ec9ff3a6b}\label{classLayer_aaaa2139819afe0c00314d74ec9ff3a6b} 
+\index{Layer$<$ T $>$@{Layer$<$ T $>$}!Layer@{Layer}}
+\index{Layer@{Layer}!Layer$<$ T $>$@{Layer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Layer()}{Layer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{classLayer}{Layer}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{classLayer}{\+::\+Layer}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{int}}}]{n\+\_\+nodes }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+\_\+nodes} & The number of nodes in the layer \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classLayer_ae69dad8150fdc28bd93e298731054b2b}\label{classLayer_ae69dad8150fdc28bd93e298731054b2b} 
+\index{Layer$<$ T $>$@{Layer$<$ T $>$}!Layer@{Layer}}
+\index{Layer@{Layer}!Layer$<$ T $>$@{Layer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Layer()}{Layer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{classLayer}{Layer}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{classLayer}{\+::\+Layer}} (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$}]{nodes }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nodes} & The values of the nodes in the layer \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classLayer_a96098dda4ea2f92b07ceaa60efb5c1cb}\label{classLayer_a96098dda4ea2f92b07ceaa60efb5c1cb} 
+\index{Layer$<$ T $>$@{Layer$<$ T $>$}!Layer@{Layer}}
+\index{Layer@{Layer}!Layer$<$ T $>$@{Layer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Layer()}{Layer()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{classLayer}{Layer}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{classLayer}{\+::\+Layer}} (\begin{DoxyParamCaption}\item[{std\+::stringstream \&}]{stream }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em stream} & The stream to read the node values from \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classLayer_a82ded53d18c6d73495b85af1c9b6aeed}\label{classLayer_a82ded53d18c6d73495b85af1c9b6aeed} 
+\index{Layer$<$ T $>$@{Layer$<$ T $>$}!load@{load}}
+\index{load@{load}!Layer$<$ T $>$@{Layer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classLayer}{Layer}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::load (\begin{DoxyParamCaption}\item[{std\+::stringstream \&}]{stream }\end{DoxyParamCaption})}
+
+
+
+Load the node values from a stream. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em stream} & The stream to read the node values from\\
+\hline
+\end{DoxyParams}
+The node values are expected to be provided in csv format \Hypertarget{classLayer_a3a59731181e7be3f96be1143efb1de34}\label{classLayer_a3a59731181e7be3f96be1143efb1de34} 
+\index{Layer$<$ T $>$@{Layer$<$ T $>$}!nodes@{nodes}}
+\index{nodes@{nodes}!Layer$<$ T $>$@{Layer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{nodes()}{nodes()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \& \mbox{\hyperlink{classLayer}{Layer}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the node values. 
+
+\begin{DoxyReturn}{Returns}
+The node values 
+\end{DoxyReturn}
+\Hypertarget{classLayer_ac02289096c7105a36328358d3f666c2e}\label{classLayer_ac02289096c7105a36328358d3f666c2e} 
+\index{Layer$<$ T $>$@{Layer$<$ T $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!Layer$<$ T $>$@{Layer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{T}} \& \mbox{\hyperlink{classLayer}{Layer}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{structStep}{\+::operator}}\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{int}}}]{i }\end{DoxyParamCaption})}
+
+
+
+Get the value of a node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index of the node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the node 
+\end{DoxyReturn}
+\Hypertarget{classLayer_a2250a10f96c89cd416ed1e01b27a67ba}\label{classLayer_a2250a10f96c89cd416ed1e01b27a67ba} 
+\index{Layer$<$ T $>$@{Layer$<$ T $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!Layer$<$ T $>$@{Layer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{structStep}{T}} \& \mbox{\hyperlink{classLayer}{Layer}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\mbox{\hyperlink{structStep}{\+::operator}}\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{int}}}]{i }\end{DoxyParamCaption}) const}
+
+
+
+Get the value of a node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index of the node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the node 
+\end{DoxyReturn}
+\Hypertarget{classLayer_aaeee16187505eb983ec4fa01f49e8ada}\label{classLayer_aaeee16187505eb983ec4fa01f49e8ada} 
+\index{Layer$<$ T $>$@{Layer$<$ T $>$}!set\_node\_data@{set\_node\_data}}
+\index{set\_node\_data@{set\_node\_data}!Layer$<$ T $>$@{Layer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{set\_node\_data()}{set\_node\_data()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classLayer}{Layer}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::set\+\_\+node\+\_\+data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{int}}}]{i,  }\item[{\mbox{\hyperlink{structStep}{T}}}]{value }\end{DoxyParamCaption})}
+
+
+
+Set the values of the nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em values} & The values of the nodes \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classLayer_afce4ba63f49f53108e12b817adfb21bb}\label{classLayer_afce4ba63f49f53108e12b817adfb21bb} 
+\index{Layer$<$ T $>$@{Layer$<$ T $>$}!set\_node\_data@{set\_node\_data}}
+\index{set\_node\_data@{set\_node\_data}!Layer$<$ T $>$@{Layer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{set\_node\_data()}{set\_node\_data()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{classLayer}{Layer}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::set\+\_\+node\+\_\+data (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$}]{values }\end{DoxyParamCaption})}
+
+
+
+Set the values of the nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em values} & The values of the nodes \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classLayer_ada6eba3ff461cfc84f8ccd9624990c27}\label{classLayer_ada6eba3ff461cfc84f8ccd9624990c27} 
+\index{Layer$<$ T $>$@{Layer$<$ T $>$}!size@{size}}
+\index{size@{size}!Layer$<$ T $>$@{Layer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{int}} \mbox{\hyperlink{classLayer}{Layer}}$<$ \mbox{\hyperlink{structStep}{T}} $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the number of nodes in the layer. 
+
+\begin{DoxyReturn}{Returns}
+The number of nodes in the layer 
+\end{DoxyReturn}
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{classLayer_aec94ad6a60e05de9b5c066f7010cf0b8}\label{classLayer_aec94ad6a60e05de9b5c066f7010cf0b8} 
+\index{Layer$<$ T $>$@{Layer$<$ T $>$}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Layer$<$ T $>$@{Layer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}} $>$ \\
+std\+::ostream \& \mbox{\hyperlink{structStep}{operator}}$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out,  }\item[{\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classLayer}{Layer}}$<$ \mbox{\hyperlink{structStep}{E}} $>$ \&}]{layer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Print the layer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em out} & The stream to print to \\
+\hline
+{\em layer} & The layer to print \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The stream 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/serial/include/\mbox{\hyperlink{Layer_8hpp}{Layer.\+hpp}}\end{DoxyCompactItemize}

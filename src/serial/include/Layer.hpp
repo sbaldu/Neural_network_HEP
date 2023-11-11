@@ -1,3 +1,8 @@
+/// @file Layer.hpp
+/// @brief Layer of a neural network
+///
+/// @details A layer of a neural network is a collection of nodes. The layer
+/// contains the values of the nodes and the weights and biases of the nodes.
 
 #ifndef Layer_h
 #define Layer_h
@@ -12,6 +17,8 @@
 
 #include "DataFormats/Matrix.hpp"
 
+/// @brief Layer of a neural network
+/// @tparam T The type of the node values
 template <typename T>
 class Layer {
 private:
@@ -19,25 +26,50 @@ private:
   int n_nodes;
 
 public:
+  /// @brief Default constructor
   Layer() = default;
+  /// @brief Constructor
+  /// @param n_nodes The number of nodes in the layer
   explicit Layer(int n_nodes);
+  /// @brief Constructor
+  /// @param nodes The values of the nodes in the layer
   explicit Layer(std::vector<T> nodes);
+  /// @brief Constructor
+  /// @param stream The stream to read the node values from
   explicit Layer(std::stringstream& stream);
 
+  /// @brief Load the node values from a stream
+  /// @param stream The stream to read the node values from
+  /// @details The node values are expected to be provided in csv format
   void load(std::stringstream& stream);
 
-  // Getters
+  /// @brief Get the node values
+  /// @return The node values
   const std::vector<T>& nodes() const;
+  /// @brief Get the number of nodes in the layer
+  /// @return The number of nodes in the layer
   int size() const;
 
-  // Setters for the node data
+  /// @brief Set the values of the nodes
+  /// @param values The values of the nodes
   void set_node_data(int i, T value);
+  /// @brief Set the values of the nodes
+  /// @param values The values of the nodes
   void set_node_data(std::vector<T> values);
 
+  /// @brief Get the value of a node
+  /// @param i The index of the node
+  /// @return The value of the node
   T& operator[](int i);
+  /// @brief Get the value of a node
+  /// @param i The index of the node
+  /// @return The value of the node
   const T& operator[](int i) const;
 
-  // Overload ostream operator for output layer
+  /// @brief Print the layer
+  /// @param out The stream to print to
+  /// @param layer The layer to print
+  /// @return The stream
   template <typename E>
   friend std::ostream& operator<<(std::ostream& out, const Layer<E>& layer);
 };

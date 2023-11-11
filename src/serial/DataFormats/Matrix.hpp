@@ -1,3 +1,9 @@
+/// @file Matrix.hpp
+/// @brief This file contains the declaration of the Matrix class.
+/// @author Simone Balducci
+///
+///
+/// @details The Matrix class is a class that represents a matrix of any size.
 
 #ifndef Matrix_h
 #define Matrix_h
@@ -10,6 +16,8 @@
 #include <iterator>
 #include <vector>
 
+/// @brief Matrix class
+/// @tparam T The type of the elements of the matrix
 template <typename T>
 class Matrix {
 private:
@@ -19,69 +27,164 @@ private:
   std::vector<T> m_data;
 
 public:
+  /// @brief Default constructor
   Matrix() = default;
+  /// @brief Constructor
+  /// @param n_rows The number of rows of the matrix
+  /// @param n_cols The number of columns of the matrix
   Matrix(int n_rows, int n_cols);
+  /// @brief Constructor
+  /// @tparam E The type of the elements of the vector
+  /// @param n_rows The number of rows of the matrix
+  /// @param n_cols The number of columns of the matrix
   template <typename E>
   Matrix(int n_rows, int n_cols, std::vector<E> vec);
-  // Create a matrix from a vector
+  /// @brief Constructor
+  /// @tparam E The type of the elements of the vector
+  /// @param vec The vector to initialize the matrix with
+  ///
+  /// @details The matrix is initialized with the vector as a column vector
   template <typename E>
   explicit Matrix(std::vector<E> vec);
 
-  // Getters
+  /// @brief Get the number of rows of the matrix
+  /// @return The number of rows of the matrix
   inline int nrows() const;
+  /// @brief Get the number of columns of the matrix
+  /// @return The number of columns of the matrix
   inline int ncols() const;
+  /// @brief Get the size of the matrix
+  /// @return The size of the matrix
   inline int size() const;
+  /// @brief Get the data of the matrix
+  /// @return The data of the matrix
   inline const std::vector<T>& data() const;
 
-  // Setters for dimensions
+  /// @brief Set the number of rows of the matrix
+  /// @param n_rows The number of rows of the matrix
   void set_nrows(int n_rows);
+  /// @brief Set the number of columns of the matrix
+  /// @param n_cols The number of columns of the matrix
   void set_ncols(int n_cols);
+  /// @brief Set the number of rows and columns of the matrix
+  /// @param n_rows The number of rows of the matrix
   void set_dim(int n_rows, int n_cols);
-
-  // Setters for data
+  /// @brief Set the data of the matrix
+  /// @param i The row index of the element to set
+  /// @param j The column index of the element to set
+  /// @param data The data to set the element to
   inline void set_data(int i, int j, T data);
+  /// @brief Set the data of the matrix
+  /// @param index The index of the element to set
+  /// @param data The data to set the element to
   inline void set_data(int index, T data);
+  /// @brief Set the data of the matrix
+  /// @param data_vec The data to set the matrix to
   inline void set_data(std::vector<T> data_vec);
 
+  /// @brief Get an element of the matrix
+  /// @param i The row index of the element to get
+  /// @param j The column index of the element to get
+  /// @return The element of the matrix
   inline const T get(int i, int j) const;
 
+  ///
   inline Matrix transpose();
 
+  /// @brief Get an element of the matrix
+  /// @param index The index of the element to get
+  /// @return The element of the matrix
   T& operator[](int index);
+  /// @brief Get an element of the matrix
+  /// @param index The index of the element to get
+  /// @return The element of the matrix
   const T& operator[](int index) const;
 
+  /// @brief Add two matrices
+  /// @tparam E The type of the elements of the matrix
+  /// @param m1 The first matrix
+  /// @param m2 The second matrix
+  /// @return The sum of the two matrices
   template <typename E>
   friend Matrix<E> operator+(const Matrix<E>& m1, const Matrix<E>& m2);
-
+  /// @brief Multiply a matrix by a constant
+  /// @tparam E The type of the elements of the matrix
+  /// @param constant The constant to multiply the matrix by
+  /// @param m The matrix to multiply
+  /// @return The product of the matrix and the constant
   template <typename U, std::convertible_to<U> E>
   friend Matrix<T> operator*(E constant, const Matrix<T>& m);
-
+  /// @brief Multiply two matrices
+  /// @tparam E The type of the elements of the matrix
+  /// @param m1 The first matrix
+  /// @param m2 The second matrix
+  /// @return The product of the two matrices
   template <typename E>
   friend Matrix<E> operator*(const Matrix<E>& m1, const Matrix<E>& m2);
-
+  /// @brief Multiply two matrices
+  /// @tparam E The type of the elements of the matrix
+  /// @param m1 The first matrix
+  /// @param m2 The second matrix
+  /// @return The product of the two matrices
   template <typename U, std::convertible_to<U> E>
   friend Matrix<U> operator*(const Matrix<U>& m1, const Matrix<E>& m2);
-
+  /// @brief Multiply a matrix by a vector
+  /// @tparam E The type of the elements of the matrix
+  /// @param matrix The matrix
+  /// @param vec The vector
+  /// @return The product of the matrix and the vector
   template <typename E>
   friend std::vector<E> operator*(const Matrix<E>& matrix, const std::vector<E>& vec);
-
+  /// @brief Multiply a matrix by a vector
+  /// @tparam E The type of the elements of the matrix
+  /// @param matrix The matrix
+  /// @param vec The vector
+  /// @return The product of the matrix and the vector
   template <typename U, std::convertible_to<U> E>
   friend std::vector<U> operator*(const Matrix<U>& matrix, const std::vector<E>& vec);
-
+  /// @brief In-place addition of two matrices
+  /// @tparam E The type of the elements of the matrix
+  /// @param other The matrix to add to the current matrix
+  /// @return The current matrix
   Matrix<T>& operator+=(const Matrix<T>& other);
+  /// @brief In-place addition of two matrices
+  /// @tparam E The type of the elements of the matrix
+  /// @param other The matrix to add to the current matrix
+  /// @return The current matrix
+  ///
+  /// @details This function is used to add two matrices of different types
   template <typename E>
   Matrix<T>& operator+=(const Matrix<E>& other);
-
+  /// @brief In-place subtraction of two matrices
+  /// @tparam E The type of the elements of the matrix
+  /// @param other The matrix to subtract from the current matrix
+  /// @return The current matrix
   Matrix<T>& operator-=(const Matrix<T>& other);
+  /// @brief In-place subtraction of two matrices
+  /// @tparam E The type of the elements of the matrix
+  /// @param other The matrix to subtract from the current matrix
+  /// @return The current matrix
+  ///
+  /// @details This function is used to subtract two matrices of different types
   template <typename E>
   Matrix<T>& operator-=(const Matrix<E>& other);
-
+  /// @brief In-place multiplication of a matrix by a constant
+  /// @tparam E The type of the elements of the matrix
+  /// @param constant The constant to multiply the matrix by
+  /// @return The current matrix
   template <typename E>
   Matrix<T>& operator*=(E constant);
-
+  /// @brief In-place division of a matrix by a constant
+  /// @tparam E The type of the elements of the matrix
+  /// @param constant The constant to divide the matrix by
+  /// @return The current matrix
   template <typename E>
   Matrix<T>& operator/=(E constant);
-
+  /// @brief Print the matrix
+  /// @tparam E The type of the elements of the matrix
+  /// @param out The stream to print to
+  /// @param m The matrix to print
+  /// @return The stream
   template <typename U>
   friend std::ostream& operator<<(std::ostream& out, const Matrix<U>& m);
 };

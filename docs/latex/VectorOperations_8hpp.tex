@@ -1,0 +1,165 @@
+\doxysection{src/serial/\+Data\+Formats/\+Vector\+Operations.hpp File Reference}
+\hypertarget{VectorOperations_8hpp}{}\label{VectorOperations_8hpp}\index{src/serial/DataFormats/VectorOperations.hpp@{src/serial/DataFormats/VectorOperations.hpp}}
+
+
+File containing the definition of the vector operations.  
+
+
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$concepts$>$}\newline
+{\ttfamily \#include $<$ostream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include "{}Matrix.\+hpp"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ }\\std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{VectorOperations_8hpp_adf95996cfb162766870a90f19a0b56f5}{operator+}} (\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{v1}}, \mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{v2}})
+\begin{DoxyCompactList}\small\item\em Add two vectors. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ }\\std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{VectorOperations_8hpp_ad0e96b85f48e368800e3c08f7768539e}{operator-\/}} (\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{v1}}, \mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{v2}})
+\begin{DoxyCompactList}\small\item\em Subtract two vectors. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , std\+::convertible\+\_\+to$<$ \mbox{\hyperlink{structStep}{T}} $>$ E$>$ }\\std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{VectorOperations_8hpp_a3679f68d4b858c669441fe9e573b286d}{operator\texorpdfstring{$\ast$}{*}}} (\mbox{\hyperlink{structStep}{E}} \mbox{\hyperlink{structStep}{constant}}, std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{structStep}{vec}})
+\begin{DoxyCompactList}\small\item\em Multiply a vector by a constant. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ }\\\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{VectorOperations_8hpp_a5c97c6230265533a5d140d655c5b8540}{operator-\/=}} (std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{vec}}, \mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{m}})
+\begin{DoxyCompactList}\small\item\em In-\/place subtraction of a vector and a matrix. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ }\\std\+::ostream \& \mbox{\hyperlink{VectorOperations_8hpp_a2d677a923f4dc4c31e302b0c3bb692f0}{operator$<$$<$}} (std\+::ostream \&\mbox{\hyperlink{structStep}{out}}, \mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&\mbox{\hyperlink{structStep}{vec}})
+\begin{DoxyCompactList}\small\item\em Print a vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+File containing the definition of the vector operations. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{VectorOperations_8hpp_a3679f68d4b858c669441fe9e573b286d}\label{VectorOperations_8hpp_a3679f68d4b858c669441fe9e573b286d} 
+\index{VectorOperations.hpp@{VectorOperations.hpp}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!VectorOperations.hpp@{VectorOperations.hpp}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , std\+::convertible\+\_\+to$<$ \mbox{\hyperlink{structStep}{T}} $>$ E$>$ \\
+std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{structStep}{operator}}\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{E}}}]{constant,  }\item[{std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$}]{vec }\end{DoxyParamCaption})}
+
+
+
+Multiply a vector by a constant. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Type of the vector \\
+\hline
+{\em E} & Type of the constant \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em constant} & Constant to multiply the vector by \\
+\hline
+{\em vec} & Vector to multiply \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The vector multiplied by the constant 
+\end{DoxyReturn}
+\Hypertarget{VectorOperations_8hpp_adf95996cfb162766870a90f19a0b56f5}\label{VectorOperations_8hpp_adf95996cfb162766870a90f19a0b56f5} 
+\index{VectorOperations.hpp@{VectorOperations.hpp}!operator+@{operator+}}
+\index{operator+@{operator+}!VectorOperations.hpp@{VectorOperations.hpp}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{structStep}{operator}}+ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&}]{v1,  }\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&}]{v2 }\end{DoxyParamCaption})}
+
+
+
+Add two vectors. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Type of the vector \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em v1} & First vector \\
+\hline
+{\em v2} & Second vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The sum of the two vectors 
+\end{DoxyReturn}
+\Hypertarget{VectorOperations_8hpp_ad0e96b85f48e368800e3c08f7768539e}\label{VectorOperations_8hpp_ad0e96b85f48e368800e3c08f7768539e} 
+\index{VectorOperations.hpp@{VectorOperations.hpp}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!VectorOperations.hpp@{VectorOperations.hpp}}
+\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \mbox{\hyperlink{structStep}{operator}}-\/ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&}]{v1,  }\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&}]{v2 }\end{DoxyParamCaption})}
+
+
+
+Subtract two vectors. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Type of the vector \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em v1} & First vector \\
+\hline
+{\em v2} & Second vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The difference of the two vectors 
+\end{DoxyReturn}
+\Hypertarget{VectorOperations_8hpp_a5c97c6230265533a5d140d655c5b8540}\label{VectorOperations_8hpp_a5c97c6230265533a5d140d655c5b8540} 
+\index{VectorOperations.hpp@{VectorOperations.hpp}!operator-\/=@{operator-\/=}}
+\index{operator-\/=@{operator-\/=}!VectorOperations.hpp@{VectorOperations.hpp}}
+\doxysubsubsection{\texorpdfstring{operator-\/=()}{operator-=()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{structStep}{operator}}-\/= (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&}]{vec,  }\item[{\mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&}]{m }\end{DoxyParamCaption})}
+
+
+
+In-\/place subtraction of a vector and a matrix. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Type of the vector and matrix \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em vec} & Vector to subtract from \\
+\hline
+{\em m} & \doxylink{classMatrix}{Matrix} to subtract \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The vector subtracted by the matrix 
+\end{DoxyReturn}
+\Hypertarget{VectorOperations_8hpp_a2d677a923f4dc4c31e302b0c3bb692f0}\label{VectorOperations_8hpp_a2d677a923f4dc4c31e302b0c3bb692f0} 
+\index{VectorOperations.hpp@{VectorOperations.hpp}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!VectorOperations.hpp@{VectorOperations.hpp}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ \\
+std\+::ostream \& \mbox{\hyperlink{structStep}{operator}}$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out,  }\item[{\mbox{\hyperlink{structStep}{const}} std\+::vector$<$ \mbox{\hyperlink{structStep}{T}} $>$ \&}]{vec }\end{DoxyParamCaption})}
+
+
+
+Print a vector. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Type of the vector \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em out} & Output stream \\
+\hline
+{\em vec} & Vector to print \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The output stream 
+\end{DoxyReturn}

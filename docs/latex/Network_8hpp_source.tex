@@ -1,0 +1,376 @@
+\doxysection{Network.\+hpp}
+\hypertarget{Network_8hpp_source}{}\label{Network_8hpp_source}\index{src/serial/include/Network.hpp@{src/serial/include/Network.hpp}}
+\mbox{\hyperlink{Network_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ Network\_h}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ Network\_h}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Activators_8hpp}{Activators.hpp}}"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Layer_8hpp}{Layer.hpp}}"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Matrix_8hpp}{DataFormats/Matrix.hpp}}"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{VectorOperations_8hpp}{DataFormats/VectorOperations.hpp}}"{}}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00024\ \textcolor{keyword}{using\ }shared\ =\ std::shared\_ptr<T>;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ W>}
+\DoxyCodeLine{00033\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{Network_8hpp_a6ea2fd7690b473b90d6b371baa746f9f}{random\_matrix}}(shared<\mbox{\hyperlink{structStep}{Matrix<W>}}>\ \mbox{\hyperlink{structStep}{matrix}});}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00046\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classNetwork}{Network}}\ \{}
+\DoxyCodeLine{00047\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{int}\ n\_layers;}
+\DoxyCodeLine{00049\ \ \ std::vector<shared<Layer<T>>>\ m\_layers;}
+\DoxyCodeLine{00050\ \ \ std::vector<shared<Matrix<W>>>\ m\_weights;}
+\DoxyCodeLine{00051\ \ \ std::vector<shared<std::vector<W>>>\ m\_bias;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00055\ \ \ \mbox{\hyperlink{classNetwork_ad1658ca5f45046f909cab016e8a52f15}{Network}}()\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00058\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classNetwork_a1a55875cae17b31f91afb1fe90f649cb}{Network}}(\textcolor{keyword}{const}\ std::vector<T>\&\ \mbox{\hyperlink{structStep}{nodes\_per\_layer}});}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_a55b01a4b4eaff75e8e1d9b5454257cd6}{load\_input\_layer}}(std::stringstream\&\ \mbox{\hyperlink{structStep}{stream}});}
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_a55b01a4b4eaff75e8e1d9b5454257cd6}{load\_input\_layer}}(\textcolor{keyword}{const}\ std::vector<T>\&\ \mbox{\hyperlink{structStep}{vec}});}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_a2299244b923aab7219947166ca664589}{load\_from\_file}}(\textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{structStep}{path\_to\_file}});}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00075\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structStep}{shared<Matrix<W>}}>\ \mbox{\hyperlink{classNetwork_a36bbbf2e42b1d425de29e69e8e7e07e4}{weight\_matrix}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{layer\_id}})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00078\ \ \ \textcolor{keyword}{const}\ std::vector<T>\&\ \mbox{\hyperlink{classNetwork_a5e05289bde87050fcf56598b1291b6de}{output\_layer}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_ae3367f76297c84f54882749ed2c420f8}{set\_matrix\_data}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{layer\_id}},\ \mbox{\hyperlink{structStep}{Matrix<W>}}\ \mbox{\hyperlink{classNetwork_a36bbbf2e42b1d425de29e69e8e7e07e4}{weight\_matrix}});}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_ae3367f76297c84f54882749ed2c420f8}{set\_matrix\_data}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{layer\_id}},\ shared<\mbox{\hyperlink{structStep}{Matrix<W>}}>\ \mbox{\hyperlink{structStep}{weight\_matrix\_ptr}});}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_a1c3d808c5e742ec60a5e8fa16363e397}{set\_bias\_data}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{layer\_id}},\ std::vector<W>\ \mbox{\hyperlink{structStep}{bias\_vector}});}
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_a1c3d808c5e742ec60a5e8fa16363e397}{set\_bias\_data}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{layer\_id}},\ shared<std::vector<W>>\ \mbox{\hyperlink{structStep}{bias\_vector\_ptr}});}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00103\ \ \ std::vector<T>\ \mbox{\hyperlink{classNetwork_a71f73809a21777ba2bdc4499af328ce8}{forward\_propatation}}(shared<\mbox{\hyperlink{structStep}{Layer<T>}}>,\ shared<\mbox{\hyperlink{structStep}{Matrix<W>}}>,\ shared<std::vector<W>>);}
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_a71f73809a21777ba2bdc4499af328ce8}{forward\_propatation}}();}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00117\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00118\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_a18d37691006f360ddf65bd704e506406}{back\_propagation}}(\textcolor{keyword}{const}\ std::vector<U>\&\ \mbox{\hyperlink{structStep}{target}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{layer\_id}},\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{eta}});}
+\DoxyCodeLine{00123\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_a18d37691006f360ddf65bd704e506406}{back\_propagation}}(\textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{eta}},\ \textcolor{keyword}{const}\ std::vector<U>\&\ \mbox{\hyperlink{structStep}{target}});}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00130\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00131\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_a80ea11b234a4f9b7be75ac8111d57c12}{train}}(\textcolor{keyword}{const}\ std::vector<U>\&\ \mbox{\hyperlink{structStep}{target}},\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{eta}});}
+\DoxyCodeLine{00136\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_a80ea11b234a4f9b7be75ac8111d57c12}{train}}(\mbox{\hyperlink{structStep}{U}}\ \mbox{\hyperlink{structStep}{target}},\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{eta}});}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \textcolor{comment}{//\ Import\ and\ export\ functions}}
+\DoxyCodeLine{00143\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_ab36042828a8f643182ff1d4fca7c9488}{import\_network}}(\textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{structStep}{filepath}});}
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_aa734bb0383965c6742a0de6ca2cb4a4c}{export\_network}}(\textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{structStep}{filepath}});}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00153\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classNetwork_a9aa383cb5e2ad7a1bcb24da4f71471a9}{get\_loss\_value}}(\textcolor{keyword}{const}\ std::vector<U>\&\ \mbox{\hyperlink{structStep}{target}});}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00164\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{U}},}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{P}},}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Q>}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ A,}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F,\ \textcolor{keyword}{typename}\ LP,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Y>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Ac}}>}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{L}}>}
+\DoxyCodeLine{00170\ \ \ \textcolor{keyword}{friend}\ std::ostream\&\ \mbox{\hyperlink{classNetwork_ace937449a3482df69777109773e1571e}{operator<<}}(std::ostream\&\ \mbox{\hyperlink{structStep}{out}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structStep}{Network<U,\ P,\ A,\ L>}}\&\ \mbox{\hyperlink{structStep}{Net}});}
+\DoxyCodeLine{00171\ \};}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00179\ \mbox{\hyperlink{classNetwork_ad1658ca5f45046f909cab016e8a52f15}{Network<T,\ W,\ Activator,\ Loss>::Network}}(\textcolor{keyword}{const}\ std::vector<int>\&\ \mbox{\hyperlink{structStep}{nodes\_per\_layer}})}
+\DoxyCodeLine{00180\ \ \ \ \ :\ n\_layers\{\mbox{\hyperlink{structStep}{static\_cast}}<\mbox{\hyperlink{structStep}{int}}>(\mbox{\hyperlink{structStep}{nodes\_per\_layer}}.size())\},}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ m\_layers(n\_layers\ +\ 1),}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ m\_weights(n\_layers\ +\ 1),}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ m\_bias(n\_layers\ -\/\ 1)\ \{}
+\DoxyCodeLine{00184\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ n\_layers\ -\/\ 1;\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00185\ \ \ \ \ m\_layers[\mbox{\hyperlink{structStep}{i}}]\ =\ std::make\_shared<Layer<T>>(\mbox{\hyperlink{structStep}{nodes\_per\_layer}}[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00186\ \ \ \ \ m\_weights[\mbox{\hyperlink{structStep}{i}}]\ =\ std::make\_shared<Matrix<W>>(\mbox{\hyperlink{structStep}{nodes\_per\_layer}}[\mbox{\hyperlink{structStep}{i}}\ +\ 1],\ \mbox{\hyperlink{structStep}{nodes\_per\_layer}}[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00187\ \ \ \ \ m\_bias[\mbox{\hyperlink{structStep}{i}}]\ =\ std::make\_shared<std::vector<W>>(\mbox{\hyperlink{structStep}{nodes\_per\_layer}}[\mbox{\hyperlink{structStep}{i}}\ +\ 1]);}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{comment}{//\ Generate\ random\ weight\ matrices}}
+\DoxyCodeLine{00190\ \ \ \ \ \mbox{\hyperlink{Network_8hpp_a6ea2fd7690b473b90d6b371baa746f9f}{random\_matrix}}(m\_weights[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00191\ \ \ \}}
+\DoxyCodeLine{00192\ \ \ m\_layers[n\_layers\ -\/\ 1]\ =\ std::make\_shared<Layer<T>>(\mbox{\hyperlink{structStep}{nodes\_per\_layer}}.back());}
+\DoxyCodeLine{00193\ \ \ m\_layers[n\_layers]\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00194\ \ \ m\_weights[n\_layers\ -\/\ 1]\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00195\ \ \ m\_weights[n\_layers]\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00196\ \}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00204\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_a55b01a4b4eaff75e8e1d9b5454257cd6}{Network<T,\ W,\ Activator,\ Loss>::load\_input\_layer}}(std::stringstream\&\ \mbox{\hyperlink{structStep}{stream}})\ \{}
+\DoxyCodeLine{00205\ \ \ m\_layers[0]-\/>load(\mbox{\hyperlink{structStep}{stream}});}
+\DoxyCodeLine{00206\ \}}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00214\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_a55b01a4b4eaff75e8e1d9b5454257cd6}{Network<T,\ W,\ Activator,\ Loss>::load\_input\_layer}}(\textcolor{keyword}{const}\ std::vector<T>\&\ \mbox{\hyperlink{structStep}{vec}})\ \{}
+\DoxyCodeLine{00215\ \ \ m\_layers[0]-\/>set\_node\_data(\mbox{\hyperlink{structStep}{vec}});}
+\DoxyCodeLine{00216\ \}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00224\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_a2299244b923aab7219947166ca664589}{Network<T,\ W,\ Activator,\ Loss>::load\_from\_file}}(\textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{structStep}{path\_to\_file}})\ \{\}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00232\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structStep}{shared<Matrix<W>}}>\ \mbox{\hyperlink{classNetwork_a36bbbf2e42b1d425de29e69e8e7e07e4}{Network<T,\ W,\ Activator,\ Loss>::weight\_matrix}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{layer\_id}})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00233\ \ \ \textcolor{keywordflow}{return}\ m\_weights[\mbox{\hyperlink{structStep}{layer\_id}}];}
+\DoxyCodeLine{00234\ \}}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00242\ \textcolor{keyword}{const}\ std::vector<T>\&\ \mbox{\hyperlink{classNetwork_a5e05289bde87050fcf56598b1291b6de}{Network<T,\ W,\ Activator,\ Loss>::output\_layer}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00243\ \ \ \textcolor{keywordflow}{return}\ m\_layers[n\_layers\ -\/\ 1]-\/>nodes();}
+\DoxyCodeLine{00244\ \}}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00252\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_ae3367f76297c84f54882749ed2c420f8}{Network<T,\ W,\ Activator,\ Loss>::set\_matrix\_data}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{layer\_id}},\ \mbox{\hyperlink{structStep}{Matrix<W>}}\ weight\_matrix)\ \{}
+\DoxyCodeLine{00253\ \ \ m\_weights[\mbox{\hyperlink{structStep}{layer\_id}}]\ =\ std::make\_shared<Matrix<W>>(weight\_matrix);}
+\DoxyCodeLine{00254\ \}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00262\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_ae3367f76297c84f54882749ed2c420f8}{Network<T,\ W,\ Activator,\ Loss>::set\_matrix\_data}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{layer\_id}},\ shared<\mbox{\hyperlink{structStep}{Matrix<W>}}>\ \mbox{\hyperlink{structStep}{weight\_matrix\_ptr}})\ \{}
+\DoxyCodeLine{00263\ \ \ m\_weights[\mbox{\hyperlink{structStep}{layer\_id}}]\ =\ \mbox{\hyperlink{structStep}{weight\_matrix\_ptr}};}
+\DoxyCodeLine{00264\ \}}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00272\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_a1c3d808c5e742ec60a5e8fa16363e397}{Network<T,\ W,\ Activator,\ Loss>::set\_bias\_data}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{layer\_id}},\ std::vector<W>\ \mbox{\hyperlink{structStep}{bias\_vector}})\ \{}
+\DoxyCodeLine{00273\ \ \ m\_bias[\mbox{\hyperlink{structStep}{layer\_id}}]\ =\ std::make\_shared<std::vector<W>>(\mbox{\hyperlink{structStep}{bias\_vector}});}
+\DoxyCodeLine{00274\ \}}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00282\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_a1c3d808c5e742ec60a5e8fa16363e397}{Network<T,\ W,\ Activator,\ Loss>::set\_bias\_data}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{layer\_id}},\ shared<std::vector<W>>\ \mbox{\hyperlink{structStep}{bias\_vector\_ptr}})\ \{}
+\DoxyCodeLine{00283\ \ \ m\_bias[\mbox{\hyperlink{structStep}{layer\_id}}]\ =\ \mbox{\hyperlink{structStep}{bias\_vector\_ptr}};}
+\DoxyCodeLine{00284\ \}}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00292\ std::vector<T>\ \mbox{\hyperlink{classNetwork_a71f73809a21777ba2bdc4499af328ce8}{Network<T,\ W,\ Activator,\ Loss>::forward\_propatation}}(shared<\mbox{\hyperlink{structStep}{Layer<T>}}>\ \mbox{\hyperlink{structStep}{layer}},}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shared<\mbox{\hyperlink{structStep}{Matrix<W>}}>\ weight\_matrix,}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shared<std::vector<W>>\ \mbox{\hyperlink{structStep}{bias\_vector}})\ \{}
+\DoxyCodeLine{00295\ \ \ std::vector<W>\ \mbox{\hyperlink{structStep}{next\_layer\_nodes}}\{*weight\_matrix\ *\ \mbox{\hyperlink{structStep}{layer}}-\/>nodes()\ +\ *\mbox{\hyperlink{structStep}{bias\_vector}}\};}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{Activator<T>}}()(\mbox{\hyperlink{structStep}{next\_layer\_nodes}});}
+\DoxyCodeLine{00298\ \}}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00306\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_a71f73809a21777ba2bdc4499af328ce8}{Network<T,\ W,\ Activator,\ Loss>::forward\_propatation}}()\ \{}
+\DoxyCodeLine{00307\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ n\_layers\ -\/\ 1;\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00308\ \ \ \ \ std::vector<T>\ \mbox{\hyperlink{structStep}{new\_layer\_data}}\{forward\_propatation(m\_layers[\mbox{\hyperlink{structStep}{i}}],\ m\_weights[\mbox{\hyperlink{structStep}{i}}],\ m\_bias[\mbox{\hyperlink{structStep}{i}}])\};}
+\DoxyCodeLine{00309\ \ \ \ \ m\_layers[\mbox{\hyperlink{structStep}{i}}\ +\ 1]-\/>set\_node\_data(\mbox{\hyperlink{structStep}{new\_layer\_data}});}
+\DoxyCodeLine{00310\ \ \ \}}
+\DoxyCodeLine{00311\ \}}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00319\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00320\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_a18d37691006f360ddf65bd704e506406}{Network<T,\ W,\ Activator,\ Loss>::back\_propagation}}(\textcolor{keyword}{const}\ std::vector<U>\&\ \mbox{\hyperlink{structStep}{target}},}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{layer\_id}},}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{eta}})\ \{}
+\DoxyCodeLine{00323\ \ \ \mbox{\hyperlink{structStep}{Loss<T,\ W,\ Activator>}}\ \mbox{\hyperlink{structStep}{loss\_function}};}
+\DoxyCodeLine{00324\ \ \ \mbox{\hyperlink{structStep}{Matrix<W>}}\ \mbox{\hyperlink{structStep}{loss\_grad}}(\mbox{\hyperlink{structStep}{loss\_function}}.\mbox{\hyperlink{structStep_aba67f3bb89a6c2fbb4712696c8a58c74}{grad}}(\mbox{\hyperlink{structStep}{target}},\ \mbox{\hyperlink{structStep}{layer\_id}}\ +\ 1,\ m\_layers,\ m\_weights));}
+\DoxyCodeLine{00325\ \ \ \mbox{\hyperlink{structStep}{Matrix<T>}}\ \mbox{\hyperlink{structStep}{activated\_values\_grad}}(m\_layers[\mbox{\hyperlink{structStep}{layer\_id}}]-\/>nodes());}
+\DoxyCodeLine{00326\ \ \ *m\_weights[\mbox{\hyperlink{structStep}{layer\_id}}]\ -\/=\ \mbox{\hyperlink{structStep}{eta}}\ *\ (\mbox{\hyperlink{structStep}{loss\_grad}}\ *\ \mbox{\hyperlink{structStep}{activated\_values\_grad}}.transpose());}
+\DoxyCodeLine{00327\ \ \ *m\_bias[\mbox{\hyperlink{structStep}{layer\_id}}]\ -\/=\ \mbox{\hyperlink{structStep}{eta}}\ *\ \mbox{\hyperlink{structStep}{loss\_grad}};}
+\DoxyCodeLine{00328\ \}}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00336\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00337\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_a18d37691006f360ddf65bd704e506406}{Network<T,\ W,\ Activator,\ Loss>::back\_propagation}}(\textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{eta}},\ \textcolor{keyword}{const}\ std::vector<U>\&\ \mbox{\hyperlink{structStep}{target}})\ \{}
+\DoxyCodeLine{00338\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{layer\_id}}\{n\_layers\ -\/\ 2\};\ \mbox{\hyperlink{structStep}{layer\_id}}\ >=\ 0;\ -\/-\/\mbox{\hyperlink{structStep}{layer\_id}})\ \{}
+\DoxyCodeLine{00339\ \ \ \ \ back\_propagation(\mbox{\hyperlink{structStep}{target}},\ \mbox{\hyperlink{structStep}{layer\_id}},\ \mbox{\hyperlink{structStep}{eta}});}
+\DoxyCodeLine{00340\ \ \ \}}
+\DoxyCodeLine{00341\ \}}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00349\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00350\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_a80ea11b234a4f9b7be75ac8111d57c12}{Network<T,\ W,\ Activator,\ Loss>::train}}(\textcolor{keyword}{const}\ std::vector<U>\&\ \mbox{\hyperlink{structStep}{target}},\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{eta}})\ \{}
+\DoxyCodeLine{00351\ \ \ forward\_propatation();}
+\DoxyCodeLine{00352\ \ \ back\_propagation(\mbox{\hyperlink{structStep}{eta}},\ \mbox{\hyperlink{structStep}{target}});}
+\DoxyCodeLine{00353\ \}}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00361\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00362\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_a80ea11b234a4f9b7be75ac8111d57c12}{Network<T,\ W,\ Activator,\ Loss>::train}}(\mbox{\hyperlink{structStep}{U}}\ \mbox{\hyperlink{structStep}{target}},\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{eta}})\ \{}
+\DoxyCodeLine{00363\ \ \ std::vector<U>\ \mbox{\hyperlink{structStep}{target\_vector}}\{\mbox{\hyperlink{structStep}{target}}\};}
+\DoxyCodeLine{00364\ \ \ forward\_propatation();}
+\DoxyCodeLine{00365\ \ \ back\_propagation(\mbox{\hyperlink{structStep}{eta}},\ \mbox{\hyperlink{structStep}{target\_vector}});}
+\DoxyCodeLine{00366\ \}}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00368\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00374\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_ab36042828a8f643182ff1d4fca7c9488}{Network<T,\ W,\ Activator,\ Loss>::import\_network}}(\textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{structStep}{filepath}})\ \{}
+\DoxyCodeLine{00375\ \ \ std::ifstream\ \mbox{\hyperlink{structStep}{file\_stream}}(\mbox{\hyperlink{structStep}{filepath}});}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \ \ std::string\ \mbox{\hyperlink{structStep}{file\_row}};}
+\DoxyCodeLine{00378\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};}
+\DoxyCodeLine{00379\ \ \ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{structStep}{getline}}(\mbox{\hyperlink{structStep}{file\_stream}},\ \mbox{\hyperlink{structStep}{file\_row}}))\ \{}
+\DoxyCodeLine{00380\ \ \ \ \ std::vector<W>\ \mbox{\hyperlink{structStep}{weights}};}
+\DoxyCodeLine{00381\ \ \ \ \ std::vector<W>\ \mbox{\hyperlink{structStep}{bias}};}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00383\ \ \ \ \ std::stringstream\ \mbox{\hyperlink{structStep}{row\_stream}}(\mbox{\hyperlink{structStep}{file\_row}});}
+\DoxyCodeLine{00384\ \ \ \ \ std::string\ \mbox{\hyperlink{structStep}{value}};}
+\DoxyCodeLine{00385\ \ \ \ \ \textcolor{comment}{//\ First\ we\ fill\ the\ weight\ matrix}}
+\DoxyCodeLine{00386\ \ \ \ \ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{structStep}{getline}}(\mbox{\hyperlink{structStep}{row\_stream}},\ \mbox{\hyperlink{structStep}{value}},\ \textcolor{charliteral}{','}))\ \{}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{weights}}.push\_back(std::stod(\mbox{\hyperlink{structStep}{value}}));}
+\DoxyCodeLine{00388\ \ \ \ \ \}}
+\DoxyCodeLine{00389\ \ \ \ \ \textcolor{comment}{//\ Then\ we\ get\ the\ next\ line\ and\ fill\ the\ bias\ vector}}
+\DoxyCodeLine{00390\ \ \ \ \ \mbox{\hyperlink{structStep}{getline}}(\mbox{\hyperlink{structStep}{file\_stream}},\ \mbox{\hyperlink{structStep}{file\_row}});}
+\DoxyCodeLine{00391\ \ \ \ \ \mbox{\hyperlink{structStep}{row\_stream}}\ =\ std::stringstream(\mbox{\hyperlink{structStep}{file\_row}});}
+\DoxyCodeLine{00392\ \ \ \ \ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{structStep}{getline}}(\mbox{\hyperlink{structStep}{row\_stream}},\ \mbox{\hyperlink{structStep}{value}},\ \textcolor{charliteral}{','}))\ \{}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{bias}}.push\_back(std::stod(\mbox{\hyperlink{structStep}{value}}));}
+\DoxyCodeLine{00394\ \ \ \ \ \}}
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00396\ \ \ \ \ m\_weights[\mbox{\hyperlink{structStep}{i}}]\ =\ std::make\_shared<Matrix<W>>(m\_weights[\mbox{\hyperlink{structStep}{i}}]-\/>nrows(),\ m\_weights[\mbox{\hyperlink{structStep}{i}}]-\/>ncols(),\ \mbox{\hyperlink{structStep}{weights}});}
+\DoxyCodeLine{00397\ \ \ \ \ m\_bias[\mbox{\hyperlink{structStep}{i}}]\ =\ std::make\_shared<std::vector<W>>(\mbox{\hyperlink{structStep}{bias}});}
+\DoxyCodeLine{00398\ \ \ \}}
+\DoxyCodeLine{00399\ \}}
+\DoxyCodeLine{00400\ }
+\DoxyCodeLine{00401\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00407\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNetwork_aa734bb0383965c6742a0de6ca2cb4a4c}{Network<T,\ W,\ Activator,\ Loss>::export\_network}}(\textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{structStep}{filepath}})\ \{}
+\DoxyCodeLine{00408\ \ \ std::ofstream\ \mbox{\hyperlink{structStep}{ofile}};}
+\DoxyCodeLine{00409\ \ \ \mbox{\hyperlink{structStep}{ofile}}.open(\mbox{\hyperlink{structStep}{filepath}});}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00411\ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{structStep}{ofile}}.is\_open())\ \{}
+\DoxyCodeLine{00412\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}The\ file\ is\ not\ open\(\backslash\)n"{}};}
+\DoxyCodeLine{00413\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00414\ \ \ \}}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00416\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ n\_layers\ -\/\ 1;\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00417\ \ \ \ \ \mbox{\hyperlink{structStep}{ofile}}\ <<\ *m\_weights[\mbox{\hyperlink{structStep}{i}}]\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00418\ \ \ \ \ \mbox{\hyperlink{structStep}{ofile}}\ <<\ *m\_bias[\mbox{\hyperlink{structStep}{i}}]\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00419\ \ \ \}}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00421\ \ \ \mbox{\hyperlink{structStep}{ofile}}.close();}
+\DoxyCodeLine{00422\ \}}
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00424\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00430\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00431\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classNetwork_a9aa383cb5e2ad7a1bcb24da4f71471a9}{Network<T,\ W,\ Activator,\ Loss>::get\_loss\_value}}(\textcolor{keyword}{const}\ std::vector<U>\&\ \mbox{\hyperlink{structStep}{target}})\ \{}
+\DoxyCodeLine{00432\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{Loss<T,\ W,\ Activator>}}()(m\_layers[n\_layers\ -\/\ 1]-\/>nodes(),\ \mbox{\hyperlink{structStep}{target}});}
+\DoxyCodeLine{00433\ \}}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00435\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{T}},}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{W}},}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Activator}},}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E,\ \textcolor{keyword}{typename}\ LW,\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ K>\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Act}}>}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structStep}{Loss}}>}
+\DoxyCodeLine{00441\ std::ostream\&\ \mbox{\hyperlink{structStep}{operator<<}}(std::ostream\&\ \mbox{\hyperlink{structStep}{out}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structStep}{Network<T,\ W,\ Activator,\ Loss>}}\&\ \mbox{\hyperlink{structStep}{Net}})\ \{}
+\DoxyCodeLine{00442\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{Net}}.n\_layers;\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00443\ \ \ \ \ \mbox{\hyperlink{structStep}{out}}\ <<\ \textcolor{stringliteral}{"{}Layer\_"{}}\ <<\ \mbox{\hyperlink{structStep}{i}}\ <<\ \textcolor{charliteral}{'\ '};}
+\DoxyCodeLine{00444\ \ \ \ \ \mbox{\hyperlink{structStep}{out}}\ <<\ \mbox{\hyperlink{structStep}{Net}}.m\_layers[\mbox{\hyperlink{structStep}{i}}];}
+\DoxyCodeLine{00445\ \ \ \}}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00447\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{out}};}
+\DoxyCodeLine{00448\ \}}
+\DoxyCodeLine{00449\ }
+\DoxyCodeLine{00450\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ W>}
+\DoxyCodeLine{00451\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{Network_8hpp_a6ea2fd7690b473b90d6b371baa746f9f}{random\_matrix}}(shared<\mbox{\hyperlink{structStep}{Matrix<W>}}>\ \mbox{\hyperlink{structStep}{matrix}})\ \{}
+\DoxyCodeLine{00452\ \ \ std::mt19937\ \mbox{\hyperlink{structStep}{gen}};}
+\DoxyCodeLine{00453\ \ \ std::uniform\_real\_distribution<W>\ \mbox{\hyperlink{structStep}{dis}}(-\/0.5,\ 0.5);}
+\DoxyCodeLine{00454\ }
+\DoxyCodeLine{00455\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{matrix}}-\/>size();\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00456\ \ \ \ \ \mbox{\hyperlink{structStep}{matrix}}-\/>set\_data(\mbox{\hyperlink{structStep}{i}},\ \mbox{\hyperlink{structStep}{dis}}(\mbox{\hyperlink{structStep}{gen}}));}
+\DoxyCodeLine{00457\ \ \ \}}
+\DoxyCodeLine{00458\ \}}
+\DoxyCodeLine{00459\ }
+\DoxyCodeLine{00460\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

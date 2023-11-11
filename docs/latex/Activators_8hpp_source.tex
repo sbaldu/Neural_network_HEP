@@ -1,0 +1,382 @@
+\doxysection{Activators.\+hpp}
+\hypertarget{Activators_8hpp_source}{}\label{Activators_8hpp_source}\index{src/serial/include/Activators.hpp@{src/serial/include/Activators.hpp}}
+\mbox{\hyperlink{Activators_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ Activators\_h}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ Activators\_h}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Layer_8hpp}{Layer.hpp}}"{}}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00022\ \textcolor{keyword}{using\ }shared\ =\ std::shared\_ptr<T>;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00027\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structStep}{Step}}\ \{}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structStep_abe9fe90505e81fd019aa0aba6644fd48}{operator()}}(\textcolor{keywordtype}{double}\ x)\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{if}\ (x\ <\ 0)\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00034\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00036\ \ \ \ \ \}}
+\DoxyCodeLine{00037\ \ \ \}}
+\DoxyCodeLine{00041\ \ \ std::vector<short>\ \mbox{\hyperlink{structStep_ad69934d546f5549cb9a789722ac0a386}{operator()}}(\textcolor{keyword}{const}\ std::vector<T>\&\ vec)\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ N\{vec.size()\};}
+\DoxyCodeLine{00043\ \ \ \ \ std::vector<T>\ activated(N);}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\{\};\ i\ <\ N;\ ++i)\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ activated[i]\ =\ \mbox{\hyperlink{structStep}{Step<T>}}()(\mbox{\hyperlink{structStep}{vec}}[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{activated}};}
+\DoxyCodeLine{00049\ \ \ \}}
+\DoxyCodeLine{00055\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E>}
+\DoxyCodeLine{00056\ \ \ std::vector<T>\ \mbox{\hyperlink{structStep_aeb8f64221a72578f0c00f5223a9ca232}{operator()}}(\textcolor{keyword}{const}\ std::vector<E>\&\ \mbox{\hyperlink{structStep}{vec}})\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{vec}}.size()\};}
+\DoxyCodeLine{00058\ \ \ \ \ std::vector<T>\ \mbox{\hyperlink{structStep}{activated}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{activated}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structStep}{Step<T>}}()(\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{structStep}{T}}\textcolor{keyword}{>}(\mbox{\hyperlink{structStep}{vec}}[\mbox{\hyperlink{structStep}{i}}]));}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{activated}};}
+\DoxyCodeLine{00064\ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep_aba67f3bb89a6c2fbb4712696c8a58c74}{grad}}(\textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{activated\_value}})\ \{\ \textcolor{keywordflow}{return}\ 0.;\ \}}
+\DoxyCodeLine{00077\ \ \ std::vector<double>\ \mbox{\hyperlink{structStep_a7490a0194d91bb34ff3b0f4cb26e9f39}{grad}}(shared<\mbox{\hyperlink{structStep}{Layer<T>}}>\ \mbox{\hyperlink{structStep}{layer}})\ \{\ \textcolor{keywordflow}{return}\ std::vector<double>(\mbox{\hyperlink{structStep}{layer}}-\/>size(),\ 0.);\ \}}
+\DoxyCodeLine{00083\ \ \ std::vector<double>\ \mbox{\hyperlink{structStep_aeb3343c4f868814b89ee753720d297c3}{grad}}(std::vector<T>\ \mbox{\hyperlink{structStep}{node\_values}})\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{return}\ std::vector<double>(\mbox{\hyperlink{structStep}{node\_values}}.size(),\ 0);}
+\DoxyCodeLine{00085\ \ \ \}}
+\DoxyCodeLine{00086\ \};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00091\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structLinear}{Linear}}\ \{}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structLinear_ad14c29acb35782cd0eb7c0fa178558a2}{operator()}}(\textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{x}})\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{x}};\ \}}
+\DoxyCodeLine{00099\ \ \ std::vector<T>\ \mbox{\hyperlink{structLinear_a8ba3eda45364ae195eb125db2428148f}{operator()}}(\textcolor{keyword}{const}\ std::vector<T>\&\ \mbox{\hyperlink{structStep}{vec}})\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{vec}}.size()\};}
+\DoxyCodeLine{00101\ \ \ \ \ std::vector<T>\ \mbox{\hyperlink{structStep}{activated}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{activated}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structStep}{Linear<T>}}()(\mbox{\hyperlink{structStep}{vec}}[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00104\ \ \ \ \ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{activated}};}
+\DoxyCodeLine{00107\ \ \ \}}
+\DoxyCodeLine{00114\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E>}
+\DoxyCodeLine{00115\ \ \ std::vector<T>\ \mbox{\hyperlink{structLinear_a7715bbff57130da881cacaff756af2bd}{operator()}}(\textcolor{keyword}{const}\ std::vector<E>\&\ \mbox{\hyperlink{structStep}{vec}})\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{vec}}.size()\};}
+\DoxyCodeLine{00117\ \ \ \ \ std::vector<T>\ \mbox{\hyperlink{structStep}{activated}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{activated}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structStep}{Linear<T>}}()(\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{structStep}{T}}\textcolor{keyword}{>}(\mbox{\hyperlink{structStep}{vec}}[\mbox{\hyperlink{structStep}{i}}]));}
+\DoxyCodeLine{00120\ \ \ \ \ \}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{activated}};}
+\DoxyCodeLine{00123\ \ \ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structLinear_a1bdcac9d22b5f5fc9bd02581a261f466}{grad}}(\textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{activated\_value}})\ \{\ \textcolor{keywordflow}{return}\ 1;\ \}}
+\DoxyCodeLine{00132\ \ \ std::vector<double>\ \mbox{\hyperlink{structLinear_a5f013585ef9ce6d96281d09c5f018621}{grad}}(shared<\mbox{\hyperlink{structStep}{Layer<T>}}>\ \mbox{\hyperlink{structStep}{layer}})\ \{\ \textcolor{keywordflow}{return}\ std::vector<double>(\mbox{\hyperlink{structStep}{layer}}-\/>size(),\ 1);\ \}}
+\DoxyCodeLine{00136\ \ \ std::vector<double>\ \mbox{\hyperlink{structLinear_a977a8ca93877bf531a1110e41c3f36b7}{grad}}(std::vector<T>\ \mbox{\hyperlink{structStep}{node\_values}})\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordflow}{return}\ std::vector<double>(\mbox{\hyperlink{structStep}{node\_values}}.size(),\ 1);}
+\DoxyCodeLine{00138\ \ \ \}}
+\DoxyCodeLine{00139\ \};}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00151\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00152\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structSigmoid}{Sigmoid}}\ \{}
+\DoxyCodeLine{00156\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structSigmoid_a4d11e65a6f5c16e77658188414d0b8d8}{operator()}}(\textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{x}})\ \{\ \textcolor{keywordflow}{return}\ 1.\ /\ (1\ +\ std::exp(-\/\mbox{\hyperlink{structStep}{x}}));\ \}}
+\DoxyCodeLine{00160\ \ \ std::vector<T>\ \mbox{\hyperlink{structSigmoid_a56dcb8253951346fa5da10a932b588c5}{operator()}}(\textcolor{keyword}{const}\ std::vector<T>\&\ \mbox{\hyperlink{structStep}{vec}})\ \{}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{vec}}.size()\};}
+\DoxyCodeLine{00162\ \ \ \ \ std::vector<T>\ \mbox{\hyperlink{structStep}{activated}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{activated}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structStep}{Sigmoid<T>}}()(\mbox{\hyperlink{structStep}{vec}}[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00165\ \ \ \ \ \}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{activated}};}
+\DoxyCodeLine{00168\ \ \ \}}
+\DoxyCodeLine{00175\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E>}
+\DoxyCodeLine{00176\ \ \ std::vector<T>\ \mbox{\hyperlink{structSigmoid_a2db8d073e1057995bea313dc12f50b3c}{operator()}}(\textcolor{keyword}{const}\ std::vector<E>\&\ \mbox{\hyperlink{structStep}{vec}})\ \{}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{vec}}.size()\};}
+\DoxyCodeLine{00178\ \ \ \ \ std::vector<T>\ \mbox{\hyperlink{structStep}{activated}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{activated}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structStep}{Sigmoid<T>}}()(\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{structStep}{T}}\textcolor{keyword}{>}(\mbox{\hyperlink{structStep}{vec}}[\mbox{\hyperlink{structStep}{i}}]));}
+\DoxyCodeLine{00181\ \ \ \ \ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{activated}};}
+\DoxyCodeLine{00184\ \ \ \}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00189\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structSigmoid_a3cbd7fffe1604d373fdd20119bc1d24b}{grad}}(\textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{activated\_value}})\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{activated\_value}}\ *\ (1\ -\/\ \mbox{\hyperlink{structStep}{activated\_value}});\ \}}
+\DoxyCodeLine{00193\ \ \ std::vector<double>\ \mbox{\hyperlink{structSigmoid_a53e6768c58ec065a10589499402d0623}{grad}}(shared<\mbox{\hyperlink{structStep}{Layer<T>}}>\ \mbox{\hyperlink{structStep}{layer}})\ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{layer}}-\/>size()\};}
+\DoxyCodeLine{00195\ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{structStep}{gradient\_values}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{gradient\_values}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structSigmoid_a3cbd7fffe1604d373fdd20119bc1d24b}{grad}}((*\mbox{\hyperlink{structStep}{layer}})[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00198\ \ \ \ \ \}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{gradient\_values}};}
+\DoxyCodeLine{00201\ \ \ \}}
+\DoxyCodeLine{00205\ \ \ std::vector<double>\ \mbox{\hyperlink{structSigmoid_a1ec2191693b3946c427fd4530d7f4493}{grad}}(std::vector<T>\ \mbox{\hyperlink{structStep}{node\_values}})\ \{}
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{node\_values}}.size()\};}
+\DoxyCodeLine{00207\ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{structStep}{gradient\_values}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00208\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{gradient\_values}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structSigmoid_a3cbd7fffe1604d373fdd20119bc1d24b}{grad}}(\mbox{\hyperlink{structStep}{node\_values}}[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00210\ \ \ \ \ \}}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{gradient\_values}};}
+\DoxyCodeLine{00213\ \ \ \}}
+\DoxyCodeLine{00214\ \};}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00218\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00219\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structTanh}{Tanh}}\ \{}
+\DoxyCodeLine{00223\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structTanh_a49e2cb87bb0085fb38a44f561ce2afac}{operator()}}(\textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{x}})\ \{\ \textcolor{keywordflow}{return}\ std::tanh(\mbox{\hyperlink{structStep}{x}});\ \}}
+\DoxyCodeLine{00227\ \ \ std::vector<T>\ \mbox{\hyperlink{structTanh_a2e67eefcf17296d7fa7aca8e4c325051}{operator()}}(\textcolor{keyword}{const}\ std::vector<T>\&\ \mbox{\hyperlink{structStep}{vec}})\ \{}
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{vec}}.size()\};}
+\DoxyCodeLine{00229\ \ \ \ \ std::vector<T>\ \mbox{\hyperlink{structStep}{activated}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{activated}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structStep}{Tanh<T>}}()(\mbox{\hyperlink{structStep}{vec}}[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00232\ \ \ \ \ \}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{activated}};}
+\DoxyCodeLine{00235\ \ \ \}}
+\DoxyCodeLine{00242\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E>}
+\DoxyCodeLine{00243\ \ \ std::vector<T>\ \mbox{\hyperlink{structTanh_a04644e2863ced695f27160cef1a77c93}{operator()}}(\textcolor{keyword}{const}\ std::vector<E>\&\ \mbox{\hyperlink{structStep}{vec}})\ \{}
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{vec}}.size()\};}
+\DoxyCodeLine{00245\ \ \ \ \ std::vector<T>\ \mbox{\hyperlink{structStep}{activated}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00246\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{activated}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structStep}{Tanh<T>}}()(\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{structStep}{T}}\textcolor{keyword}{>}(\mbox{\hyperlink{structStep}{vec}}[\mbox{\hyperlink{structStep}{i}}]));}
+\DoxyCodeLine{00248\ \ \ \ \ \}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{activated}};}
+\DoxyCodeLine{00251\ \ \ \}}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00256\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structTanh_a0df83c7e06a6c503b39652b74cbaec11}{grad}}(\textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{activated\_value}})\ \{\ \textcolor{keywordflow}{return}\ 1\ +\ \mbox{\hyperlink{structStep}{pow}}(\mbox{\hyperlink{structStep}{activated\_value}},\ 2);\ \}}
+\DoxyCodeLine{00260\ \ \ std::vector<double>\ \mbox{\hyperlink{structTanh_a8557ca8ae755625c971836f5dbc67e0c}{grad}}(shared<\mbox{\hyperlink{structStep}{Layer<T>}}>\ \mbox{\hyperlink{structStep}{layer}})\ \{}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{layer}}-\/>size()\};}
+\DoxyCodeLine{00262\ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{structStep}{gradient\_values}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00263\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{gradient\_values}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structTanh_a0df83c7e06a6c503b39652b74cbaec11}{grad}}(\mbox{\hyperlink{structStep}{layer}}-\/>nodes()[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00265\ \ \ \ \ \}}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{gradient\_values}};}
+\DoxyCodeLine{00268\ \ \ \}}
+\DoxyCodeLine{00272\ \ \ std::vector<double>\ \mbox{\hyperlink{structTanh_a0bc5a5613cf6e832ab128cf365bdfbb1}{grad}}(std::vector<T>\ \mbox{\hyperlink{structStep}{node\_values}})\ \{}
+\DoxyCodeLine{00273\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{node\_values}}.size()\};}
+\DoxyCodeLine{00274\ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{structStep}{gradient\_values}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00275\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{gradient\_values}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structTanh_a0df83c7e06a6c503b39652b74cbaec11}{grad}}(\mbox{\hyperlink{structStep}{node\_values}}[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00277\ \ \ \ \ \}}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{gradient\_values}};}
+\DoxyCodeLine{00280\ \ \ \}}
+\DoxyCodeLine{00281\ \};}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00300\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00301\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structElu}{Elu}}\ \{}
+\DoxyCodeLine{00302\ \ \ \textcolor{keywordtype}{double}\ A;}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00307\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structElu_ad5ef6a2a23fd59ad0c1e2c3f2acdd10d}{operator()}}(\textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{x}})\ \{}
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structStep}{x}}\ >=\ 0)\ \{}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{x}};}
+\DoxyCodeLine{00310\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ A\ *\ (std::expm1(\mbox{\hyperlink{structStep}{x}}));}
+\DoxyCodeLine{00312\ \ \ \ \ \}}
+\DoxyCodeLine{00313\ \ \ \}}
+\DoxyCodeLine{00317\ \ \ std::vector<T>\ \mbox{\hyperlink{structElu_a97789069c5ea9a3d9ac3604332a2e6f4}{operator()}}(\textcolor{keyword}{const}\ std::vector<T>\&\ \mbox{\hyperlink{structStep}{vec}})\ \{}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{vec}}.size()\};}
+\DoxyCodeLine{00319\ \ \ \ \ std::vector<T>\ \mbox{\hyperlink{structStep}{activated}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{activated}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structStep}{Elu<T>}}()(\mbox{\hyperlink{structStep}{vec}}[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00322\ \ \ \ \ \}}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{activated}};}
+\DoxyCodeLine{00325\ \ \ \}}
+\DoxyCodeLine{00329\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E>}
+\DoxyCodeLine{00330\ \ \ std::vector<T>\ \mbox{\hyperlink{structElu_a0ebd4c9fc131f9cdbde104f6aeb33e21}{operator()}}(\textcolor{keyword}{const}\ std::vector<E>\&\ \mbox{\hyperlink{structStep}{vec}})\ \{}
+\DoxyCodeLine{00331\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{vec}}.size()\};}
+\DoxyCodeLine{00332\ \ \ \ \ std::vector<T>\ \mbox{\hyperlink{structStep}{activated}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00333\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{activated}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structStep}{Elu<T>}}()(\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{structStep}{T}}\textcolor{keyword}{>}(\mbox{\hyperlink{structStep}{vec}}[\mbox{\hyperlink{structStep}{i}}]));}
+\DoxyCodeLine{00335\ \ \ \ \ \}}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{activated}};}
+\DoxyCodeLine{00338\ \ \ \}}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00343\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structElu_acdcd69843715b84e4083cc90a9b919ed}{grad}}(\textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{activated\_value}})\ \{}
+\DoxyCodeLine{00344\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structStep}{activated\_value}}\ >=\ 0)\ \{}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00346\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{activated\_value}}\ +\ A;}
+\DoxyCodeLine{00348\ \ \ \ \ \}}
+\DoxyCodeLine{00349\ \ \ \}}
+\DoxyCodeLine{00353\ \ \ std::vector<double>\ \mbox{\hyperlink{structElu_ad45efff00ddb7f13adde868de9c50ee8}{grad}}(shared<\mbox{\hyperlink{structStep}{Layer<T>}}>\ \mbox{\hyperlink{structStep}{layer}})\ \{}
+\DoxyCodeLine{00354\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{layer}}-\/>size()\};}
+\DoxyCodeLine{00355\ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{structStep}{gradient\_values}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00356\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{gradient\_values}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structElu_acdcd69843715b84e4083cc90a9b919ed}{grad}}(\mbox{\hyperlink{structStep}{layer}}-\/>nodes()[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00358\ \ \ \ \ \}}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{gradient\_values}};}
+\DoxyCodeLine{00361\ \ \ \}}
+\DoxyCodeLine{00365\ \ \ std::vector<double>\ \mbox{\hyperlink{structElu_adaa13b32b8ed8ec23806c554e19e8a80}{grad}}(std::vector<T>\ \mbox{\hyperlink{structStep}{node\_values}})\ \{}
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{node\_values}}.size()\};}
+\DoxyCodeLine{00367\ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{structStep}{gradient\_values}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00368\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{gradient\_values}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structElu_acdcd69843715b84e4083cc90a9b919ed}{grad}}(\mbox{\hyperlink{structStep}{node\_values}}[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00370\ \ \ \ \ \}}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00372\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{gradient\_values}};}
+\DoxyCodeLine{00373\ \ \ \}}
+\DoxyCodeLine{00374\ \};}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00389\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00390\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structLeaky__ReLU}{Leaky\_ReLU}}\ \{}
+\DoxyCodeLine{00394\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structLeaky__ReLU_a8b38f1502e66fc96e44c854a21c2d872}{operator()}}(\textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{x}})\ \{\ \textcolor{keywordflow}{return}\ std::max(0.1\ *\ \mbox{\hyperlink{structStep}{x}},\ \mbox{\hyperlink{structStep}{x}});\ \}}
+\DoxyCodeLine{00398\ \ \ std::vector<T>\ \mbox{\hyperlink{structLeaky__ReLU_a4f04234f7c20fa20d8d6054354a74231}{operator()}}(\textcolor{keyword}{const}\ std::vector<T>\&\ \mbox{\hyperlink{structStep}{vec}})\ \{}
+\DoxyCodeLine{00399\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{vec}}.size()\};}
+\DoxyCodeLine{00400\ \ \ \ \ std::vector<T>\ \mbox{\hyperlink{structStep}{activated}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00401\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{activated}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structStep}{Leaky\_ReLU<T>}}()(\mbox{\hyperlink{structStep}{vec}}[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00403\ \ \ \ \ \}}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{activated}};}
+\DoxyCodeLine{00406\ \ \ \}}
+\DoxyCodeLine{00410\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E>}
+\DoxyCodeLine{00411\ \ \ std::vector<T>\ \mbox{\hyperlink{structLeaky__ReLU_a79f612a44edf3de320afa849bc133c2c}{operator()}}(\textcolor{keyword}{const}\ std::vector<E>\&\ \mbox{\hyperlink{structStep}{vec}})\ \{}
+\DoxyCodeLine{00412\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{vec}}.size()\};}
+\DoxyCodeLine{00413\ \ \ \ \ std::vector<T>\ \mbox{\hyperlink{structStep}{activated}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00414\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{activated}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structStep}{Leaky\_ReLU<T>}}()(\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{structStep}{T}}\textcolor{keyword}{>}(\mbox{\hyperlink{structStep}{vec}}[\mbox{\hyperlink{structStep}{i}}]));}
+\DoxyCodeLine{00416\ \ \ \ \ \}}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{activated}};}
+\DoxyCodeLine{00419\ \ \ \}}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00424\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structLeaky__ReLU_a2cecb97364a1c2c540cb236bb0e751cb}{grad}}(\textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{activated\_value}})\ \{}
+\DoxyCodeLine{00425\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structStep}{activated\_value}}\ >=\ 0.)\ \{}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1.;}
+\DoxyCodeLine{00427\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0.1;}
+\DoxyCodeLine{00429\ \ \ \ \ \}}
+\DoxyCodeLine{00430\ \ \ \}}
+\DoxyCodeLine{00434\ \ \ std::vector<double>\ \mbox{\hyperlink{structLeaky__ReLU_a862bddc1d3279216858c3f1714a97c21}{grad}}(shared<\mbox{\hyperlink{structStep}{Layer<T>}}>\ \mbox{\hyperlink{structStep}{layer}})\ \{}
+\DoxyCodeLine{00435\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{layer}}-\/>size()\};}
+\DoxyCodeLine{00436\ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{structStep}{gradient\_values}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00437\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{gradient\_values}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structLeaky__ReLU_a2cecb97364a1c2c540cb236bb0e751cb}{grad}}(\mbox{\hyperlink{structStep}{layer}}-\/>nodes()[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00439\ \ \ \ \ \}}
+\DoxyCodeLine{00440\ }
+\DoxyCodeLine{00441\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{gradient\_values}};}
+\DoxyCodeLine{00442\ \ \ \}}
+\DoxyCodeLine{00446\ \ \ std::vector<double>\ \mbox{\hyperlink{structLeaky__ReLU_a8ec75b710438bbb6b44d27caaeffda17}{grad}}(std::vector<T>\ \mbox{\hyperlink{structStep}{node\_values}})\ \{}
+\DoxyCodeLine{00447\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{node\_values}}.size()\};}
+\DoxyCodeLine{00448\ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{structStep}{gradient\_values}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00449\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{gradient\_values}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structLeaky__ReLU_a2cecb97364a1c2c540cb236bb0e751cb}{grad}}(\mbox{\hyperlink{structStep}{node\_values}}[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00451\ \ \ \ \ \}}
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00453\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{gradient\_values}};}
+\DoxyCodeLine{00454\ \ \ \}}
+\DoxyCodeLine{00455\ \};}
+\DoxyCodeLine{00456\ }
+\DoxyCodeLine{00470\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00471\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structParametric__ReLU}{Parametric\_ReLU}}\ \{}
+\DoxyCodeLine{00472\ \ \ \textcolor{keywordtype}{double}\ A;}
+\DoxyCodeLine{00473\ }
+\DoxyCodeLine{00477\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structParametric__ReLU_a5ca0c100f14ca98944086d6631e14adc}{operator()}}(\textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{x}})\ \{\ \textcolor{keywordflow}{return}\ std::max(A\ *\ \mbox{\hyperlink{structStep}{x}},\ \mbox{\hyperlink{structStep}{x}});\ \}}
+\DoxyCodeLine{00481\ \ \ std::vector<T>\ \mbox{\hyperlink{structParametric__ReLU_a077bf1a24ca7dc60a1127c65a4df3509}{operator()}}(\textcolor{keyword}{const}\ std::vector<T>\&\ \mbox{\hyperlink{structStep}{vec}})\ \{}
+\DoxyCodeLine{00482\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{vec}}.size()\};}
+\DoxyCodeLine{00483\ \ \ \ \ std::vector<T>\ \mbox{\hyperlink{structStep}{activated}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00484\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{activated}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structStep}{Parametric\_ReLU<T>}}()(\mbox{\hyperlink{structStep}{vec}}[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00486\ \ \ \ \ \}}
+\DoxyCodeLine{00487\ }
+\DoxyCodeLine{00488\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{activated}};}
+\DoxyCodeLine{00489\ \ \ \}}
+\DoxyCodeLine{00493\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E>}
+\DoxyCodeLine{00494\ \ \ std::vector<T>\ \mbox{\hyperlink{structParametric__ReLU_a5d9ad6be7a8ed40006419ba1e6196e78}{operator()}}(\textcolor{keyword}{const}\ std::vector<E>\&\ \mbox{\hyperlink{structStep}{vec}})\ \{}
+\DoxyCodeLine{00495\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{vec}}.size()\};}
+\DoxyCodeLine{00496\ \ \ \ \ std::vector<T>\ \mbox{\hyperlink{structStep}{activated}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00497\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{activated}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structStep}{Parametric\_ReLU<T>}}()(\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{structStep}{T}}\textcolor{keyword}{>}(\mbox{\hyperlink{structStep}{vec}}[\mbox{\hyperlink{structStep}{i}}]));}
+\DoxyCodeLine{00499\ \ \ \ \ \}}
+\DoxyCodeLine{00500\ }
+\DoxyCodeLine{00501\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{activated}};}
+\DoxyCodeLine{00502\ \ \ \}}
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00507\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structParametric__ReLU_a8f3b8948ebf6cb502b1dfccf65f15214}{grad}}(\textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{activated\_value}})\ \{}
+\DoxyCodeLine{00508\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structStep}{activated\_value}}\ >=\ 0.)\ \{}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1.;}
+\DoxyCodeLine{00510\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ A;}
+\DoxyCodeLine{00512\ \ \ \ \ \}}
+\DoxyCodeLine{00513\ \ \ \}}
+\DoxyCodeLine{00517\ \ \ std::vector<double>\ \mbox{\hyperlink{structParametric__ReLU_a1834371b644aa8baa785efbec79b3a1a}{grad}}(shared<\mbox{\hyperlink{structStep}{Layer<T>}}>\ \mbox{\hyperlink{structStep}{layer}})\ \{}
+\DoxyCodeLine{00518\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{layer}}-\/>size()\};}
+\DoxyCodeLine{00519\ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{structStep}{gradient\_values}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00520\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{gradient\_values}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structParametric__ReLU_a8f3b8948ebf6cb502b1dfccf65f15214}{grad}}(\mbox{\hyperlink{structStep}{layer}}-\/>nodes()[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00522\ \ \ \ \ \}}
+\DoxyCodeLine{00523\ }
+\DoxyCodeLine{00524\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{gradient\_values}};}
+\DoxyCodeLine{00525\ \ \ \}}
+\DoxyCodeLine{00529\ \ \ std::vector<double>\ \mbox{\hyperlink{structParametric__ReLU_a35e27bd59f64e042a00af8d5d12c55ca}{grad}}(std::vector<T>\ \mbox{\hyperlink{structStep}{node\_values}})\ \{}
+\DoxyCodeLine{00530\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{node\_values}}.size()\};}
+\DoxyCodeLine{00531\ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{structStep}{gradient\_values}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00532\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{gradient\_values}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structParametric__ReLU_a8f3b8948ebf6cb502b1dfccf65f15214}{grad}}(\mbox{\hyperlink{structStep}{node\_values}}[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00534\ \ \ \ \ \}}
+\DoxyCodeLine{00535\ }
+\DoxyCodeLine{00536\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{gradient\_values}};}
+\DoxyCodeLine{00537\ \ \ \}}
+\DoxyCodeLine{00538\ \};}
+\DoxyCodeLine{00539\ }
+\DoxyCodeLine{00542\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00543\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structSwish}{Swish}}\ \{}
+\DoxyCodeLine{00547\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structSwish_ac9c36eef0ed8dd40083f1fbedc6b8b45}{operator()}}(\textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{x}})\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{x}}\ *\ \mbox{\hyperlink{structStep}{Sigmoid<T>}}()(\mbox{\hyperlink{structStep}{x}});\ \}}
+\DoxyCodeLine{00551\ \ \ std::vector<T>\ \mbox{\hyperlink{structSwish_a00acc4a8ae00126f7af5056b2dd4ef42}{operator()}}(\textcolor{keyword}{const}\ std::vector<T>\&\ \mbox{\hyperlink{structStep}{vec}})\ \{}
+\DoxyCodeLine{00552\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{vec}}.size()\};}
+\DoxyCodeLine{00553\ \ \ \ \ std::vector<T>\ \mbox{\hyperlink{structStep}{activated}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00554\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{activated}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structStep}{Swish<T>}}()(\mbox{\hyperlink{structStep}{vec}}[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00556\ \ \ \ \ \}}
+\DoxyCodeLine{00557\ }
+\DoxyCodeLine{00558\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{activated}};}
+\DoxyCodeLine{00559\ \ \ \}}
+\DoxyCodeLine{00563\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ E>}
+\DoxyCodeLine{00564\ \ \ std::vector<T>\ \mbox{\hyperlink{structSwish_ae269eba5ee9d8df9c60b432be5d0f0c5}{operator()}}(\textcolor{keyword}{const}\ std::vector<E>\&\ \mbox{\hyperlink{structStep}{vec}})\ \{}
+\DoxyCodeLine{00565\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{vec}}.size()\};}
+\DoxyCodeLine{00566\ \ \ \ \ std::vector<T>\ \mbox{\hyperlink{structStep}{activated}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00567\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{activated}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structStep}{Swish<T>}}()(\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{structStep}{T}}\textcolor{keyword}{>}(\mbox{\hyperlink{structStep}{vec}}[\mbox{\hyperlink{structStep}{i}}]));}
+\DoxyCodeLine{00569\ \ \ \ \ \}}
+\DoxyCodeLine{00570\ }
+\DoxyCodeLine{00571\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{activated}};}
+\DoxyCodeLine{00572\ \ \ \}}
+\DoxyCodeLine{00573\ }
+\DoxyCodeLine{00577\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structSwish_a71122f72d19ed834758c61c16ce2141f}{grad}}(\textcolor{keywordtype}{double}\ \mbox{\hyperlink{structStep}{x}})\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{Sigmoid<T>}}()(\mbox{\hyperlink{structStep}{x}})\ *\ (1\ +\ \mbox{\hyperlink{structStep}{x}})\ *\ (1\ -\/\ \mbox{\hyperlink{structStep}{Sigmoid<T>}}()(\mbox{\hyperlink{structStep}{x}}));\ \}}
+\DoxyCodeLine{00581\ \ \ std::vector<double>\ \mbox{\hyperlink{structSwish_aab7c330fad0ea7e2b8e781f19acc2ecb}{grad}}(shared<\mbox{\hyperlink{structStep}{Layer<T>}}>\ \mbox{\hyperlink{structStep}{layer}})\ \{}
+\DoxyCodeLine{00582\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{layer}}-\/>size()\};}
+\DoxyCodeLine{00583\ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{structStep}{gradient\_values}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00584\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{gradient\_values}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structSwish_a71122f72d19ed834758c61c16ce2141f}{grad}}(\mbox{\hyperlink{structStep}{layer}}-\/>nodes()[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00586\ \ \ \ \ \}}
+\DoxyCodeLine{00587\ }
+\DoxyCodeLine{00588\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{gradient\_values}};}
+\DoxyCodeLine{00589\ \ \ \}}
+\DoxyCodeLine{00593\ \ \ std::vector<double>\ \mbox{\hyperlink{structSwish_aae447641899f6485f2754cc902e94922}{grad}}(std::vector<T>\ \mbox{\hyperlink{structStep}{node\_values}})\ \{}
+\DoxyCodeLine{00594\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{N}}\{\mbox{\hyperlink{structStep}{node\_values}}.size()\};}
+\DoxyCodeLine{00595\ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{structStep}{gradient\_values}}(\mbox{\hyperlink{structStep}{N}});}
+\DoxyCodeLine{00596\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structStep}{i}}\{\};\ \mbox{\hyperlink{structStep}{i}}\ <\ \mbox{\hyperlink{structStep}{N}};\ ++\mbox{\hyperlink{structStep}{i}})\ \{}
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \mbox{\hyperlink{structStep}{gradient\_values}}[\mbox{\hyperlink{structStep}{i}}]\ =\ \mbox{\hyperlink{structSwish_a71122f72d19ed834758c61c16ce2141f}{grad}}(\mbox{\hyperlink{structStep}{node\_values}}[\mbox{\hyperlink{structStep}{i}}]);}
+\DoxyCodeLine{00598\ \ \ \ \ \}}
+\DoxyCodeLine{00599\ }
+\DoxyCodeLine{00600\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structStep}{gradient\_values}};}
+\DoxyCodeLine{00601\ \ \ \}}
+\DoxyCodeLine{00602\ \};}
+\DoxyCodeLine{00603\ }
+\DoxyCodeLine{00604\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

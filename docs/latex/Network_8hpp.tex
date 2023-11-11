@@ -1,0 +1,66 @@
+\doxysection{src/serial/include/\+Network.hpp File Reference}
+\hypertarget{Network_8hpp}{}\label{Network_8hpp}\index{src/serial/include/Network.hpp@{src/serial/include/Network.hpp}}
+
+
+Neural network.  
+
+
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$random$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include "{}Activators.\+hpp"{}}\newline
+{\ttfamily \#include "{}Layer.\+hpp"{}}\newline
+{\ttfamily \#include "{}Data\+Formats/\+Matrix.\+hpp"{}}\newline
+{\ttfamily \#include "{}Data\+Formats/\+Vector\+Operations.\+hpp"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classNetwork}{Network$<$ T, W, Activator, Loss $>$}}
+\begin{DoxyCompactList}\small\item\em Neural network. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{Network_8hpp_a1c6c460e61d9aebedc1589f47e266976}\label{Network_8hpp_a1c6c460e61d9aebedc1589f47e266976} 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} $>$ }\\\mbox{\hyperlink{structStep}{using}} {\bfseries shared} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structStep}{T}} $>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} $>$ }\\\mbox{\hyperlink{structStep}{void}} \mbox{\hyperlink{Network_8hpp_a6ea2fd7690b473b90d6b371baa746f9f}{random\+\_\+matrix}} (shared$<$ \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{W}} $>$ $>$ \mbox{\hyperlink{structStep}{matrix}})
+\begin{DoxyCompactList}\small\item\em Generate a random matrix. \end{DoxyCompactList}\item 
+\Hypertarget{Network_8hpp_a19c0670e5abd8e931017c75a89cec1a7}\label{Network_8hpp_a19c0670e5abd8e931017c75a89cec1a7} 
+{\footnotesize template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{T}} , \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} , \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{F}} $>$ \mbox{\hyperlink{structStep}{typename}} Activator, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{E}}, \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{LW}}, \mbox{\hyperlink{structStep}{template}}$<$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{K}} $>$ \mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{Act}} $>$ \mbox{\hyperlink{structStep}{typename}} Loss$>$ }\\std\+::ostream \& {\bfseries operator$<$$<$} (std\+::ostream \&\mbox{\hyperlink{structStep}{out}}, \mbox{\hyperlink{structStep}{const}} \mbox{\hyperlink{classNetwork}{Network}}$<$ \mbox{\hyperlink{structStep}{T}}, \mbox{\hyperlink{structStep}{W}}, \mbox{\hyperlink{structStep}{Activator}}, \mbox{\hyperlink{structStep}{Loss}} $>$ \&\mbox{\hyperlink{structStep}{Net}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Neural network. 
+
+A neural network is a collection of layers. The network contains the weights and biases of the nodes in the network. The network can be trained using gradient descent to minimize the error of the network. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{Network_8hpp_a6ea2fd7690b473b90d6b371baa746f9f}\label{Network_8hpp_a6ea2fd7690b473b90d6b371baa746f9f} 
+\index{Network.hpp@{Network.hpp}!random\_matrix@{random\_matrix}}
+\index{random\_matrix@{random\_matrix}!Network.hpp@{Network.hpp}}
+\doxysubsubsection{\texorpdfstring{random\_matrix()}{random\_matrix()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{structStep}{typename}} \mbox{\hyperlink{structStep}{W}} $>$ \\
+\mbox{\hyperlink{structStep}{void}} random\+\_\+matrix (\begin{DoxyParamCaption}\item[{shared$<$ \mbox{\hyperlink{classMatrix}{Matrix}}$<$ \mbox{\hyperlink{structStep}{W}} $>$ $>$}]{matrix }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Generate a random matrix. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em W} & The type of the matrix elements \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em matrix} & The matrix to fill with random values\\
+\hline
+\end{DoxyParams}
+The random values are generated using a uniform distribution between -\/0.\+5 and 0.\+5. 
