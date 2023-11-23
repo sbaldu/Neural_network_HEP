@@ -4,9 +4,7 @@
 #include <string>
 #include <sstream>
 
-#include "serial/include/Activators.hpp"
-#include "serial/include/ErrorFunction.hpp"
-#include "serial/include/Network.hpp"
+#include "nnhep.hpp"
 
 void train_and_validate(double eta, int hidden_layer_size) {
   Network<double, double, Sigmoid, MeanSquaredError> net({30, hidden_layer_size, 1});

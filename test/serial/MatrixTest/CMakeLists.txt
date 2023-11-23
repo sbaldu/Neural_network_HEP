@@ -23,7 +23,7 @@ if(NOT doctest_POPULATED)
 endif()
 
 # Set base directory for serial code
-include_directories(../../../src/serial/)
+include_directories(../../../src/)
 
 # Compile
 add_executable(MatrixSum.out ./MatrixSum.cc)

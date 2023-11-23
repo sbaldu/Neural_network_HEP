@@ -17,8 +17,8 @@
 
 #include "Activators.hpp"
 #include "Layer.hpp"
-#include "DataFormats/Matrix.hpp"
-#include "DataFormats/VectorOperations.hpp"
+#include "../DataFormats/Matrix.hpp"
+#include "../DataFormats/VectorOperations.hpp"
 
 template <typename T>
 using shared = std::shared_ptr<T>;
@@ -176,7 +176,7 @@ template <typename T,
           typename Activator,
           template <typename E, typename LW, template <typename K> typename Act>
           typename Loss>
-Network<T, W, Activator, Loss>::Network(const std::vector<int>& nodes_per_layer)
+Network<T, W, Activator, Loss>::Network(const std::vector<T>& nodes_per_layer)
     : n_layers{static_cast<int>(nodes_per_layer.size())},
       m_layers(n_layers + 1),
       m_weights(n_layers + 1),

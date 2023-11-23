@@ -2,7 +2,7 @@
 #include <cmath>
 #include <limits>
 
-#include "../../src/serial/include/Activators.hpp"
+#include "nnhep.hpp"
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"

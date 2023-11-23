@@ -4,9 +4,7 @@
 #include <string>
 #include <sstream>
 
-#include "serial/include/Activators.hpp"
-#include "serial/include/ErrorFunction.hpp"
-#include "serial/include/Network.hpp"
+#include "nnhep.hpp"
 
 int main() {
   double eta{0.975};
