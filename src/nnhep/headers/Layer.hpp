@@ -15,7 +15,7 @@
 #include <sstream>
 #include <vector>
 
-#include "DataFormats/Matrix.hpp"
+#include "../DataFormats/Matrix.hpp"
 
 /// @brief Layer of a neural network
 /// @tparam T The type of the node values
