@@ -8,7 +8,7 @@ SHELL ["/bin/bash", "-c"]
 
 # copy library source files
 COPY ./src/nnhep.hpp /usr/local/include/
-COPY ./src/nnhep/ /usr/local/include/
+COPY ./src/nnhep/ /usr/local/include/nnhep/
 
 # copy preprocessing scripts
 COPY ./example/higgs_ml/preprocessing_scripts/ /app/preprocessing_scripts
