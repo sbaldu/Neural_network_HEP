@@ -11,7 +11,7 @@ int main(int argc, char** argv) {
   /* double eta{atof(argv[1])}; */
   Network<double, double, Sigmoid, MeanSquaredError> net({30, std::strtol(argv[1], NULL, 10), 1});
   /* Network<double, double, Sigmoid, MeanSquaredError> net({30, 1000, 1}); */
-  const std::string path_to_trainfile{"../data/new_training_data.csv"};
+  const std::string path_to_trainfile{"../data/training_data.csv"};
   /* const std::string path_to_trainfile{"../data/training_processed.csv"}; */
 
   std::vector<double> training_loss_values{};

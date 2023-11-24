@@ -8,8 +8,8 @@
 
 void train_and_validate(double eta, int hidden_layer_size) {
   Network<double, double, Sigmoid, MeanSquaredError> net({30, hidden_layer_size, 1});
-  const std::string training_file{"../data/new_training_data.csv"};
-  const std::string validation_file{"../data/new_validation_data.csv"};
+  const std::string training_file{"../data/training_data.csv"};
+  const std::string validation_file{"../data/validation_data.csv"};
 
   std::vector<double> training_loss_values{};
   std::vector<double> validation_loss_values{};

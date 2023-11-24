@@ -9,8 +9,8 @@
 int main() {
   double eta{0.975};
   Network<double, double, Sigmoid, MeanSquaredError> net({30, 300, 1});
-  const std::string training_file{"../data/new_training_data.csv"};
-  const std::string test_file{"../data/new_test_data.csv"};
+  const std::string training_file{"../data/training_data.csv"};
+  const std::string test_file{"../data/test_data.csv"};
 
   const int n_epochs{22};
   const int test_data_size{22358};

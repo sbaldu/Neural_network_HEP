@@ -44,13 +44,13 @@ for col in training_dataset:
         scaler = StandardScaler()
         training_dataset[col] = scaler.fit_transform(training_dataset[col].to_numpy().reshape(-1, 1))
 
-        # We also normalize the validation and test datasets, with the same mean and 
+        # We also normalize the validation and test datasets, with the same mean and
         # standard variance of the training dataset
         validation_dataset[col] = scaler.transform(validation_dataset[col].to_numpy().reshape(-1, 1))
         test_dataset[col] = scaler.transform(test_dataset[col].to_numpy().reshape(-1, 1))
 print(training_dataset)
 
-# Perform principal component analysis on the training dataset and plot the residual 
+# Perform principal component analysis on the training dataset and plot the residual
 # variance in function of the number of components
 fig, ax = plt.subplots(1, 2, sharey=None)
 pca_r = PCA()
@@ -60,7 +60,7 @@ pca_r.fit_transform(training_dataset.iloc[:,1:])
 pca_residual_variance(pca_r, marker='o', axi=ax[0])
 ax[0].grid(linewidth=0.2)
 
-# After doing the pca, we try to plot the two categories in function of the first two 
+# After doing the pca, we try to plot the two categories in function of the first two
 # principal components
 pca = PCA(n_components=2)
 training_reduced = pca_r.fit_transform(training_dataset.iloc[:,1:])
@@ -73,6 +73,6 @@ figure = plt.gcf()
 figure.set_size_inches(11, 5)
 plt.savefig('../tex/img/pca.png', dpi = 100)
 
-training_dataset.to_csv('new_training_data.csv', index=None)
-validation_dataset.to_csv('new_validation_data.csv', index=None)
-test_dataset.to_csv('new_test_data.csv', index=None)
+training_dataset.to_csv('training_data.csv', index=None)
+validation_dataset.to_csv('validation_data.csv', index=None)
+test_dataset.to_csv('test_data.csv', index=None)
