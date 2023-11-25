@@ -15,10 +15,10 @@ TEST_CASE("Test sum of two vector matrices") {
   std::iota(v1.begin(), v1.end(), 0);
   std::iota(v2.begin(), v2.end(), 10);
 
-  Matrix<int> m1(v1);
-  Matrix<int> m2(v2);
+  nnhep::Matrix<int> m1(v1);
+  nnhep::Matrix<int> m2(v2);
 
-  Matrix<int> sum_vector{m1 + m2};
+  nnhep::Matrix<int> sum_vector{m1 + m2};
 
   for (int i{}; i < len; ++i) {
     CHECK(sum_vector[i] == 10 + 2 * i);
@@ -26,8 +26,8 @@ TEST_CASE("Test sum of two vector matrices") {
 }
 
 TEST_CASE("Test matrix product between two 2x2 matrices") {
-  Matrix<int> m1(2, 2);
-  Matrix<int> m2(2, 2);
+  nnhep::Matrix<int> m1(2, 2);
+  nnhep::Matrix<int> m2(2, 2);
 
   int index{};
   for (int i : std::views::iota(1, 5)) {
@@ -36,7 +36,7 @@ TEST_CASE("Test matrix product between two 2x2 matrices") {
     ++index;
   }
 
-  Matrix<int> sum_matrix(2, 2);
+  nnhep::Matrix<int> sum_matrix(2, 2);
   sum_matrix = m1 + m2;
 
   CHECK(sum_matrix.get(0, 0) == 3);
