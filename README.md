@@ -1,4 +1,4 @@
-# Neural_network_tracking
+# Neural Network HEP
 
 ## Introduction
 Nowadays neural networks are widely used in many branches of physics, in particular in particle 
@@ -15,7 +15,7 @@ how to write them from scratch.
 The goal of this project is to write from scratch in C++ a framework for building neural
 networks, test it with the MNIST dataset and finally use it to tackle the Higgs ML challenge.
 
-## The library
+## The `nnhep` library
 This repository contains a self contained library called `nnhep`, which defines basic neural
 networks with dense layers and the forward/back propagation methods for their training.  
 The library is header only, so to make it easier to import it and use it.  
