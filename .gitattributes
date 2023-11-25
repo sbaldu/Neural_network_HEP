@@ -1,1 +1,4 @@
 *.csv filter=lfs diff=lfs merge=lfs -text
+
+# don't count tex files in language statistics
+example/higgs_ml/tex/* linguist-vendored
