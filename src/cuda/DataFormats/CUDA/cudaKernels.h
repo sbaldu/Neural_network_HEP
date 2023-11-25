@@ -6,18 +6,6 @@
 
 #include <cassert>
 
-template <typename T>
-struct matrix_t {
-  int rows;
-  int cols;
-  T* data;
-
-  matrix_t(int n_rows, int n_cols, T* data) : rows{n_rows}, cols{n_cols}, data{data} {}
-
-  __host__ __device__ T& operator[](int index) { return data[index]; }
-  __host__ __device__ const T& operator[](int index) const { return data[index]; }
-};
-
 template <typename T, typename E>
 __global__ void vec_add(const T* a, const E* b, T* c, int n) {
   uint32_t index{threadIdx.x + blockIdx.x * blockDim.x};
