@@ -1,8 +1,9 @@
 
 #include <iostream>
 
-#include "include/Network.hpp"
-#include "include/ErrorFunction.hpp"
+#include "nnhep.hpp"
+
+using namespace nnhep;
 
 int main() {
   double eta{0.1};

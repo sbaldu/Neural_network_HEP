@@ -12,14 +12,14 @@
 TEST_CASE("Test the transposition of a vector matrix") {
   std::vector<int> vec(10, 1);
 
-  Matrix<int> m1(vec);
+  nnhep::Matrix<int> m1(vec);
 
   // Check the dimensions before transposition
   // The vector should be a column vector
   CHECK(m1.ncols() == 1);
   CHECK(m1.nrows() == 10);
 
-  Matrix<int> m2 = m1.transpose();
+  nnhep::Matrix<int> m2 = m1.transpose();
 
   // Check the dimensions after transposition
   // The vector should be a row vector
@@ -28,14 +28,14 @@ TEST_CASE("Test the transposition of a vector matrix") {
 }
 
 TEST_CASE("Test the transposition of a square matrix") {
-  Matrix<int> m1(4, 4);
+  nnhep::Matrix<int> m1(4, 4);
 
   int index{};
   for (int i : std::views::iota(1, 17)) {
     m1.set_data(index, i);
   }
 
-  Matrix<int> m2 = m1.transpose();
+  nnhep::Matrix<int> m2 = m1.transpose();
 
   // Check the new dimensions of the matrix and its content
   CHECK(m2.nrows() == 4);
@@ -48,14 +48,14 @@ TEST_CASE("Test the transposition of a square matrix") {
 }
 
 TEST_CASE("Test the transposition of a rectangular matrix") {
-  Matrix<int> m1(2, 4);
+  nnhep::Matrix<int> m1(2, 4);
 
   int index{};
   for (int i : std::views::iota(1, 9)) {
     m1.set_data(index, i);
   }
 
-  Matrix<int> m2 = m1.transpose();
+  nnhep::Matrix<int> m2 = m1.transpose();
 
   // Check the new dimensions of the matrix and its content
   CHECK(m2.nrows() == 4);

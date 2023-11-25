@@ -15,17 +15,17 @@ TEST_CASE("Test scalar product between two vector matrices") {
   std::iota(v1.begin(), v1.end(), 0);
   std::iota(v2.begin(), v2.end(), 10);
 
-  Matrix<int> m1(1, len, v1);
-  Matrix<int> m2(len, 1, v2);
+  nnhep::Matrix<int> m1(1, len, v1);
+  nnhep::Matrix<int> m2(len, 1, v2);
 
-  Matrix<int> product{m1 * m2};
+  nnhep::Matrix<int> product{m1 * m2};
 
   CHECK(product.get(0, 0) == 735);
 }
 
 TEST_CASE("Test matrix product between two 2x2 matrices") {
-  Matrix<int> m1(2, 2);
-  Matrix<int> m2(2, 2);
+  nnhep::Matrix<int> m1(2, 2);
+  nnhep::Matrix<int> m2(2, 2);
 
   int index{};
   for (int i : std::views::iota(1, 5)) {
@@ -34,7 +34,7 @@ TEST_CASE("Test matrix product between two 2x2 matrices") {
     ++index;
   }
 
-  Matrix<int> product(2, 2);
+  nnhep::Matrix<int> product(2, 2);
   product = m1 * m2;
 
   CHECK(product.get(0, 0) == 14);
@@ -48,7 +48,7 @@ TEST_CASE("Test matrix product between two 2x2 matrices") {
 }
 
 TEST_CASE("Test multiplication of a column vector with a matrix") {
-  Matrix<int> m(5, 5);
+  nnhep::Matrix<int> m(5, 5);
 
   int index{};
   for (int i : std::views::iota(1, 26)) {
@@ -58,9 +58,9 @@ TEST_CASE("Test multiplication of a column vector with a matrix") {
 
   std::vector<int> vec(5);
   std::iota(vec.begin(), vec.end(), 1);
-  Matrix<int> m2(vec);
+  nnhep::Matrix<int> m2(vec);
 
-  Matrix<int> product_1{m * m2};
+  nnhep::Matrix<int> product_1{m * m2};
   std::vector<int> product_2{m * vec};
 
   for (int i{}; i < 5; ++i) {
@@ -71,7 +71,7 @@ TEST_CASE("Test multiplication of a column vector with a matrix") {
 }
 
 TEST_CASE("Test multiplication of a row vector with a matrix") {
-  Matrix<int> m(5, 5);
+  nnhep::Matrix<int> m(5, 5);
 
   int index{};
   for (int i : std::views::iota(1, 26)) {
@@ -81,9 +81,9 @@ TEST_CASE("Test multiplication of a row vector with a matrix") {
 
   std::vector<int> vec(5);
   std::iota(vec.begin(), vec.end(), 1);
-  Matrix<int> m2(vec);
+  nnhep::Matrix<int> m2(vec);
 
-  Matrix<int> product_1{m * m2};
+  nnhep::Matrix<int> product_1{m * m2};
   std::vector<int> product_2{m * vec};
 
   for (int i{}; i < 5; ++i) {

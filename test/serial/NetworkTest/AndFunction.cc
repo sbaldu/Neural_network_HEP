@@ -4,6 +4,8 @@
 #include "include/Network.hpp"
 #include "include/ErrorFunction.hpp"
 
+using namespace nnhep;
+
 int main() {
   double eta{0.1};
   Network<int, double, Sigmoid, MeanSquaredError> net(2, {2, 1});

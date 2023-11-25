@@ -8,7 +8,7 @@
 #include "doctest.h"
 
 TEST_CASE("Test the step functor") {
-  Step<double> step;
+  nnhep::Step<double> step;
 
   CHECK(step(0) == 1);
   CHECK(step(1) == 1);
@@ -18,7 +18,7 @@ TEST_CASE("Test the step functor") {
 }
 
 TEST_CASE("Test the sigmoid functor") {
-  Sigmoid<double> sig;
+  nnhep::Sigmoid<double> sig;
 
   CHECK(sig(0) == 0.5);
   CHECK(sig(1) == 1 / (1 + std::exp(-1.)));
@@ -28,7 +28,7 @@ TEST_CASE("Test the sigmoid functor") {
 }
 
 TEST_CASE("Test the Elu functor") {
-  Elu<double> e{0.5};
+  nnhep::Elu<double> e{0.5};
 
   CHECK(e(1.) == 1.);
   CHECK(e(0.) == 0.);
@@ -38,7 +38,7 @@ TEST_CASE("Test the Elu functor") {
 }
 
 TEST_CASE("Test the Leaky Elu functor") {
-  Leaky_ReLU<double> le;
+  nnhep::Leaky_ReLU<double> le;
 
   CHECK(le(0.) == 0.);
   CHECK(le(1.) == 1.);

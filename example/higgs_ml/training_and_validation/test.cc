@@ -6,6 +6,8 @@
 
 #include "nnhep.hpp"
 
+using namespace nnhep;
+
 int main() {
   double eta{0.975};
   Network<double, double, Sigmoid, MeanSquaredError> net({30, 300, 1});
