@@ -6,6 +6,8 @@
 
 #include "nnhep.hpp"
 
+using namespace nnhep;
+
 void train_and_validate(double eta, int hidden_layer_size) {
   Network<double, double, Sigmoid, MeanSquaredError> net({30, hidden_layer_size, 1});
   const std::string training_file{"../data/training_data.csv"};
