@@ -56,9 +56,10 @@ public:
   T& operator[](int index);
   const T& operator[](int index) const;
 
-  const matrix_t<T>& devMatrix() const { return m_devMatrix; }
-  T* devData() { return m_devMatrix.data; }
-  const T* devData() const { return m_devMatrix.data; }
+  matrix_t<T>* devMatrix() { return m_devMatrix; }
+  const matrix_t<T>* devMatrix() const { return m_devMatrix; }
+  T* devData() { return m_devMatrix->data; }
+  const T* devData() const { return m_devMatrix->data; }
 
   template <typename E>
   friend Matrix<E> operator+(const Matrix<E>& m1, const Matrix<E>& m2);
@@ -112,7 +113,7 @@ Matrix<T>::Matrix(int n_rows, int n_cols, std::vector<E> vec) : Matrix{n_rows, n
   }
 
   // copy data to device
-  cudaMemcpy(m_devMatrix.data, m_data.data(), m_size * sizeof(T), cudaMemcpyHostToDevice);
+  cudaMemcpy(m_devMatrix->data, m_data.data(), m_size * sizeof(T), cudaMemcpyHostToDevice);
 }
 
 template <typename T>
@@ -123,7 +124,7 @@ Matrix<T>::Matrix(const std::vector<E>& vec) : Matrix{static_cast<int>(vec.size(
   }
 
   // copy data to device
-  cudaMemcpy(m_devMatrix.data, m_data.data(), m_size * sizeof(T), cudaMemcpyHostToDevice);
+  cudaMemcpy(m_devMatrix->data, m_data.data(), m_size * sizeof(T), cudaMemcpyHostToDevice);
 }
 
 template <typename T>
@@ -287,7 +288,7 @@ Matrix<T> operator*(const Matrix<T>& m1, const Matrix<T>& m2) {
   dim3 grid(grid_x, grid_y);
 
   const size_t shared_size{2 * block_size * block_size * sizeof(T)};
-  matrix_multiply<<<grid, block, shared_size>>(m1.devMatrix(), m2.devMatrix(), result.devMatrix(), block_size);
+  matrix_multiply<<<grid, block, shared_size>>>(m1.devMatrix(), m2.devMatrix(), result.devMatrix(), block_size);
   cudaMemcpy(const_cast<T*>(result.data().data()), result.devData(), size_c, cudaMemcpyDeviceToHost);
 
   return result;
