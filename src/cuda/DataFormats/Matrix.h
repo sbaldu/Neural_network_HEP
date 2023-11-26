@@ -174,7 +174,7 @@ void Matrix<T>::set_data(int i, int j, T data) {
     m_data[index] = data;
 
 	// update data on device
-	cudaMemcpy(m_devMatrix.data, m_data.data(), m_size * sizeof(T), cudaMemcpyHostToDevice);
+	cudaMemcpy(m_devMatrix->data, m_data.data(), m_size * sizeof(T), cudaMemcpyHostToDevice);
   } catch (...) {
     std::cout << "The index " << index << " is larger that the size of the matrix\n";
   }
