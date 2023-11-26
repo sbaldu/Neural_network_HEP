@@ -10,7 +10,6 @@
 #include "doctest.h"
 
 TEST_CASE("Test sum of two vector matrices") {
-  /*
   const int len{1 << 10};
   std::vector<int> v1(len), v2(len);
   std::iota(v1.begin(), v1.end(), 1);
@@ -24,10 +23,8 @@ TEST_CASE("Test sum of two vector matrices") {
   for (int i{}; i < len; ++i) {
     CHECK(sum[i] == m1[i] + m2[i]);
   }
-  */
 }
 
-/*
 TEST_CASE("Test increment of a matrix with another") {
   const int len{1 << 10};
   std::vector<int> v1(len), v2(len);
@@ -427,9 +424,7 @@ TEST_CASE("Test multiplication of a large column vector with a matrix") {
     CHECK(tmp == product[i]);
   }
 }
-*/
 
-/*
 TEST_CASE("Test multiplication of a row vector with a matrix") {
   Matrix<int> m(5, 5);
 
@@ -452,4 +447,3 @@ TEST_CASE("Test multiplication of a row vector with a matrix") {
     CHECK(product_2[i] == 55 + 5 * 15 * i);
   }
 }
-*/
