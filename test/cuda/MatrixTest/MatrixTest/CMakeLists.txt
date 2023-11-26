@@ -4,6 +4,8 @@ cmake_minimum_required(VERSION 3.16.0)
 include(CheckLanguage)
 check_language(CUDA)
 
+set(CMAKE_COLOR_DIAGNOSTICS ON)
+
 # Enable CUDA
 enable_language(CUDA)
 

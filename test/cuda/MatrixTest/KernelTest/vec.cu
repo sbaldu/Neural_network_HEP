@@ -4,7 +4,7 @@
 #include <numeric>
 #include <vector>
 
-#include "DataFormats/VectorKernels.h"
+#include "DataFormats/CUDA/cudaKernels.h"
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"

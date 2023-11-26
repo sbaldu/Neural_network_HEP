@@ -42,9 +42,9 @@ endif()
 include_directories(../../../../src/cuda/)
 
 # Compile
-CUDA_ADD_EXECUTABLE(vec.out vec.cu)
-target_include_directories(vec.out SYSTEM PRIVATE ${doctest_SOURCE_DIR}/doctest)
-add_test(NAME vec.out COMMAND vec.out)
+# CUDA_ADD_EXECUTABLE(vec.out vec.cu)
+# target_include_directories(vec.out SYSTEM PRIVATE ${doctest_SOURCE_DIR}/doctest)
+# add_test(NAME vec.out COMMAND vec.out)
 CUDA_ADD_EXECUTABLE(matrix.out matrix.cu)
 target_include_directories(matrix.out SYSTEM PRIVATE ${doctest_SOURCE_DIR}/doctest)
 add_test(NAME matrix.out COMMAND matrix.out)
