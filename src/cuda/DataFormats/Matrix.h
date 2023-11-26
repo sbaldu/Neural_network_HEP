@@ -22,7 +22,7 @@ private:
   std::vector<T> m_data;
 
   // device matrix
-  matrix_t<T> m_devMatrix;
+  matrix_t<T>* m_devMatrix;
 
 public:
   Matrix() = default;
@@ -287,7 +287,7 @@ Matrix<T> operator*(const Matrix<T>& m1, const Matrix<T>& m2) {
   dim3 grid(grid_x, grid_y);
 
   const size_t shared_size{2 * block_size * block_size * sizeof(T)};
-  matrix_multiply<<<grid, block, shared_size>>>(m1.devMatrix(), m2.devMatrix(), result.devMatrix(), block_size);
+  matrix_multiply<<<grid, block, shared_size>>(m1.devMatrix(), m2.devMatrix(), result.devMatrix(), block_size);
   cudaMemcpy(const_cast<T*>(result.data().data()), result.devData(), size_c, cudaMemcpyDeviceToHost);
 
   return result;

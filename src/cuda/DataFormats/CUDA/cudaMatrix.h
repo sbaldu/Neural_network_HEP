@@ -23,8 +23,8 @@ struct matrix_t {
 	cudaFree(data);
   }
 
-  __host__ __device__ T& operator[](int index) { return data[index]; }
-  __host__ __device__ const T& operator[](int index) const { return data[index]; }
+  __device__ T& operator[](int index) { return data[index]; }
+  __device__ const T& operator[](int index) const { return data[index]; }
 };
 
 

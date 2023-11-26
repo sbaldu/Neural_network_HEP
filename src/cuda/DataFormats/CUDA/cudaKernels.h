@@ -64,9 +64,9 @@ __global__ void vec_divide(T* a, E constant, std::size_t n) {
 }
 
 template <typename T1, typename T2, typename T3>
-__global__ void matrix_multiply(const matrix_t<T1> a,
-                                const matrix_t<T2> b,
-                                matrix_t<T3> c,
+__global__ void matrix_multiply(const matrix_t<T1>* a,
+                                const matrix_t<T2>* b,
+                                matrix_t<T3>* c,
                                 std::size_t block_size) {
   // Allocate memory on shared memory
   extern __shared__ int shared[];
@@ -80,10 +80,10 @@ __global__ void matrix_multiply(const matrix_t<T1> a,
   T3 temp{};
 
   assert(a.cols == b.rows);
-  for (std::size_t i{}; i < a.cols; i += blockDim.x) {
+  for (std::size_t i{}; i < a->cols; i += blockDim.x) {
     // Fill the arrays in shared memory
-    s_a[threadIdx.y * blockDim.x + threadIdx.x] = a[row * a.cols + threadIdx.x + i];
-    s_b[threadIdx.y * blockDim.x + threadIdx.x] = b[(threadIdx.y + i) * b.cols + col];
+    s_a[threadIdx.y * blockDim.x + threadIdx.x] = (*a)[row * a->cols + threadIdx.x + i];
+    s_b[threadIdx.y * blockDim.x + threadIdx.x] = (*b)[(threadIdx.y + i) * b->cols + col];
 
     __syncthreads();
 
@@ -93,7 +93,7 @@ __global__ void matrix_multiply(const matrix_t<T1> a,
 
     __syncthreads();
 
-    c[row * b.cols + col] = temp;
+    (*c)[row * b.cols + col] = temp;
   }
 }
 
