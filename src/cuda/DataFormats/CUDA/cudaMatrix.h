@@ -20,7 +20,6 @@ struct matrix_t {
   /* } */
 
   ~matrix_t() { 
-	std::cout << "The destructor of cuda matrix is called" << std::endl;
 	cudaFree(data);
   }
 
