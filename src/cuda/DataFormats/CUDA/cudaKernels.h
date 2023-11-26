@@ -5,9 +5,12 @@
 #pragma once
 
 #include <cassert>
+#include <cstdint>
 
-template <typename T, typename E>
-__global__ void vec_add(const T* a, const E* b, T* c, int n) {
+#include "cudaMatrix.h"
+
+template <typename T1, typename T2, typename T3>
+__global__ void vec_add(const T1* a, const T2* b, T3* c, std::size_t n) {
   uint32_t index{threadIdx.x + blockIdx.x * blockDim.x};
 
   if (index < n) {
@@ -15,8 +18,8 @@ __global__ void vec_add(const T* a, const E* b, T* c, int n) {
   }
 }
 
-template <typename T, typename E>
-__global__ void vec_add(T* a, const E* b, int n) {
+template <typename T1, typename T2>
+__global__ void vec_add(T1* a, const T2* b, std::size_t n) {
   uint32_t index{threadIdx.x + blockIdx.x * blockDim.x};
 
   if (index < n) {
@@ -24,8 +27,8 @@ __global__ void vec_add(T* a, const E* b, int n) {
   }
 }
 
-template <typename T, typename E>
-__global__ void vec_sub(const T* a, const E* b, T* c, int n) {
+template <typename T1, typename T2, typename T3>
+__global__ void vec_sub(const T1* a, const T2* b, T3* c, std::size_t n) {
   uint32_t index{threadIdx.x + blockIdx.x * blockDim.x};
 
   if (index < n) {
@@ -33,8 +36,8 @@ __global__ void vec_sub(const T* a, const E* b, T* c, int n) {
   }
 }
 
-template <typename T, typename E>
-__global__ void vec_sub(T* a, const E* b, int n) {
+template <typename T1, typename T2>
+__global__ void vec_sub(T1* a, const T2* b, std::size_t n) {
   uint32_t index{threadIdx.x + blockIdx.x * blockDim.x};
 
   if (index < n) {
@@ -43,7 +46,7 @@ __global__ void vec_sub(T* a, const E* b, int n) {
 }
 
 template <typename T, typename E>
-__global__ void vec_multiply(T* a, E constant, int n) {
+__global__ void vec_multiply(T* a, E constant, std::size_t n) {
   uint32_t index{threadIdx.x + blockIdx.x * blockDim.x};
 
   if (index < n) {
@@ -52,7 +55,7 @@ __global__ void vec_multiply(T* a, E constant, int n) {
 }
 
 template <typename T, typename E>
-__global__ void vec_divide(T* a, E constant, int n) {
+__global__ void vec_divide(T* a, E constant, std::size_t n) {
   uint32_t index{threadIdx.x + blockIdx.x * blockDim.x};
 
   if (index < n) {
@@ -60,28 +63,31 @@ __global__ void vec_divide(T* a, E constant, int n) {
   }
 }
 
-template <typename T, typename E, typename U>
-__global__ void matrix_multiply(const matrix_t<T> a, const matrix_t<E> b, matrix_t<U> c, int block_size) {
+template <typename T1, typename T2, typename T3>
+__global__ void matrix_multiply(const matrix_t<T1> a,
+                                const matrix_t<T2> b,
+                                matrix_t<T3> c,
+                                std::size_t block_size) {
   // Allocate memory on shared memory
   extern __shared__ int shared[];
-  int* s_a{shared};
-  int* s_b{&shared[block_size * block_size]};
+  T1* s_a{shared};
+  T2* s_b{&shared[block_size * block_size]};
 
-  unsigned int row{blockIdx.y * blockDim.y + threadIdx.y};
-  unsigned int col{blockIdx.x * blockDim.x + threadIdx.x};
+  uint32_t row{blockIdx.y * blockDim.y + threadIdx.y};
+  uint32_t col{blockIdx.x * blockDim.x + threadIdx.x};
 
   // Temporary variable containing the result of the moltiplication
-  int temp{};
+  T3 temp{};
 
   assert(a.cols == b.rows);
-  for (int i{}; i < a.cols; i += blockDim.x) {
+  for (std::size_t i{}; i < a.cols; i += blockDim.x) {
     // Fill the arrays in shared memory
     s_a[threadIdx.y * blockDim.x + threadIdx.x] = a[row * a.cols + threadIdx.x + i];
     s_b[threadIdx.y * blockDim.x + threadIdx.x] = b[(threadIdx.y + i) * b.cols + col];
 
     __syncthreads();
 
-    for (int j{}; j < blockDim.x; ++j) {
+    for (std::size_t j{}; j < blockDim.x; ++j) {
       temp += s_a[threadIdx.y * blockDim.x + j] * s_b[j * blockDim.x + threadIdx.x];
     }
 
