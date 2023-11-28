@@ -8,9 +8,9 @@
 
 template <typename T>
 struct matrix_t {
-  T* data;
   int rows;
   int cols;
+  T* data;
 
   matrix_t(int n_rows, int n_cols) : rows{n_rows}, cols{n_cols} {
 	cudaMalloc(&data, rows * cols * sizeof(T));
