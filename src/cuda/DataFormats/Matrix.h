@@ -58,8 +58,8 @@ public:
 
   cudaMatrix<T>* devMatrix() { return m_devMatrix; }
   const cudaMatrix<T>* devMatrix() const { return m_devMatrix; }
-  T* devData() { return m_devMatrix->data; }
-  const T* devData() const { return m_devMatrix->data; }
+  T* devData() { return m_devMatrix->data(); }
+  const T* devData() const { return m_devMatrix->data(); }
 
   template <typename E>
   friend Matrix<E> operator+(const Matrix<E>& m1, const Matrix<E>& m2);

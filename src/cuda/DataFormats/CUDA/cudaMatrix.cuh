@@ -28,6 +28,12 @@ public:
 
   ~cudaMatrix() { cudaFree(data); }
 
+  T* data() { return data; }
+  const T* data() const { return data; }
+
+  __device__ int rows() const { return rows; }
+  __device__ int cols() const { return cols; }
+
   __device__ T& operator[](int index) { return data[index]; }
   __device__ const T& operator[](int index) const { return data[index]; }
 };

@@ -79,11 +79,11 @@ __global__ void matrix_multiply(const cudaMatrix<T1>* a,
   // Temporary variable containing the result of the moltiplication
   T3 temp{};
 
-  assert(a->cols == b->rows);
-  for (std::size_t i{}; i < a->cols; i += blockDim.x) {
+  assert(a->cols() == b->rows());
+  for (std::size_t i{}; i < a->cols(); i += blockDim.x) {
     // Fill the arrays in shared memory
-    s_a[threadIdx.y * blockDim.x + threadIdx.x] = (*a)[row * a->cols + threadIdx.x + i];
-    s_b[threadIdx.y * blockDim.x + threadIdx.x] = (*b)[(threadIdx.y + i) * b->cols + col];
+    s_a[threadIdx.y * blockDim.x + threadIdx.x] = (*a)[row * a->cols() + threadIdx.x + i];
+    s_b[threadIdx.y * blockDim.x + threadIdx.x] = (*b)[(threadIdx.y + i) * b->cols() + col];
 
     __syncthreads();
 
@@ -93,7 +93,7 @@ __global__ void matrix_multiply(const cudaMatrix<T1>* a,
 
     __syncthreads();
 
-    (*c)[row * b->cols + col] = temp;
+    (*c)[row * b->cols() + col] = temp;
   }
 }
 
