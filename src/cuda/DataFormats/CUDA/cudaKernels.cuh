@@ -64,9 +64,9 @@ __global__ void vec_divide(T* a, E constant, std::size_t n) {
 }
 
 template <typename T1, typename T2, typename T3>
-__global__ void matrix_multiply(const matrix_t<T1>* a,
-                                const matrix_t<T2>* b,
-                                matrix_t<T3>* c,
+__global__ void matrix_multiply(const cudaMatrix<T1>* a,
+                                const cudaMatrix<T2>* b,
+                                cudaMatrix<T3>* c,
                                 std::size_t block_size) {
   // Allocate memory on shared memory
   extern __shared__ int shared[];

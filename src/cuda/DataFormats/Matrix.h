@@ -10,8 +10,8 @@
 #include <iterator>
 #include <vector>
 
-#include "CUDA/cudaMatrix.h"
-#include "CUDA/cudaKernels.h"
+#include "CUDA/cudaMatrix.cuh"
+#include "CUDA/cudaKernels.cuh"
 
 template <typename T>
 class Matrix {
@@ -22,7 +22,7 @@ private:
   std::vector<T> m_data;
 
   // device matrix
-  matrix_t<T>* m_devMatrix;
+  cudaMatrix<T>* m_devMatrix;
 
 public:
   Matrix() = default;
@@ -31,7 +31,7 @@ public:
   Matrix(int n_rows, int n_cols, std::vector<E> vec);
   // Create a matrix from a vector
   template <typename E>
-  Matrix(const std::vector<E>& vec);
+  Matrix(std::vector<E> vec);
 
   // Getters
   inline int nrows() const;
@@ -56,8 +56,8 @@ public:
   T& operator[](int index);
   const T& operator[](int index) const;
 
-  matrix_t<T>* devMatrix() { return m_devMatrix; }
-  const matrix_t<T>* devMatrix() const { return m_devMatrix; }
+  cudaMatrix<T>* devMatrix() { return m_devMatrix; }
+  const cudaMatrix<T>* devMatrix() const { return m_devMatrix; }
   T* devData() { return m_devMatrix->data; }
   const T* devData() const { return m_devMatrix->data; }
 
@@ -65,33 +65,33 @@ public:
   friend Matrix<E> operator+(const Matrix<E>& m1, const Matrix<E>& m2);
 
   template <typename U, std::convertible_to<U> E>
-  friend __host__ Matrix<T> operator*(E constant, const Matrix<T>& m);
+  friend Matrix<T> operator*(E constant, const Matrix<T>& m);
 
   template <typename E>
-  friend __host__ Matrix<E> operator*(const Matrix<E>& m1, const Matrix<E>& m2);
+  friend Matrix<E> operator*(const Matrix<E>& m1, const Matrix<E>& m2);
 
   template <typename U, std::convertible_to<U> E>
-  friend __host__ Matrix<U> operator*(const Matrix<U>& m1, const Matrix<E>& m2);
+  friend Matrix<U> operator*(const Matrix<U>& m1, const Matrix<E>& m2);
 
   template <typename E>
-  friend __host__ std::vector<E> operator*(const Matrix<E>& matrix, const std::vector<E>& vec);
+  friend std::vector<E> operator*(const Matrix<E>& matrix, const std::vector<E>& vec);
 
   template <typename U, std::convertible_to<U> E>
-  friend __host__ std::vector<U> operator*(const Matrix<U>& matrix, const std::vector<E>& vec);
+  friend std::vector<U> operator*(const Matrix<U>& matrix, const std::vector<E>& vec);
 
-  __host__ Matrix<T>& operator+=(const Matrix<T>& other);
+  Matrix<T>& operator+=(const Matrix<T>& other);
   template <typename E>
-  __host__ Matrix<T>& operator+=(const Matrix<E>& other);
+  Matrix<T>& operator+=(const Matrix<E>& other);
 
-  __host__ Matrix<T>& operator-=(const Matrix<T>& other);
+  Matrix<T>& operator-=(const Matrix<T>& other);
   template <typename E>
-  __host__ Matrix<T>& operator-=(const Matrix<E>& other);
-
-  template <typename E>
-  __host__ Matrix<T>& operator*=(E constant);
+  Matrix<T>& operator-=(const Matrix<E>& other);
 
   template <typename E>
-  __host__ Matrix<T>& operator/=(E constant);
+  Matrix<T>& operator*=(E constant);
+
+  template <typename E>
+  Matrix<T>& operator/=(E constant);
 
   template <typename U>
   friend std::ostream& operator<<(std::ostream& out, const Matrix<U>& m);
@@ -99,32 +99,31 @@ public:
 
 template <typename T>
 Matrix<T>::Matrix(int n_rows, int n_cols)
-    : m_data(n_rows * n_cols),
-      m_nrows{n_rows},
-      m_ncols{n_cols},
-      m_size{n_rows * n_cols},
-      m_devMatrix{n_rows, n_cols} {}
-
-template <typename T>
-template <typename E>
-Matrix<T>::Matrix(int n_rows, int n_cols, std::vector<E> vec) : Matrix{n_rows, n_cols} {
-  for (int i{}; i < m_ncols * m_nrows; ++i) {
-    m_data[i] = vec.data()[i];
-  }
-
-  // copy data to device
-  cudaMemcpy(m_devMatrix->data, m_data.data(), m_size * sizeof(T), cudaMemcpyHostToDevice);
+    : m_data(n_rows * n_cols), m_nrows{n_rows}, m_ncols{n_cols}, m_size{n_rows * n_cols} {
+  cudaMatrix<T> host_matrix(n_rows, n_cols);
 }
 
 template <typename T>
 template <typename E>
-Matrix<T>::Matrix(const std::vector<E>& vec) : Matrix{static_cast<int>(vec.size()), 1} {
-  for (int i{}; i < m_ncols * m_nrows; ++i) {
-    m_data[i] = vec.data()[i];
-  }
+Matrix<T>::Matrix(int n_rows, int n_cols, std::vector<E> vec)
+    : m_data{std::move(vec)}, m_nrows{n_rows}, m_ncols{n_cols} {
+  // allocate pointer of type cudaMatrix on device
+  cudaMalloc(&m_devMatrix, sizeof(cudaMatrix<T>));
+  // create cudaMatrix on host with initialized data
+  cudaMatrix<T> host_matrix(n_rows, n_cols, vec.data());
+  // copy content into device matrix
+  cudaMemcpy(m_devMatrix, &host_matrix, sizeof(cudaMatrix<T>), cudaMemcpyHostToDevice);
+}
 
-  // copy data to device
-  cudaMemcpy(m_devMatrix->data, m_data.data(), m_size * sizeof(T), cudaMemcpyHostToDevice);
+template <typename T>
+template <typename E>
+Matrix<T>::Matrix(std::vector<E> vec) : m_data{std::move(vec)}, m_nrows{static_cast<int>(vec.size())}, m_ncols{1} {
+  // allocate pointer of type cudaMatrix on device
+  cudaMalloc(&m_devMatrix, sizeof(cudaMatrix<T>));
+  // create cudaMatrix on host with initialized data
+  cudaMatrix<T> host_matrix(m_nrows, m_ncols, vec.data());
+  // copy content into device matrix
+  cudaMemcpy(m_devMatrix, &host_matrix, sizeof(cudaMatrix<T>), cudaMemcpyHostToDevice);
 }
 
 template <typename T>
@@ -173,8 +172,8 @@ void Matrix<T>::set_data(int i, int j, T data) {
     }
     m_data[index] = data;
 
-	// update data on device
-	cudaMemcpy(m_devMatrix->data, m_data.data(), m_size * sizeof(T), cudaMemcpyHostToDevice);
+    // update data on device
+    cudaMemcpy(m_devMatrix->data, m_data.data(), m_size * sizeof(T), cudaMemcpyHostToDevice);
   } catch (...) {
     std::cout << "The index " << index << " is larger that the size of the matrix\n";
   }
@@ -270,7 +269,8 @@ Matrix<T> operator*(const Matrix<T>& m1, const Matrix<T>& m2) {
       throw(0);
     }
   } catch (int num) {
-    std::cout << "The two matrices can't be multiplied because their dimensions are not compatible. \n";
+    std::cout
+        << "The two matrices can't be multiplied because their dimensions are not compatible. \n";
   }
 
   Matrix<T> result(N, M);
@@ -288,8 +288,10 @@ Matrix<T> operator*(const Matrix<T>& m1, const Matrix<T>& m2) {
   dim3 grid(grid_x, grid_y);
 
   const size_t shared_size{2 * block_size * block_size * sizeof(T)};
-  matrix_multiply<<<grid, block, shared_size>>>(m1.devMatrix(), m2.devMatrix(), result.devMatrix(), block_size);
-  cudaMemcpy(const_cast<T*>(result.data().data()), result.devData(), size_c, cudaMemcpyDeviceToHost);
+  matrix_multiply<<<grid, block, shared_size>>>(
+      m1.devMatrix(), m2.devMatrix(), result.devMatrix(), block_size);
+  cudaMemcpy(
+      const_cast<T*>(result.data().data()), result.devData(), size_c, cudaMemcpyDeviceToHost);
 
   return result;
 }
@@ -305,7 +307,8 @@ Matrix<T> operator*(const Matrix<T>& m1, const Matrix<E>& m2) {
       throw(0);
     }
   } catch (int num) {
-    std::cout << "The two matrices can't be multiplied because their dimensions are not compatible. \n";
+    std::cout
+        << "The two matrices can't be multiplied because their dimensions are not compatible. \n";
   }
 
   Matrix<T> result(N, M);
@@ -323,8 +326,10 @@ Matrix<T> operator*(const Matrix<T>& m1, const Matrix<E>& m2) {
   dim3 grid(grid_x, grid_y);
 
   const size_t shared_size{2 * block_size * block_size * sizeof(T)};
-  matrix_multiply<<<grid, block, shared_size>>>(m1.devData(), m2.devData(), result.devData(), block_size);
-  cudaMemcpy(const_cast<T*>(result.data().data()), result.devData(), size_c, cudaMemcpyDeviceToHost);
+  matrix_multiply<<<grid, block, shared_size>>>(
+      m1.devData(), m2.devData(), result.devData(), block_size);
+  cudaMemcpy(
+      const_cast<T*>(result.data().data()), result.devData(), size_c, cudaMemcpyDeviceToHost);
 
   return result;
 }
