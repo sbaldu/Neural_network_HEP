@@ -6,6 +6,8 @@
 
 #include <iostream>
 
+using Bytes = std::size_t;
+
 template <typename T>
 struct matrix_t {
   int rows;
@@ -13,10 +15,13 @@ struct matrix_t {
   T* data;
 
   matrix_t(int n_rows, int n_cols) : rows{n_rows}, cols{n_cols} {
-    cudaMalloc(&data, rows * cols * sizeof(T));
+    const Bytes bytes{rows * cols * sizeof(T)};
+    cudaMalloc(&data, bytes);
   }
   matrix_t(int n_rows, int n_cols, T* data) : data{data}, rows{n_rows}, cols{n_cols} {
-    cudaMalloc(&data, rows * cols * sizeof(T));
+    const Bytes bytes{rows * cols * sizeof(T)};
+    cudaMalloc(&data, bytes);
+    cudaMemcpy(&(this->data), data, bytes, cudaMemcpyHostToDevice);
   }
 
   ~matrix_t() { cudaFree(data); }
