@@ -10,10 +10,12 @@ using Bytes = std::size_t;
 
 template <typename T>
 struct cudaMatrix {
+private:
   int rows;
   int cols;
   T* data;
 
+public:
   cudaMatrix(int n_rows, int n_cols) : rows{n_rows}, cols{n_cols} {
     const Bytes bytes{rows * cols * sizeof(T)};
     cudaMalloc(&data, bytes);

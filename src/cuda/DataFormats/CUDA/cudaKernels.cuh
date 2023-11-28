@@ -7,7 +7,7 @@
 #include <cassert>
 #include <cstdint>
 
-#include "cudaMatrix.h"
+#include "cudaMatrix.cuh"
 
 template <typename T1, typename T2, typename T3>
 __global__ void vec_add(const T1* a, const T2* b, T3* c, std::size_t n) {
