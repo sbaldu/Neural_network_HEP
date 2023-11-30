@@ -100,7 +100,12 @@ public:
 template <typename T>
 Matrix<T>::Matrix(int n_rows, int n_cols)
     : m_data(n_rows * n_cols), m_nrows{n_rows}, m_ncols{n_cols}, m_size{n_rows * n_cols} {
+  // allocate pointer of type cudaMatrix on device
+  cudaMalloc(&m_devMatrix, sizeof(cudaMatrix<T>));
+  // create cudaMatrix on host with initialized data
   cudaMatrix<T> host_matrix(n_rows, n_cols);
+  // copy content into device matrix
+  cudaMemcpy(m_devMatrix, &host_matrix, sizeof(cudaMatrix<T>), cudaMemcpyHostToDevice);
 }
 
 template <typename T>
@@ -226,7 +231,7 @@ const T& Matrix<T>::operator[](int index) const {
 }
 
 template <typename T>
-__host__ Matrix<T> operator+(const Matrix<T>& m1, const Matrix<T>& m2) {
+Matrix<T> operator+(const Matrix<T>& m1, const Matrix<T>& m2) {
   Matrix<T> result(m1.m_nrows, m1.m_ncols);
 
   const int N{result.m_size};
