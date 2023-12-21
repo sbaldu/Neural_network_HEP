@@ -9,7 +9,7 @@
 using Bytes = std::size_t;
 
 template <typename T>
-struct cudaMatrix {
+class cudaMatrix {
 private:
   int m_nrows;
   int m_ncols;
@@ -17,8 +17,11 @@ private:
 
 public:
   cudaMatrix(int n_rows, int n_cols) : m_nrows{n_rows}, m_ncols{n_cols} {
-    const Bytes bytes{m_nrows * m_ncols * sizeof(T)};
+	const size_t size{n_rows * n_cols};
+    const Bytes bytes{size * sizeof(T)};
     cudaMalloc(&m_data, bytes);
+	const std::vector<T> temp(size, 0);
+    cudaMemcpy(&(this->m_data), temp.data(), bytes, cudaMemcpyHostToDevice);
   }
   cudaMatrix(int n_rows, int n_cols, T* data) : m_data{data}, m_nrows{n_rows}, m_ncols{n_cols} {
     const Bytes bytes{m_nrows * m_ncols * sizeof(T)};
