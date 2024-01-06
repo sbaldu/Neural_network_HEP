@@ -14,7 +14,8 @@ using shared = std::shared_ptr<T>;
 
 template <typename T, typename W, template <typename E> typename Activator>
 struct MeanSquaredError {
-  __host__ double operator()(const std::vector<T>& node_values, const std::vector<T>& expected_values) {
+  __host__ double operator()(const std::vector<T>& node_values,
+                             const std::vector<T>& expected_values) {
     double error{};
     int N{node_values.size()};
     for (int node_index{}; node_index < N; ++node_index) {
@@ -35,7 +36,8 @@ struct MeanSquaredError {
       int N{layers[layer_id]->size()};
       std::vector<double> delta(N);
       for (int node_index{}; node_index < N; ++node_index) {
-        delta[node_index] = (*layers[layer_id])[node_index] - static_cast<T>(expected_values[node_index]);
+        delta[node_index] =
+            (*layers[layer_id])[node_index] - static_cast<T>(expected_values[node_index]);
       }
 
       return delta;
@@ -45,7 +47,8 @@ struct MeanSquaredError {
       std::vector<double> delta(N);
 
       for (int node_index{}; node_index < N; ++node_index) {
-        std::vector<double> previous_delta{grad(expected_values, layer_id + 1, layers, weights)};
+        std::vector<double> previous_delta{
+            grad(expected_values, layer_id + 1, layers, weights)};
         delta[node_index] = act.grad((*layers[layer_id])[node_index]) *
                             (weights[layer_id]->transpose() * previous_delta)[node_index];
       }

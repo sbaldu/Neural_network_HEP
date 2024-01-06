@@ -54,7 +54,9 @@ public:
   void set_bias_data(int layer_id, std::vector<W> bias_vector);
   void set_bias_data(int layer_id, shared<std::vector<W>> bias_vector_ptr);
 
-  std::vector<T> forward_propatation(shared<Layer<T>>, shared<Matrix<W>>, shared<std::vector<W>>);
+  std::vector<T> forward_propatation(shared<Layer<T>>,
+                                     shared<Matrix<W>>,
+                                     shared<std::vector<W>>);
   void forward_propatation();
 
   template <typename U>
@@ -94,7 +96,8 @@ Network<T, W, Activator, Loss>::Network(const std::vector<int>& nodes_per_layer)
       m_bias(n_layers - 1) {
   for (int i{}; i < n_layers - 1; ++i) {
     m_layers[i] = std::make_shared<Layer<T>>(nodes_per_layer[i]);
-    m_weights[i] = std::make_shared<Matrix<W>>(nodes_per_layer[i + 1], nodes_per_layer[i]);
+    m_weights[i] =
+        std::make_shared<Matrix<W>>(nodes_per_layer[i + 1], nodes_per_layer[i]);
     m_bias[i] = std::make_shared<std::vector<W>>(nodes_per_layer[i + 1]);
 
     // Generate random weight matrices
@@ -160,7 +163,8 @@ template <typename T,
           typename Activator,
           template <typename E, typename LW, template <typename K> typename Act>
           typename Loss>
-void Network<T, W, Activator, Loss>::set_matrix_data(int layer_id, Matrix<W> weight_matrix) {
+void Network<T, W, Activator, Loss>::set_matrix_data(int layer_id,
+                                                     Matrix<W> weight_matrix) {
   m_weights[layer_id] = std::make_shared<Matrix<W>>(weight_matrix);
 }
 
@@ -170,7 +174,8 @@ template <typename T,
           typename Activator,
           template <typename E, typename LW, template <typename K> typename Act>
           typename Loss>
-void Network<T, W, Activator, Loss>::set_matrix_data(int layer_id, shared<Matrix<W>> weight_matrix_ptr) {
+void Network<T, W, Activator, Loss>::set_matrix_data(
+    int layer_id, shared<Matrix<W>> weight_matrix_ptr) {
   m_weights[layer_id] = weight_matrix_ptr;
 }
 
@@ -180,7 +185,8 @@ template <typename T,
           typename Activator,
           template <typename E, typename LW, template <typename K> typename Act>
           typename Loss>
-void Network<T, W, Activator, Loss>::set_bias_data(int layer_id, std::vector<W> bias_vector) {
+void Network<T, W, Activator, Loss>::set_bias_data(int layer_id,
+                                                   std::vector<W> bias_vector) {
   m_bias[layer_id] = std::make_shared<std::vector<W>>(bias_vector);
 }
 
@@ -190,7 +196,8 @@ template <typename T,
           typename Activator,
           template <typename E, typename LW, template <typename K> typename Act>
           typename Loss>
-void Network<T, W, Activator, Loss>::set_bias_data(int layer_id, shared<std::vector<W>> bias_vector_ptr) {
+void Network<T, W, Activator, Loss>::set_bias_data(
+    int layer_id, shared<std::vector<W>> bias_vector_ptr) {
   m_bias[layer_id] = bias_vector_ptr;
 }
 
@@ -200,9 +207,10 @@ template <typename T,
           typename Activator,
           template <typename E, typename LW, template <typename K> typename Act>
           typename Loss>
-std::vector<T> Network<T, W, Activator, Loss>::forward_propatation(shared<Layer<T>> layer,
-                                                                   shared<Matrix<W>> weight_matrix,
-                                                                   shared<std::vector<W>> bias_vector) {
+std::vector<T> Network<T, W, Activator, Loss>::forward_propatation(
+    shared<Layer<T>> layer,
+    shared<Matrix<W>> weight_matrix,
+    shared<std::vector<W>> bias_vector) {
   std::vector<W> next_layer_nodes{*weight_matrix * layer->nodes() + *bias_vector};
 
   return Activator<T>()(next_layer_nodes);
@@ -216,7 +224,8 @@ template <typename T,
           typename Loss>
 void Network<T, W, Activator, Loss>::forward_propatation() {
   for (int i{}; i < n_layers - 1; ++i) {
-    std::vector<T> new_layer_data{forward_propatation(m_layers[i], m_weights[i], m_bias[i])};
+    std::vector<T> new_layer_data{
+        forward_propatation(m_layers[i], m_weights[i], m_bias[i])};
     m_layers[i + 1]->set_node_data(new_layer_data);
   }
 }
@@ -245,7 +254,8 @@ template <typename T,
           template <typename E, typename LW, template <typename K> typename Act>
           typename Loss>
 template <typename U>
-void Network<T, W, Activator, Loss>::back_propagation(double eta, const std::vector<U>& target) {
+void Network<T, W, Activator, Loss>::back_propagation(double eta,
+                                                      const std::vector<U>& target) {
   for (int layer_id{n_layers - 2}; layer_id >= 0; --layer_id) {
     back_propagation(target, layer_id, eta);
   }
@@ -304,7 +314,8 @@ void Network<T, W, Activator, Loss>::import_network(const std::string& filepath)
       bias.push_back(std::stod(value));
     }
 
-    m_weights[i] = std::make_shared<Matrix<W>>(m_weights[i]->nrows(), m_weights[i]->ncols(), weights);
+    m_weights[i] = std::make_shared<Matrix<W>>(
+        m_weights[i]->nrows(), m_weights[i]->ncols(), weights);
     m_bias[i] = std::make_shared<std::vector<W>>(bias);
   }
 }
