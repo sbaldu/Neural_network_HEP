@@ -9,7 +9,10 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 
-void verify_result(const std::vector<int> &a, const std::vector<int> &b, const std::vector<int> &c, int N) {
+void verify_result(const std::vector<int> &a,
+                   const std::vector<int> &b,
+                   const std::vector<int> &c,
+                   int N) {
   for (int i{}; i < N; ++i) {
     for (int j{}; j < N; ++j) {
       int tmp{};
@@ -25,8 +28,12 @@ void verify_result(const std::vector<int> &a, const std::vector<int> &b, const s
   std::cout << "Success\n";
 }
 
-void verify_result(
-    const std::vector<int> &a, const std::vector<int> &b, const std::vector<int> &c, int N, int K, int M) {
+void verify_result(const std::vector<int> &a,
+                   const std::vector<int> &b,
+                   const std::vector<int> &c,
+                   int N,
+                   int K,
+                   int M) {
   for (int i{}; i < N; ++i) {
     for (int j{}; j < M; ++j) {
       int tmp{};
