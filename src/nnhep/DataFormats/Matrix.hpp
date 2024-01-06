@@ -285,7 +285,12 @@ namespace nnhep {
   }
 
   template <typename T>
-  const T Matrix<T>::get(int i, int j) const {
+  T& Matrix<T>::operator()(int i, int j) {
+    return m_data[j + m_ncols * i];
+  }
+
+  template <typename T>
+  const T& Matrix<T>::operator()(int i, int j) const {
     return m_data[j + m_ncols * i];
   }
 
@@ -295,7 +300,7 @@ namespace nnhep {
 
     for (int i{}; i < this->m_nrows; ++i) {
       for (int j{}; j < this->m_ncols; ++j) {
-        matrix.set_data(j, i, this->get(i, j));
+        matrix.set_data(j, i, (*this)(i, j));
       }
     }
 
@@ -351,7 +356,7 @@ namespace nnhep {
       for (int j{}; j < m2.m_ncols; ++j) {
         T sum{};
         for (int k{}; k < m1.m_ncols; ++k) {
-          sum += m1.get(i, k) * m2.get(k, j);
+          sum += m1(i, k) * m2(k, j);
         }
         result.set_data(i, j, sum);
       }
@@ -376,7 +381,7 @@ namespace nnhep {
       for (int j{}; j < m2.m_ncols; ++j) {
         T sum{};
         for (int k{}; k < m1.m_ncols; ++k) {
-          sum += m1.get(i, k) * m2.get(k, j);
+          sum += m1(i, k) * m2(k, j);
         }
         result.set_data(i, j, sum);
       }
