@@ -47,7 +47,8 @@ template <typename T>
 Layer<T>::Layer(int n_nodes) : m_nodes(n_nodes), n_nodes{n_nodes} {}
 
 template <typename T>
-Layer<T>::Layer(std::vector<T> nodes) : m_nodes{std::move(nodes)}, n_nodes{m_nodes.size()} {}
+Layer<T>::Layer(std::vector<T> nodes)
+    : m_nodes{std::move(nodes)}, n_nodes{m_nodes.size()} {}
 
 template <typename T>
 Layer<T>::Layer(std::stringstream& stream) {
@@ -77,7 +78,8 @@ void Layer<T>::load(std::stringstream& stream) {
       }
       ++node_index;
     } catch (int num) {
-      std::cout << "The data provided exceedes the number of nodes expected for the layer\n";
+      std::cout
+          << "The data provided exceedes the number of nodes expected for the layer\n";
     }
   }
 }
@@ -90,7 +92,8 @@ void Layer<T>::set_node_data(int i, T value) {
     }
     m_nodes[i] = value;
   } catch (...) {
-    std::cout << "The index " << i << " is larger than the number of nodes in the layer\n";
+    std::cout << "The index " << i
+              << " is larger than the number of nodes in the layer\n";
   }
 }
 

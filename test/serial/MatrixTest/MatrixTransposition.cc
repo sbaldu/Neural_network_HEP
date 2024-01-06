@@ -42,7 +42,7 @@ TEST_CASE("Test the transposition of a square matrix") {
   CHECK(m2.ncols() == 4);
   for (int i{}; i < m2.nrows(); ++i) {
     for (int j{}; j < m2.ncols(); ++j) {
-      CHECK(m2.get(i, j) == m1.get(j, i));
+      CHECK(m2(i, j) == m1(j, i));
     }
   }
 }
@@ -62,7 +62,7 @@ TEST_CASE("Test the transposition of a rectangular matrix") {
   CHECK(m2.ncols() == 2);
   for (int i{}; i < m2.nrows(); ++i) {
     for (int j{}; j < m2.ncols(); ++j) {
-      CHECK(m2.get(i, j) == m1.get(j, i));
+      CHECK(m2(i, j) == m1(j, i));
     }
   }
 }

@@ -73,7 +73,10 @@ __global__ void vec_divide(T* a, E constant, int n) {
 }
 
 template <typename T, typename E, typename U>
-__global__ void matrix_multiply(const matrix_t<T> a, const matrix_t<E> b, matrix_t<U> c, int block_size) {
+__global__ void matrix_multiply(const matrix_t<T> a,
+                                const matrix_t<E> b,
+                                matrix_t<U> c,
+                                int block_size) {
   // Allocate memory on shared memory
   extern __shared__ int shared[];
   int* s_a{shared};

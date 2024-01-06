@@ -37,7 +37,8 @@ namespace nnhep {
     /// @details The error is calculated by taking the mean of the squared
     /// difference between the node values and the expected values.
     template <typename U>
-    double operator()(const std::vector<T>& node_values, const std::vector<U>& expected_values) {
+    double operator()(const std::vector<T>& node_values,
+                      const std::vector<U>& expected_values) {
       double error{};
       const size_t N{node_values.size()};
       for (size_t node_index{}; node_index < N; ++node_index) {
@@ -66,7 +67,8 @@ namespace nnhep {
         int N{layers[layer_id]->size()};
         std::vector<double> delta(N);
         for (int node_index{}; node_index < N; ++node_index) {
-          delta[node_index] = (*layers[layer_id])[node_index] - static_cast<T>(expected_values[node_index]);
+          delta[node_index] = (*layers[layer_id])[node_index] -
+                              static_cast<T>(expected_values[node_index]);
         }
 
         return delta;
@@ -76,9 +78,11 @@ namespace nnhep {
         std::vector<double> delta(N);
 
         for (int node_index{}; node_index < N; ++node_index) {
-          std::vector<double> previous_delta{grad(expected_values, layer_id + 1, layers, weights)};
-          delta[node_index] = act.grad((*layers[layer_id])[node_index]) *
-                              (weights[layer_id]->transpose() * previous_delta)[node_index];
+          std::vector<double> previous_delta{
+              grad(expected_values, layer_id + 1, layers, weights)};
+          delta[node_index] =
+              act.grad((*layers[layer_id])[node_index]) *
+              (weights[layer_id]->transpose() * previous_delta)[node_index];
         }
 
         return delta;

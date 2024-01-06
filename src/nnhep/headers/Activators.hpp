@@ -76,7 +76,9 @@ namespace nnhep {
     /// @return The derivative of the identity function.
     ///
     /// @details The derivative of the identity function is always 0.
-    std::vector<double> grad(shared<Layer<T>> layer) { return std::vector<double>(layer->size(), 0.); }
+    std::vector<double> grad(shared<Layer<T>> layer) {
+      return std::vector<double>(layer->size(), 0.);
+    }
     /// @brief The derivative of the identity function.
     /// @param node_values The values of the nodes.
     /// @return The derivative of the identity function.
@@ -131,7 +133,9 @@ namespace nnhep {
     /// @brief The derivative of the linear activation function.
     /// @param layer The layer of nodes.
     /// @return The derivative of the linear activation function.
-    std::vector<double> grad(shared<Layer<T>> layer) { return std::vector<double>(layer->size(), 1); }
+    std::vector<double> grad(shared<Layer<T>> layer) {
+      return std::vector<double>(layer->size(), 1);
+    }
     /// @brief The derivative of the linear activation function.
     /// @param node_values The values of the nodes.
     /// @return The derivative of the linear activation function.
@@ -188,7 +192,9 @@ namespace nnhep {
     /// @brief The derivative of the sigmoid activation function.
     /// @param activated_value The value of the activated node.
     /// @return The derivative of the sigmoid activation function.
-    double grad(double activated_value) { return activated_value * (1 - activated_value); }
+    double grad(double activated_value) {
+      return activated_value * (1 - activated_value);
+    }
     /// @brief The derivative of the sigmoid activation function.
     /// @param layer The layer of nodes.
     /// @return The derivative of the sigmoid activation function.
