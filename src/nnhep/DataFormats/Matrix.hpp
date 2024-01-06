@@ -90,14 +90,14 @@ namespace nnhep {
     /// @return The element of the matrix
 	///
 	/// @note returns by reference
-    inline T& get(int i, int j);
+    inline T& operator()(int i, int j);
     /// @brief Get an element of the matrix
     /// @param i The row index of the element to get
     /// @param j The column index of the element to get
     /// @return The element of the matrix
 	///
 	/// @note returns by const reference
-    inline const T& get(int i, int j) const;
+    inline const T& operator()(int i, int j) const;
 
     ///
     inline Matrix transpose();
