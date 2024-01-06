@@ -1,0 +1,97 @@
+#ifndef FWCore_Framework_stream_EDProducerBase_h
+#define FWCore_Framework_stream_EDProducerBase_h
+// -*- C++ -*-
+//
+// Package:     FWCore/Framework
+// Class  :     EDProducerBase
+//
+/**\class edm::stream::EDProducerBase EDProducerBase.h "FWCore/Framework/interface/stream/EDProducerBase.h"
+
+ Description: [one line class summary]
+
+ Usage:
+    <usage>
+
+*/
+//
+// Original Author:  Chris Jones
+//         Created:  Fri, 02 Aug 2013 00:11:27 GMT
+//
+
+// system include files
+
+// user include files
+#include "FWCore/Framework/interface/ProducerBase.h"
+#include "FWCore/Framework/interface/EDConsumerBase.h"
+#include "FWCore/Framework/interface/Frameworkfwd.h"
+#include "FWCore/Framework/interface/stream/EDProducerAdaptor.h"
+#include "DataFormats/Provenance/interface/ModuleDescription.h"
+#include "FWCore/ParameterSet/interface/ParameterSetfwd.h"
+#include "FWCore/Utilities/interface/ProductResolverIndex.h"
+
+// forward declarations
+namespace edm {
+  template <typename T>
+  class WorkerT;
+  class ProductRegistry;
+  class ThinnedAssociationsHelper;
+  class WaitingTaskWithArenaHolder;
+  class EventForTransformer;
+
+  namespace stream {
+    class EDProducerAdaptorBase;
+    template <typename>
+    class ProducingModuleAdaptorBase;
+
+    class EDProducerBase : public edm::ProducerBase, public edm::EDConsumerBase {
+      //This needs access to the parentage cache info
+      friend class EDProducerAdaptorBase;
+      friend class ProducingModuleAdaptorBase<EDProducerBase>;
+
+    public:
+      typedef EDProducerAdaptorBase ModuleType;
+
+      EDProducerBase();
+      EDProducerBase(const EDProducerBase&) = delete;                   // stop default
+      const EDProducerBase& operator=(const EDProducerBase&) = delete;  // stop default
+      ~EDProducerBase() override;
+
+      static void fillDescriptions(ConfigurationDescriptions& descriptions);
+      static void prevalidate(ConfigurationDescriptions& descriptions);
+      static const std::string& baseType();
+
+      // Warning: the returned moduleDescription will be invalid during construction
+      ModuleDescription const& moduleDescription() const { return *moduleDescriptionPtr_; }
+
+    private:
+      virtual void beginStream(StreamID) {}
+      virtual void beginRun(edm::Run const&, edm::EventSetup const&) {}
+      virtual void beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&) {}
+      virtual void produce(Event&, EventSetup const&) = 0;
+      virtual void endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&) {}
+      virtual void endRun(edm::Run const&, edm::EventSetup const&) {}
+      virtual void endStream() {}
+
+      virtual void registerThinnedAssociations(ProductRegistry const&, ThinnedAssociationsHelper&) {}
+
+      virtual void doAcquire_(Event const&, EventSetup const&, WaitingTaskWithArenaHolder&) = 0;
+      virtual size_t transformIndex_(edm::BranchDescription const& iBranch) const;
+      virtual ProductResolverIndex transformPrefetch_(std::size_t iIndex) const;
+      virtual void transformAsync_(WaitingTaskHolder iTask,
+                                   std::size_t iIndex,
+                                   edm::EventForTransformer& iEvent,
+                                   edm::ActivityRegistry* iAct,
+                                   ServiceWeakToken const& iToken) const;
+
+      void setModuleDescriptionPtr(ModuleDescription const* iDesc) { moduleDescriptionPtr_ = iDesc; }
+      // ---------- member data --------------------------------
+      std::vector<BranchID> previousParentage_;
+      std::vector<BranchID> gotBranchIDsFromAcquire_;
+      ParentageID previousParentageId_;
+      ModuleDescription const* moduleDescriptionPtr_;
+    };
+
+  }  // namespace stream
+}  // namespace edm
+
+#endif

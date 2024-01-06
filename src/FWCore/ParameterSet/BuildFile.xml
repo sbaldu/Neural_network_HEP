@@ -1,0 +1,9 @@
+<use name="DataFormats/Provenance"/>
+<use name="FWCore/MessageLogger"/>
+<use name="FWCore/PluginManager"/>
+<use name="FWCore/Utilities"/>
+<use name="tbb"/>
+<use name="boost"/>
+<export>
+  <lib name="1"/>
+</export>

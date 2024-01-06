@@ -1,0 +1,64 @@
+#ifndef FWCore_PluginManager_PluginCapabilities_h
+#define FWCore_PluginManager_PluginCapabilities_h
+// -*- C++ -*-
+//
+// Package:     PluginManager
+// Class  :     PluginCapabilities
+//
+/**\class PluginCapabilities PluginCapabilities.h FWCore/PluginManager/interface/PluginCapabilities.h
+
+ Description: <one line class summary>
+
+ Usage:
+    <usage>
+
+*/
+//
+// Original Author:  Chris Jones
+//         Created:  Fri Apr  6 12:36:19 EDT 2007
+//
+
+// system include files
+#include <map>
+#include <string>
+
+// user include files
+#include "FWCore/PluginManager/interface/PluginFactoryBase.h"
+// forward declarations
+
+namespace edmplugin {
+  class SharedLibrary;
+  class DummyFriend;
+  class PluginCapabilities : public PluginFactoryBase {
+    friend class DummyFriend;
+
+  public:
+    PluginCapabilities(const PluginCapabilities&) = delete;                   // stop default
+    const PluginCapabilities& operator=(const PluginCapabilities&) = delete;  // stop default
+    ~PluginCapabilities() override;
+
+    // ---------- const member functions ---------------------
+    std::vector<PluginInfo> available() const override;
+    const std::string& category() const override;
+
+    // ---------- static member functions --------------------
+    static PluginCapabilities* get();
+
+    // ---------- member functions ---------------------------
+    void load(const std::string& iName);
+
+    //returns false if loading fails because iName is unknown
+    bool tryToLoad(const std::string& iName);
+
+    ///Check to see if any capabilities are in the file, returns 'true' if found
+    bool tryToFind(const SharedLibrary& iLoadable);
+
+  private:
+    PluginCapabilities();
+
+    // ---------- member data --------------------------------
+    std::map<std::string, std::filesystem::path> classToLoadable_;
+  };
+
+}  // namespace edmplugin
+#endif

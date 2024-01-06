@@ -1,0 +1,34 @@
+#! /usr/bin/env python3
+
+from FWCore.ParameterSet.TreeCrawler import getImportTree, Color
+import sys, os
+from argparse import ArgumentParser
+parser = ArgumentParser()
+parser.add_argument("searchString",type=str)
+parser.add_argument("configFile",type=str)
+options = parser.parse_args()
+
+sys.path.append(os.environ["PWD"])
+path = sys.path[:]
+
+# get the import tree
+importTree = getImportTree(options.configFile, path)
+
+# search the tree
+result = []
+importTree.search(options.searchString,result)
+
+# sort the output by file name
+result.sort(key= lambda x: x.options.configFile)
+dumpStack = True
+# dump to screen
+for item in result:
+    print(item.line.replace(options.searchString,Color.hilight+options.searchString+Color.none))
+    print("%s (line: %s)"  %(item.filename, item.number))
+    if dumpStack and hasattr(item, 'stacks'):
+       # make a set of strings, so it's unique
+       froms = set()
+       for stack in item.stacks:
+          froms.add('From ' + ' -> '.join(stack))
+       print('\n'.join(froms))
+    print('\n')

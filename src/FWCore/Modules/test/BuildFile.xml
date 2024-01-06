@@ -1,0 +1,12 @@
+<test name="TestFWCoreModules" command="FWCoreModulesTest.sh"/>
+
+<test name="TestFWCoreModulesEmptySourceLumiForRuns" command="cmsRun ${LOCALTOP}/src/FWCore/Modules/test/emptysource_firstLuminosityBlockForEachRun_cfg.py"/>
+
+<test name="TestFWCoreModulesEmptySourceRunsAndLumis" command="cmsRun ${LOCALTOP}/src/FWCore/Modules/test/emptysource_RunsAndLumis_cfg.py"/>
+
+<test name="testGenericConsumer" command="${LOCALTOP}/src/FWCore/Modules/test/testGenericConsumer.sh"/>
+
+<bin file="test_catch2_*.cc" name="TestFWCoreModulesTP">
+  <use name="FWCore/TestProcessor"/>
+  <use name="catch2"/>
+</bin>

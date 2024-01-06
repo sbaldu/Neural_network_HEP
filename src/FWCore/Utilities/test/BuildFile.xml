@@ -1,0 +1,30 @@
+<use name="boost"/>
+<use name="FWCore/Utilities"/>
+
+<test name="TestHelper_t" command="${value}.sh" foreach="testFriendlyNames,testAdler32"/>
+
+<bin file="atomic_value_ptr_t.cpp">
+</bin>
+
+<bin file="typedefs_t.cpp">
+</bin>
+
+<bin file="HRTime_t.cpp">
+  <use name="cppunit"/>
+</bin>
+
+<bin name="testFWCoreUtilities" file="typeidbase_t.cppunit.cpp,typeid_t.cppunit.cpp,cputimer_t.cppunit.cpp,esinputtag.cppunit.cpp,friendlyname_t.cppunit.cpp,signal_t.cppunit.cpp,soatuple_t.cppunit.cpp,transform.cppunit.cpp,callxnowait_t.cppunit.cpp,vecarray.cppunit.cpp,reusableobjectholder_t.cppunit.cpp,propagate_const_t.cppunit.cpp,propagate_const_array_t.cppunit.cpp,indexset.cppunit.cpp">
+  <use name="cppunit"/>
+</bin>
+
+<bin file="test_catch2_*.cc" name="testFWCoreUtilitiesCatch2">
+  <use name="catch2"/>
+</bin>
+
+<bin file="InputTag_t.cpp">
+  <use name="tbb"/>
+</bin>
+
+<bin file="RunningAverage_t.cpp">
+  <use name="tbb"/>
+</bin>

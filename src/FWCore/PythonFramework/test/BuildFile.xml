@@ -1,0 +1,9 @@
+<test name="TestFWCorePythonFrameworkDriver" command="runPythonTests.sh"/>
+
+<library file="PythonTestProducer.cc" name="PythonTestProducer">
+  <flags EDM_PLUGIN="1"/>
+  <use name="FWCore/ParameterSet"/>
+  <use name="FWCore/Framework"/>
+  <use name="py3-pybind11"/>
+  <use name="python3"/>
+</library>
