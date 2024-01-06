@@ -88,15 +88,15 @@ namespace nnhep {
     /// @param i The row index of the element to get
     /// @param j The column index of the element to get
     /// @return The element of the matrix
-	///
-	/// @note returns by reference
+    ///
+    /// @note returns by reference
     inline T& operator()(int i, int j);
     /// @brief Get an element of the matrix
     /// @param i The row index of the element to get
     /// @param j The column index of the element to get
     /// @return The element of the matrix
-	///
-	/// @note returns by const reference
+    ///
+    /// @note returns by const reference
     inline const T& operator()(int i, int j) const;
 
     ///
@@ -202,7 +202,10 @@ namespace nnhep {
 
   template <typename T>
   Matrix<T>::Matrix(int n_rows, int n_cols)
-      : m_nrows{n_rows}, m_ncols{n_cols}, m_size{n_rows * n_cols}, m_data(n_rows * n_cols) {}
+      : m_nrows{n_rows},
+        m_ncols{n_cols},
+        m_size{n_rows * n_cols},
+        m_data(n_rows * n_cols) {}
 
   template <typename T>
   template <typename E>
@@ -349,7 +352,8 @@ namespace nnhep {
         throw(0);
       }
     } catch (int num) {
-      std::cout << "The two matrices can't be multiplied because their dimensions are not compatible. \n";
+      std::cout << "The two matrices can't be multiplied because their dimensions are "
+                   "not compatible. \n";
     }
 
     for (int i{}; i < m1.m_nrows; ++i) {
@@ -374,7 +378,8 @@ namespace nnhep {
         throw(0);
       }
     } catch (int num) {
-      std::cout << "The two matrices can't be multiplied because their dimensions are not compatible. \n";
+      std::cout << "The two matrices can't be multiplied because their dimensions are "
+                   "not compatible. \n";
     }
 
     for (int i{}; i < m1.m_nrows; ++i) {
@@ -461,10 +466,13 @@ namespace nnhep {
   template <typename T>
   template <typename E>
   Matrix<T>& Matrix<T>::operator*=(E constant) {
-    std::transform(this->m_data.cbegin(), this->m_data.cend(), this->m_data.begin(), [constant](auto x) {
-      x *= constant;
-      return x;
-    });
+    std::transform(this->m_data.cbegin(),
+                   this->m_data.cend(),
+                   this->m_data.begin(),
+                   [constant](auto x) {
+                     x *= constant;
+                     return x;
+                   });
 
     return *this;
   }
@@ -472,10 +480,13 @@ namespace nnhep {
   template <typename T>
   template <typename E>
   Matrix<T>& Matrix<T>::operator/=(E constant) {
-    std::transform(this->m_data.cbegin(), this->m_data.cend(), this->m_data.begin(), [constant](auto x) {
-      x /= constant;
-      return x;
-    });
+    std::transform(this->m_data.cbegin(),
+                   this->m_data.cend(),
+                   this->m_data.begin(),
+                   [constant](auto x) {
+                     x /= constant;
+                     return x;
+                   });
 
     return *this;
   }
