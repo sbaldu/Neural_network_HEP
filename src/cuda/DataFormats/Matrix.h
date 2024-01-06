@@ -65,10 +65,12 @@ public:
   friend __host__ Matrix<U> operator*(const Matrix<U>& m1, const Matrix<E>& m2);
 
   template <typename E>
-  friend __host__ std::vector<E> operator*(const Matrix<E>& matrix, const std::vector<E>& vec);
+  friend __host__ std::vector<E> operator*(const Matrix<E>& matrix,
+                                           const std::vector<E>& vec);
 
   template <typename U, std::convertible_to<U> E>
-  friend __host__ std::vector<U> operator*(const Matrix<U>& matrix, const std::vector<E>& vec);
+  friend __host__ std::vector<U> operator*(const Matrix<U>& matrix,
+                                           const std::vector<E>& vec);
 
   __host__ Matrix<T>& operator+=(const Matrix<T>& other);
   template <typename E>
@@ -90,7 +92,10 @@ public:
 
 template <typename T>
 Matrix<T>::Matrix(int n_rows, int n_cols)
-    : m_nrows{n_rows}, m_ncols{n_cols}, m_size{n_rows * n_cols}, m_data(n_rows * n_cols) {}
+    : m_nrows{n_rows},
+      m_ncols{n_cols},
+      m_size{n_rows * n_cols},
+      m_data(n_rows * n_cols) {}
 
 template <typename T>
 template <typename E>
@@ -270,7 +275,8 @@ Matrix<T> operator*(const Matrix<T>& m1, const Matrix<T>& m2) {
       throw(0);
     }
   } catch (int num) {
-    std::cout << "The two matrices can't be multiplied because their dimensions are not compatible. \n";
+    std::cout << "The two matrices can't be multiplied because their dimensions are not "
+                 "compatible. \n";
   }
 
   Matrix<T> result(N, M);
@@ -302,7 +308,8 @@ Matrix<T> operator*(const Matrix<T>& m1, const Matrix<T>& m2) {
   cudaMemcpy(m_b.data, m2.data().data(), size_b, cudaMemcpyHostToDevice);
   const size_t shared_size{2 * block_size * block_size * sizeof(T)};
   matrix_multiply<<<grid, block, shared_size>>>(m_a, m_b, m_c, block_size);
-  cudaMemcpy(const_cast<T*>(result.data().data()), m_c.data, size_c, cudaMemcpyDeviceToHost);
+  cudaMemcpy(
+      const_cast<T*>(result.data().data()), m_c.data, size_c, cudaMemcpyDeviceToHost);
 
   cudaFree(d_a);
   cudaFree(d_b);
@@ -322,7 +329,8 @@ Matrix<T> operator*(const Matrix<T>& m1, const Matrix<E>& m2) {
       throw(0);
     }
   } catch (int num) {
-    std::cout << "The two matrices can't be multiplied because their dimensions are not compatible. \n";
+    std::cout << "The two matrices can't be multiplied because their dimensions are not "
+                 "compatible. \n";
   }
 
   Matrix<T> result(N, M);
@@ -355,7 +363,8 @@ Matrix<T> operator*(const Matrix<T>& m1, const Matrix<E>& m2) {
   cudaMemcpy(m_b.data, m2.data().data(), size_b, cudaMemcpyHostToDevice);
   const size_t shared_size{2 * block_size * block_size * sizeof(T)};
   matrix_multiply<<<grid, block, shared_size>>>(m_a, m_b, m_c, block_size);
-  cudaMemcpy(const_cast<T*>(result.data().data()), m_c.data, size_c, cudaMemcpyDeviceToHost);
+  cudaMemcpy(
+      const_cast<T*>(result.data().data()), m_c.data, size_c, cudaMemcpyDeviceToHost);
 
   cudaFree(d_a);
   cudaFree(d_b);

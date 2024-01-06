@@ -39,10 +39,10 @@ TEST_CASE("Test matrix product between two 2x2 matrices") {
   nnhep::Matrix<int> sum_matrix(2, 2);
   sum_matrix = m1 + m2;
 
-  CHECK(sum_matrix.get(0, 0) == 3);
-  CHECK(sum_matrix.get(1, 0) == 9);
-  CHECK(sum_matrix.get(0, 1) == 6);
-  CHECK(sum_matrix.get(1, 1) == 12);
+  CHECK(sum_matrix(0, 0) == 3);
+  CHECK(sum_matrix(1, 0) == 9);
+  CHECK(sum_matrix(0, 1) == 6);
+  CHECK(sum_matrix(1, 1) == 12);
   CHECK(sum_matrix[0] == 3);
   CHECK(sum_matrix[1] == 6);
   CHECK(sum_matrix[2] == 9);
