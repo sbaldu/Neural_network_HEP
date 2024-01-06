@@ -20,7 +20,7 @@ TEST_CASE("Test scalar product between two vector matrices") {
 
   nnhep::Matrix<int> product{m1 * m2};
 
-  CHECK(product.get(0, 0) == 735);
+  CHECK(product(0, 0) == 735);
 }
 
 TEST_CASE("Test matrix product between two 2x2 matrices") {
@@ -37,10 +37,10 @@ TEST_CASE("Test matrix product between two 2x2 matrices") {
   nnhep::Matrix<int> product(2, 2);
   product = m1 * m2;
 
-  CHECK(product.get(0, 0) == 14);
-  CHECK(product.get(1, 0) == 30);
-  CHECK(product.get(0, 1) == 20);
-  CHECK(product.get(1, 1) == 44);
+  CHECK(product(0, 0) == 14);
+  CHECK(product(1, 0) == 30);
+  CHECK(product(0, 1) == 20);
+  CHECK(product(1, 1) == 44);
   CHECK(product[0] == 14);
   CHECK(product[1] == 20);
   CHECK(product[2] == 30);
