@@ -11,86 +11,223 @@
 #include <ostream>
 #include <vector>
 
-#include "Matrix.hpp"
+#include "Vector.hpp"
 
 namespace nnhep {
 
-  /// @brief Add two vectors
-  /// @tparam T Type of the vector
-  /// @param v1 First vector
-  /// @param v2 Second vector
-  /// @return The sum of the two vectors
-  template <typename T>
-  std::vector<T> operator+(const std::vector<T>& v1, const std::vector<T>& v2) {
-    std::vector<T> result(v1.size());
+  // NOTE: the arithmetic operations cannot be implemented with operator overloading
+  // because in order to call the alpaka kernels we need to pass the queue as an
+  // argument, and this is not possible with operator overloading.
 
-    for (size_t i{}; i < v1.size(); ++i) {
-      result[i] = v1[i] + v2[i];
-    }
+  template <typename T, typename E>
+  Vector<T> add(Queue queue, const Vector<T>& v1, const Vector<E>& v2) {
+    const size_t n_points{v1.size()};
+    const Idx block_size{256};
+    const Idx grid_size = cms::alpakatools::divide_up_by(n_points, block_size);
+    auto work_div = cms::alpakatools::make_workdiv<Acc1D>(grid_size, block_size);
+
+    Vector<T> result(queue, n_points);
+    alpaka::enqueue(queue,
+                    alpaka::createTaskKernel<Acc1D>(work_div,
+                                                    KernelAdd<T>(),
+                                                    v1.deviceView(),
+                                                    v2.deviceView(),
+                                                    result.deviceView(),
+                                                    n_points));
+    alpaka::wait(queue);
+    return result;
+  }
+
+  template <typename T, typename E>
+  Vector<T> subtract(Queue queue, const Vector<T>& v1, const Vector<E>& v2) {
+    const size_t n_points{v1.size()};
+    const Idx block_size{256};
+    const Idx grid_size = cms::alpakatools::divide_up_by(n_points, block_size);
+    auto work_div = cms::alpakatools::make_workdiv<Acc1D>(grid_size, block_size);
+
+    Vector<T> result(queue, n_points);
+    alpaka::enqueue(queue,
+                    alpaka::createTaskKernel<Acc1D>(work_div,
+                                                    KernelSubtract<T>(),
+                                                    v1.deviceView(),
+                                                    v2.deviceView(),
+                                                    result.deviceView(),
+                                                    n_points));
+    alpaka::wait(queue);
 
     return result;
   }
 
-  /// @brief Subtract two vectors
-  /// @tparam T Type of the vector
-  /// @param v1 First vector
-  /// @param v2 Second vector
-  /// @return The difference of the two vectors
-  template <typename T>
-  std::vector<T> operator-(const std::vector<T>& v1, const std::vector<T>& v2) {
-    std::vector<T> result(v1.size());
+  template <typename T, typename E>
+  Vector<T> multiply(Queue queue, const Vector<T>& vec, E scalar) {
+    const size_t n_points{vec.size()};
+    const Idx block_size{256};
+    const Idx grid_size = cms::alpakatools::divide_up_by(n_points, block_size);
+    auto work_div = cms::alpakatools::make_workdiv<Acc1D>(grid_size, block_size);
 
-    for (int i{}; i < v1.size(); ++i) {
-      result[i] = v1[i] - v2[i];
-    }
-
-    return result;
-  }
-
-  /// @brief Multiply a vector by a constant
-  /// @tparam T Type of the vector
-  /// @tparam E Type of the constant
-  /// @param constant Constant to multiply the vector by
-  /// @param vec Vector to multiply
-  /// @return The vector multiplied by the constant
-  template <typename T, std::convertible_to<T> E>
-  std::vector<T> operator*(E constant, std::vector<T> vec) {
-    std::vector<T> result{vec};
-
-    std::transform(result.cbegin(), result.cend(), result.begin(), [constant](auto x) {
-      x *= constant;
-      return x;
-    });
+    Vector<T> result(queue, n_points);
+    alpaka::enqueue(queue,
+                    alpaka::createTaskKernel<Acc1D>(work_div,
+                                                    KernelMultiply<T>(),
+                                                    vec.deviceView(),
+                                                    result.deviceView(),
+                                                    scalar,
+                                                    n_points));
+    alpaka::wait(queue);
 
     return result;
   }
 
-  /// @brief In-place subtraction of a vector and a matrix
-  /// @tparam T Type of the vector and matrix
-  /// @param vec Vector to subtract from
-  /// @param m Matrix to subtract
-  /// @return The vector subtracted by the matrix
-  template <typename T>
-  void operator-=(std::vector<T>& vec, const Matrix<T>& m) {
-    for (size_t i{}; i < vec.size(); ++i) {
-      vec[i] -= m.data()[i];
-    }
+  template <typename T, typename E>
+  Vector<T> divide(Queue queue, const Vector<T>& vec, E scalar) {
+    const size_t n_points{vec.size()};
+    const Idx block_size{256};
+    const Idx grid_size = cms::alpakatools::divide_up_by(n_points, block_size);
+    auto work_div = cms::alpakatools::make_workdiv<Acc1D>(grid_size, block_size);
+
+    Vector<T> result(queue, n_points);
+    alpaka::enqueue(queue,
+                    alpaka::createTaskKernel<Acc1D>(work_div,
+                                                    KernelDivide<T>(),
+                                                    vec.deviceView(),
+                                                    result.deviceView(),
+                                                    scalar,
+                                                    n_points));
+    alpaka::wait(queue);
+
+    return result;
   }
 
-  /// @brief Print a vector
-  /// @tparam T Type of the vector
-  /// @param out Output stream
-  /// @param vec Vector to print
-  /// @return The output stream
-  template <typename T>
-  std::ostream& operator<<(std::ostream& out, const std::vector<T>& vec) {
-    out << *vec.begin();
-    std::for_each(vec.begin() + 1, vec.end(), [&out](T x) {
-      out << ',';
-      out << x;
-    });
+  template <typename T, typename E>
+  T multiply(Queue queue, const Vector<T>& v1, const Vector<E>& v2) {
+    const size_t n_points{v1.size()};
+    const Idx block_size{256};
+    const Idx grid_size = cms::alpakatools::divide_up_by(n_points, block_size);
+    auto work_div = cms::alpakatools::make_workdiv<Acc1D>(grid_size, block_size);
 
-    return out;
+    auto temp_buffer = cms::alpakatools::make_device_buffer<T[]>(queue, n_points);
+    alpaka::enqueue(queue,
+                    alpaka::createTaskKernel<Acc1D>(work_div,
+                                                    KernelScalarProduct<T>(),
+                                                    v1.deviceView(),
+                                                    v2.deviceView(),
+                                                    temp_buffer.data(),
+                                                    n_points));
+    alpaka::wait(queue);
+
+    auto host_buffer = cms::alpakatools::make_host_buffer<T[]>(n_points);
+    alpaka::memcpy(queue, host_buffer, temp_buffer);
+    alpaka::wait(queue);
+
+    return std::accumulate(host_buffer.data(), host_buffer.data() + n_points, 0.0);
+  }
+  // define arithmetic operations as outside functions
+  //
+  // NOTE: the arithmetic operations cannot be implemented with operator overloading
+  // because in order to call the alpaka kernels we need to pass the queue as an
+  // argument, and this is not possible with operator overloading.
+
+  template <typename T, typename E>
+  Vector<T> add(Queue queue, const Vector<T>& v1, const Vector<E>& v2) {
+    const size_t n_points{v1.size()};
+    const Idx block_size{256};
+    const Idx grid_size = cms::alpakatools::divide_up_by(n_points, block_size);
+    auto work_div = cms::alpakatools::make_workdiv<Acc1D>(grid_size, block_size);
+
+    Vector<T> result(queue, n_points);
+    alpaka::enqueue(queue,
+                    alpaka::createTaskKernel<Acc1D>(work_div,
+                                                    KernelAdd<T>(),
+                                                    v1.deviceView(),
+                                                    v2.deviceView(),
+                                                    result.deviceView(),
+                                                    n_points));
+    alpaka::wait(queue);
+    return result;
+  }
+
+  template <typename T, typename E>
+  Vector<T> subtract(Queue queue, const Vector<T>& v1, const Vector<E>& v2) {
+    const size_t n_points{v1.size()};
+    const Idx block_size{256};
+    const Idx grid_size = cms::alpakatools::divide_up_by(n_points, block_size);
+    auto work_div = cms::alpakatools::make_workdiv<Acc1D>(grid_size, block_size);
+
+    Vector<T> result(queue, n_points);
+    alpaka::enqueue(queue,
+                    alpaka::createTaskKernel<Acc1D>(work_div,
+                                                    KernelSubtract<T>(),
+                                                    v1.deviceView(),
+                                                    v2.deviceView(),
+                                                    result.deviceView(),
+                                                    n_points));
+    alpaka::wait(queue);
+
+    return result;
+  }
+
+  template <typename T, typename E>
+  Vector<T> multiply(Queue queue, const Vector<T>& vec, E scalar) {
+    const size_t n_points{vec.size()};
+    const Idx block_size{256};
+    const Idx grid_size = cms::alpakatools::divide_up_by(n_points, block_size);
+    auto work_div = cms::alpakatools::make_workdiv<Acc1D>(grid_size, block_size);
+
+    Vector<T> result(queue, n_points);
+    alpaka::enqueue(queue,
+                    alpaka::createTaskKernel<Acc1D>(work_div,
+                                                    KernelMultiply<T>(),
+                                                    vec.deviceView(),
+                                                    result.deviceView(),
+                                                    scalar,
+                                                    n_points));
+    alpaka::wait(queue);
+
+    return result;
+  }
+
+  template <typename T, typename E>
+  Vector<T> divide(Queue queue, const Vector<T>& vec, E scalar) {
+    const size_t n_points{vec.size()};
+    const Idx block_size{256};
+    const Idx grid_size = cms::alpakatools::divide_up_by(n_points, block_size);
+    auto work_div = cms::alpakatools::make_workdiv<Acc1D>(grid_size, block_size);
+
+    Vector<T> result(queue, n_points);
+    alpaka::enqueue(queue,
+                    alpaka::createTaskKernel<Acc1D>(work_div,
+                                                    KernelDivide<T>(),
+                                                    vec.deviceView(),
+                                                    result.deviceView(),
+                                                    scalar,
+                                                    n_points));
+    alpaka::wait(queue);
+
+    return result;
+  }
+
+  template <typename T, typename E>
+  T multiply(Queue queue, const Vector<T>& v1, const Vector<E>& v2) {
+    const size_t n_points{v1.size()};
+    const Idx block_size{256};
+    const Idx grid_size = cms::alpakatools::divide_up_by(n_points, block_size);
+    auto work_div = cms::alpakatools::make_workdiv<Acc1D>(grid_size, block_size);
+
+    auto temp_buffer = cms::alpakatools::make_device_buffer<T[]>(queue, n_points);
+    alpaka::enqueue(queue,
+                    alpaka::createTaskKernel<Acc1D>(work_div,
+                                                    KernelScalarProduct<T>(),
+                                                    v1.deviceView(),
+                                                    v2.deviceView(),
+                                                    temp_buffer.data(),
+                                                    n_points));
+    alpaka::wait(queue);
+
+    auto host_buffer = cms::alpakatools::make_host_buffer<T[]>(n_points);
+    alpaka::memcpy(queue, host_buffer, temp_buffer);
+    alpaka::wait(queue);
+
+    return std::accumulate(host_buffer.data(), host_buffer.data() + n_points, 0.0);
   }
 
 };  // namespace nnhep

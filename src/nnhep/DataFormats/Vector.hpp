@@ -50,7 +50,8 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
 
     void updateHost(Queue queue) {
       alpaka::memcpy(
-          queue, cms::alpakatools::make_host_view(m_data.data(), m_data.size()), m_dev);
+          /* queue, cms::alpakatools::make_host_view(m_data.data(), m_data.size()), m_dev); */
+          queue, m_data, m_dev);
       alpaka::wait(queue);
     }
 
