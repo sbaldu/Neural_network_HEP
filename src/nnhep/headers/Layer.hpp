@@ -24,7 +24,7 @@ namespace nnhep {
   template <typename T>
   class Layer {
   private:
-    std::vector<T> m_nodes;
+    Vector<T> m_nodes;
     int n_nodes;
 
   public:
@@ -32,13 +32,13 @@ namespace nnhep {
     Layer() = default;
     /// @brief Constructor
     /// @param n_nodes The number of nodes in the layer
-    explicit Layer(int n_nodes);
+    explicit Layer(Queue queue, int n_nodes);
     /// @brief Constructor
     /// @param nodes The values of the nodes in the layer
-    explicit Layer(std::vector<T> nodes);
+    explicit Layer(Queue queue, std::vector<T> nodes);
     /// @brief Constructor
     /// @param stream The stream to read the node values from
-    explicit Layer(std::stringstream& stream);
+    explicit Layer(Queue queue, std::stringstream& stream);
 
     /// @brief Load the node values from a stream
     /// @param stream The stream to read the node values from
@@ -77,11 +77,11 @@ namespace nnhep {
   };
 
   template <typename T>
-  Layer<T>::Layer(int n_nodes) : m_nodes(n_nodes), n_nodes{n_nodes} {}
+  Layer<T>::Layer(Queue queue, int n_nodes) : m_nodes(queue, n_nodes), n_nodes{n_nodes} {}
 
   template <typename T>
-  Layer<T>::Layer(std::vector<T> nodes)
-      : m_nodes{std::move(nodes)}, n_nodes{m_nodes.size()} {}
+  Layer<T>::Layer(const std::vector<T>& nodes)
+      : m_nodes(queue, nodes), n_nodes{m_nodes.size()} {}
 
   template <typename T>
   Layer<T>::Layer(std::stringstream& stream) {

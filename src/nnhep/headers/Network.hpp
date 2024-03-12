@@ -48,9 +48,9 @@ namespace nnhep {
   class Network {
   private:
     int n_layers;
-    std::vector<shared<Layer<T>>> m_layers;
-    std::vector<shared<Matrix<W>>> m_weights;
-    std::vector<shared<std::vector<W>>> m_bias;
+    std::vector<Layer<T>> m_layers;
+    std::vector<Matrix<W>> m_weights;
+    std::vector<Vector<W>> m_bias;
 
   public:
     /// @brief Default constructor

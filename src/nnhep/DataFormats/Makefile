@@ -1,6 +1,6 @@
 
 export CXX = g++
-ALPAKA_FLAGS = -I/install/include -I/usr/include/boost -I../../
+ALPAKA_FLAGS = -I/install/include -I/usr/include/boost -I../../ -g
 
 # specific compilation flags for each backend
 SERIAL_FLAGS = -DALPAKA_HOST_ONLY \
@@ -17,4 +17,5 @@ CUDA_FLAGS = -DALPAKA_ACC_CPU_B_SEQ_T_SEQ_ENABLED \
 			 -DALPAKA_ACC_CPU_B_SEQ_T_SEQ_SYNC_BACKEND
 
 all:
-	$(CXX) $(ALPAKA_FLAGS) $(SERIAL_FLAGS) -o serial test.cpp
+	# $(CXX) $(ALPAKA_FLAGS) $(SERIAL_FLAGS) -o serial test.cpp
+	$(CXX) $(ALPAKA_FLAGS) $(SERIAL_FLAGS) -o mat_serial test_mat.cpp

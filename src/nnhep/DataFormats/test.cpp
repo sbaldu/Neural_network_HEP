@@ -10,7 +10,7 @@ int main() {
   std::vector<float> v(10);
   std::iota(v.begin(), v.end(), 0.0f);
 
-  const auto device = alpaka::getDevByIdx<Acc1D>(0u);
+  const auto device = cms::alpakatools::devices<Platform>()[0];
   Queue queue{device};
   Vector<float> a(queue, v);
   Vector<float> b(queue, v);
