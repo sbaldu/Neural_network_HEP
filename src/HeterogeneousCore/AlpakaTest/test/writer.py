@@ -1,4 +1,5 @@
 import FWCore.ParameterSet.Config as cms
+from HeterogeneousCore.AlpakaCore.functions import *
 
 process = cms.Process('Writer')
 
@@ -14,6 +15,8 @@ process.MessageLogger.TestAlpakaObjectAnalyzer = cms.untracked.PSet()
 # either run the producer on a gpu (if available) and copy the product to the cpu, or run the producer directly on the cpu
 process.testProducer = cms.EDProducer('TestAlpakaProducer@alpaka',
     size = cms.int32(42),
+    size2 = cms.int32(33),
+    size3 = cms.int32(61)
     # alpaka.backend can be set to a specific backend to force using it, or be omitted or left empty to use the defult backend;
     # depending on the architecture and available hardware, the supported backends are "serial_sync", "cuda_async", "rocm_async"
     #alpaka = cms.untracked.PSet(
@@ -31,16 +34,11 @@ process.testObjectAnalyzer = cms.EDAnalyzer('TestAlpakaObjectAnalyzer',
 )
 
 # run a second producer explicitly on the cpu
-process.testProducerSerial = cms.EDProducer('alpaka_serial_sync::TestAlpakaProducer',
-    size = cms.int32(99)
+process.testProducerSerial = makeSerialClone(process.testProducer,
+    size = cms.int32(99),
+    size2 = cms.int32(51),
+    size3 = cms.int32(43)
 )
-# an alternative approach would be to use
-#process.testProducerSerial = cms.EDProducer('TestAlpakaProducer@alpaka',
-#    size = cms.int32(99),
-#    alpaka = cms.untracked.PSet(
-#        backend = cms.untracked.string("serial_sync")
-#    )
-#)
 
 # analyse the second set of products
 process.testAnalyzerSerial = cms.EDAnalyzer('TestAlpakaAnalyzer',
