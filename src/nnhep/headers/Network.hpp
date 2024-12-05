@@ -1,9 +1,3 @@
-/// @file Network.hpp
-/// @brief Neural network
-///
-/// @details A neural network is a collection of layers. The network contains
-/// the weights and biases of the nodes in the network. The network can be
-/// trained using gradient descent to minimize the error of the network.
 
 #ifndef Network_h
 #define Network_h
@@ -25,20 +19,9 @@ namespace nnhep {
   template <typename T>
   using shared = std::shared_ptr<T>;
 
-  /// @brief Generate a random matrix
-  /// @tparam W The type of the matrix elements
-  /// @param matrix The matrix to fill with random values
-  ///
-  /// @details The random values are generated using a uniform distribution
-  /// between -0.5 and 0.5.
   template <typename W>
   void random_matrix(shared<Matrix<W>> matrix);
 
-  /// @brief Neural network
-  /// @tparam T The type of the node values
-  /// @tparam W The type of the weights
-  /// @tparam Activator The activation function used by the network
-  /// @tparam Loss The error function used by the network
   template <typename T,
             typename W,
             template <typename F>
@@ -53,118 +36,43 @@ namespace nnhep {
     std::vector<shared<std::vector<W>>> m_bias;
 
   public:
-    /// @brief Default constructor
     Network() = delete;
-    /// @brief Constructor
-    /// @param nodes_per_layer The number of nodes in each layer of the network
     explicit Network(const std::vector<T>& nodes_per_layer);
 
-    /// @brief Load the values of the input layer from a stream
-    /// @param stream The stream to read the values from
-    /// @details The values are expected to be provided in csv format
     void load_input_layer(std::stringstream& stream);
-    /// @brief Load the values of the input layer from a vector
-    /// @param vec The vector to read the values from
     void load_input_layer(const std::vector<T>& vec);
-    /// @brief Load the values of the network from a file
-    /// @param path_to_file The path to the file to read the values from
-    /// @details The values are expected to be provided in csv format
     void load_from_file(const std::string& path_to_file);
 
-    /// @brief Get the weight matrix of a layer
-    /// @param layer_id The id of the layer
-    /// @return The weight matrix of the layer
     const shared<Matrix<W>> weight_matrix(int layer_id) const;
-    /// @brief Get the values of the output layer
-    /// @return The values of the output layer
     const std::vector<T>& output_layer() const;
 
-    /// @brief Setters for the weight matrices
-    /// @param layer_id The id of the layer
-    /// @param weight_matrix The weight matrix to set
     void set_matrix_data(int layer_id, Matrix<W> weight_matrix);
-    /// @brief Setters for the weight matrices
-    /// @param layer_id The id of the layer
-    /// @param weight_matrix_ptr The weight matrix to set
     void set_matrix_data(int layer_id, shared<Matrix<W>> weight_matrix_ptr);
 
-    /// @brief Setters for the bias vectors
-    /// @param layer_id The id of the layer
-    /// @param bias_vector The bias vector to set
     void set_bias_data(int layer_id, std::vector<W> bias_vector);
-    /// @brief Setters for the bias vectors
-    /// @param layer_id The id of the layer
-    /// @param bias_vector_ptr The bias vector to set
     void set_bias_data(int layer_id, shared<std::vector<W>> bias_vector_ptr);
 
-    /// @brief Forward propagate the values of the network
-    /// @param layer The layer to forward propagate
-    /// @param weight_matrix The weight matrix to use
-    /// @param bias_vector The bias vector to use
-    /// @return The values of the next layer
     std::vector<T> forward_propatation(shared<Layer<T>>,
                                        shared<Matrix<W>>,
                                        shared<std::vector<W>>);
-    /// @brief Forward propagate the values of the network
-    ///
-    /// @details This function is used to forward propagate the values of the
-    /// network. The values of the input layer are used as input to the network.
-    /// The values of the output layer are stored in the output layer of the
-    /// network.
     void forward_propatation();
 
-    /// @brief Back propagate the error of the network
-    /// @tparam U The type of the expected values
-    /// @param target The expected values of the output layer
-    /// @param layer_id The id of the layer to back propagate
-    /// @param eta The learning rate of the network
     template <typename U>
     void back_propagation(const std::vector<U>& target, int layer_id, double eta);
-    /// @brief Back propagate the error of the network
-    /// @tparam U The type of the expected values
-    /// @param target The expected values of the output layer
-    /// @param eta The learning rate of the network
     template <typename U>
     void back_propagation(double eta, const std::vector<U>& target);
 
-    /// @brief Train the network
-    /// @tparam U The type of the expected values
-    /// @param target The expected values of the output layer
-    /// @param eta The learning rate of the network
     template <typename U>
     void train(const std::vector<U>& target, double eta);
-    /// @brief Train the network
-    /// @tparam U The type of the expected values
-    /// @param target The expected values of the output layer
-    /// @param eta The learning rate of the network
     template <typename U>
     void train(U target, double eta);
 
-    // Import and export functions
-    /// @brief Import the values of the network from a file
-    /// @param filepath The path to the file to read the values from
-    /// @details The values are expected to be provided in csv format
     void import_network(const std::string& filepath);
-    /// @brief Export the values of the network to a file
-    /// @param filepath The path to the file to write the values to
-    /// @details The values are provided in csv format
     void export_network(const std::string& filepath);
 
-    /// @brief Get the value of the error for the output values with respect to the target
-    /// @tparam U The type of the expected values
-    /// @param target The expected values of the output layer
-    /// @return The error value of the network
     template <typename U>
     double get_loss_value(const std::vector<U>& target);
 
-    /// @brief Print the network
-    /// @tparam U The type of the node values
-    /// @tparam P The type of the weights
-    /// @tparam A The activation function used by the network
-    /// @tparam L The error function used by the network
-    /// @param out The stream to print to
-    /// @param Net The network to print
-    /// @return The stream
     template <typename U,
               typename P,
               template <typename Q>
