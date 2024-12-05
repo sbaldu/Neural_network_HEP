@@ -11,7 +11,7 @@
 namespace nnhep {
 
   template <typename T>
-  using shared = std::shared_ptr<T>;
+  using std::shared_ptr = std::shared_ptr<T>;
 
   template <typename T, typename W, template <typename E> typename Activator>
   struct MeanSquaredError {
@@ -31,8 +31,8 @@ namespace nnhep {
     template <typename U>
     std::vector<double> grad(const std::vector<U>& expected_values,
                              int layer_id,
-                             const std::vector<shared<Layer<T>>>& layers,
-                             const std::vector<shared<Matrix<W>>>& weights) {
+                             const std::vector<std::shared_ptr<Layer<T>>>& layers,
+                             const std::vector<std::shared_ptr<Matrix<W>>>& weights) {
       if (layers[layer_id + 1] == nullptr) {
         int N{layers[layer_id]->size()};
         std::vector<double> delta(N);

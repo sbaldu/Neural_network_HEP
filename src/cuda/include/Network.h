@@ -13,11 +13,8 @@
 #include "DataFormats/Matrix.h"
 #include "DataFormats/VectorOperations.h"
 
-template <typename T>
-using shared = std::shared_ptr<T>;
-
 template <typename W>
-void random_matrix(shared<Matrix<W>> matrix);
+void random_matrix(std::shared_ptr<Matrix<W>> matrix);
 
 template <typename T,
           typename W,
@@ -28,9 +25,9 @@ template <typename T,
 class Network {
 private:
   int n_layers;
-  std::vector<shared<Layer<T>>> m_layers;
-  std::vector<shared<Matrix<W>>> m_weights;
-  std::vector<shared<std::vector<W>>> m_bias;
+  std::vector<std::shared_ptr<Layer<T>>> m_layers;
+  std::vector<std::shared_ptr<Matrix<W>>> m_weights;
+  std::vector<std::shared_ptr<std::vector<W>>> m_bias;
 
 public:
   Network() = delete;
@@ -42,20 +39,20 @@ public:
   void load_from_file(const std::string& path_to_file);
 
   // Getters
-  const shared<Matrix<W>> weight_matrix(int layer_id) const;
+  const std::shared_ptr<Matrix<W>> weight_matrix(int layer_id) const;
   const std::vector<T>& output_layer() const;
 
   // Setters for the weight matrices
   void set_matrix_data(int layer_id, Matrix<W> weight_matrix);
-  void set_matrix_data(int layer_id, shared<Matrix<W>> weight_matrix_ptr);
+  void set_matrix_data(int layer_id, std::shared_ptr<Matrix<W>> weight_matrix_ptr);
 
   // Setters for the bias vectors
   void set_bias_data(int layer_id, std::vector<W> bias_vector);
-  void set_bias_data(int layer_id, shared<std::vector<W>> bias_vector_ptr);
+  void set_bias_data(int layer_id, std::shared_ptr<std::vector<W>> bias_vector_ptr);
 
-  std::vector<T> forward_propatation(shared<Layer<T>>,
-                                     shared<Matrix<W>>,
-                                     shared<std::vector<W>>);
+  std::vector<T> forward_propatation(std::shared_ptr<Layer<T>>,
+                                     std::shared_ptr<Matrix<W>>,
+                                     std::shared_ptr<std::vector<W>>);
   void forward_propatation();
 
   template <typename U>
@@ -94,15 +91,15 @@ Network<T, W, Activator, Loss>::Network(const std::vector<int>& nodes_per_layer)
       m_weights(n_layers + 1),
       m_bias(n_layers - 1) {
   for (int i{}; i < n_layers - 1; ++i) {
-    m_layers[i] = std::make_shared<Layer<T>>(nodes_per_layer[i]);
+    m_layers[i] = std::make_std::shared_ptr<Layer<T>>(nodes_per_layer[i]);
     m_weights[i] =
-        std::make_shared<Matrix<W>>(nodes_per_layer[i + 1], nodes_per_layer[i]);
-    m_bias[i] = std::make_shared<std::vector<W>>(nodes_per_layer[i + 1]);
+        std::make_std::shared_ptr<Matrix<W>>(nodes_per_layer[i + 1], nodes_per_layer[i]);
+    m_bias[i] = std::make_std::shared_ptr<std::vector<W>>(nodes_per_layer[i + 1]);
 
     // Generate random weight matrices
     random_matrix(m_weights[i]);
   }
-  m_layers[n_layers - 1] = std::make_shared<Layer<T>>(nodes_per_layer.back());
+  m_layers[n_layers - 1] = std::make_std::shared_ptr<Layer<T>>(nodes_per_layer.back());
   m_layers[n_layers] = nullptr;
   m_weights[n_layers - 1] = nullptr;
   m_weights[n_layers] = nullptr;
@@ -142,7 +139,7 @@ template <typename T,
           typename Activator,
           template <typename E, typename LW, template <typename K> typename Act>
           typename Loss>
-const shared<Matrix<W>> Network<T, W, Activator, Loss>::weight_matrix(int layer_id) const {
+const std::shared_ptr<Matrix<W>> Network<T, W, Activator, Loss>::weight_matrix(int layer_id) const {
   return m_weights[layer_id];
 }
 
@@ -164,7 +161,7 @@ template <typename T,
           typename Loss>
 void Network<T, W, Activator, Loss>::set_matrix_data(int layer_id,
                                                      Matrix<W> weight_matrix) {
-  m_weights[layer_id] = std::make_shared<Matrix<W>>(weight_matrix);
+  m_weights[layer_id] = std::make_std::shared_ptr<Matrix<W>>(weight_matrix);
 }
 
 template <typename T,
@@ -174,7 +171,7 @@ template <typename T,
           template <typename E, typename LW, template <typename K> typename Act>
           typename Loss>
 void Network<T, W, Activator, Loss>::set_matrix_data(
-    int layer_id, shared<Matrix<W>> weight_matrix_ptr) {
+    int layer_id, std::shared_ptr<Matrix<W>> weight_matrix_ptr) {
   m_weights[layer_id] = weight_matrix_ptr;
 }
 
@@ -186,7 +183,7 @@ template <typename T,
           typename Loss>
 void Network<T, W, Activator, Loss>::set_bias_data(int layer_id,
                                                    std::vector<W> bias_vector) {
-  m_bias[layer_id] = std::make_shared<std::vector<W>>(bias_vector);
+  m_bias[layer_id] = std::make_std::shared_ptr<std::vector<W>>(bias_vector);
 }
 
 template <typename T,
@@ -196,7 +193,7 @@ template <typename T,
           template <typename E, typename LW, template <typename K> typename Act>
           typename Loss>
 void Network<T, W, Activator, Loss>::set_bias_data(
-    int layer_id, shared<std::vector<W>> bias_vector_ptr) {
+    int layer_id, std::shared_ptr<std::vector<W>> bias_vector_ptr) {
   m_bias[layer_id] = bias_vector_ptr;
 }
 
@@ -207,9 +204,9 @@ template <typename T,
           template <typename E, typename LW, template <typename K> typename Act>
           typename Loss>
 std::vector<T> Network<T, W, Activator, Loss>::forward_propatation(
-    shared<Layer<T>> layer,
-    shared<Matrix<W>> weight_matrix,
-    shared<std::vector<W>> bias_vector) {
+    std::shared_ptr<Layer<T>> layer,
+    std::shared_ptr<Matrix<W>> weight_matrix,
+    std::shared_ptr<std::vector<W>> bias_vector) {
   std::vector<W> next_layer_nodes{*weight_matrix * layer->nodes() + *bias_vector};
 
   return Activator<T>()(next_layer_nodes);
@@ -313,9 +310,9 @@ void Network<T, W, Activator, Loss>::import_network(const std::string& filepath)
       bias.push_back(std::stod(value));
     }
 
-    m_weights[i] = std::make_shared<Matrix<W>>(
+    m_weights[i] = std::make_std::shared_ptr<Matrix<W>>(
         m_weights[i]->nrows(), m_weights[i]->ncols(), weights);
-    m_bias[i] = std::make_shared<std::vector<W>>(bias);
+    m_bias[i] = std::make_std::shared_ptr<std::vector<W>>(bias);
   }
 }
 
@@ -358,7 +355,7 @@ std::ostream& operator<<(std::ostream& out, const Network<T, W, Activator, Loss>
 }
 
 template <typename W>
-inline void random_matrix(shared<Matrix<W>> matrix) {
+inline void random_matrix(std::shared_ptr<Matrix<W>> matrix) {
   std::mt19937 gen;
   std::uniform_real_distribution<W> dis(-0.5, 0.5);
 

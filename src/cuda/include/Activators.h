@@ -9,7 +9,7 @@
 #include "Layer.h"
 
 template <typename T>
-using shared = std::shared_ptr<T>;
+using std::shared_ptr = std::shared_ptr<T>;
 
 /*
 template <typename T>
@@ -45,7 +45,7 @@ struct Step {
 
   // Derivative of the activation function
   double grad(double activated_value) { return 0; }
-  std::vector<double> grad(shared<Layer<T>> layer) { 
+  std::vector<double> grad(std::shared_ptr<Layer<T>> layer) { 
 	return std::vector<double>(layer->size(), 0);
   }
 
@@ -81,7 +81,7 @@ struct Linear {
 
   // Derivative of the activation function
   double grad(double activated_value) { return 1; }
-  std::vector<double> grad(shared<Layer<T>> layer) {
+  std::vector<double> grad(std::shared_ptr<Layer<T>> layer) {
 	return std::vector<double>(layer->size(), 1);
   }
   std::vector<double> grad(std::vector<T> node_values) {
@@ -146,7 +146,7 @@ struct Sigmoid {
     return activated_value * (1 - activated_value);
   }
 
-  __host__ std::vector<double> grad(shared<Layer<T>> layer) {
+  __host__ std::vector<double> grad(std::shared_ptr<Layer<T>> layer) {
     int N{layer->size()};
     std::vector<double> gradient_values(N);
 
@@ -227,7 +227,7 @@ struct Tanh {
   double grad(double activated_value) {
 	return 1 + pow(activated_value, 2);
   }
-  std::vector<double> grad(shared<Layer<T>> layer) {
+  std::vector<double> grad(std::shared_ptr<Layer<T>> layer) {
 	int N{layer->size()};
 	std::vector<double> gradient_values(N);
 	for (int i{}; i < N; ++i) {
@@ -288,7 +288,7 @@ struct Elu {
 	  return activated_value + A;
 	}
   }
-  std::vector<double> grad(shared<Layer<T>> layer) {
+  std::vector<double> grad(std::shared_ptr<Layer<T>> layer) {
 	int N{layer->size()};
 	std::vector<double> gradient_values(N);
 	for (int i{}; i < N; ++i) {
@@ -341,7 +341,7 @@ struct Leaky_ReLU {
 	  return 0.1;
 	}
   }
-  std::vector<double> grad(shared<Layer<T>> layer) {
+  std::vector<double> grad(std::shared_ptr<Layer<T>> layer) {
 	int N{layer->size()};
 	std::vector<double> gradient_values(N);
 	for (int i{}; i < N; ++i) {
@@ -396,7 +396,7 @@ struct Parametric_ReLU {
 	  return A;
 	}
   }
-  std::vector<double> grad(shared<Layer<T>> layer) {
+  std::vector<double> grad(std::shared_ptr<Layer<T>> layer) {
 	int N{layer->size()};
 	std::vector<double> gradient_values(N);
 	for (int i{}; i < N; ++i) {
@@ -447,7 +447,7 @@ struct Swish {
   double grad(double x) {
 	return Sigmoid<T>()(x) * (1 + x) * (1 - Sigmoid<T>()(x));
   }
-  std::vector<double> grad(shared<Layer<T>> layer) {
+  std::vector<double> grad(std::shared_ptr<Layer<T>> layer) {
 	int N{layer->size()};
 	std::vector<double> gradient_values(N);
 	for (int i{}; i < N; ++i) {

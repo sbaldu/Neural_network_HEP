@@ -11,7 +11,7 @@
 namespace nnhep {
 
   template <typename T>
-  using shared = std::shared_ptr<T>;
+  using std::shared_ptr = std::shared_ptr<T>;
 
   template <typename T>
   struct Step {
@@ -43,7 +43,7 @@ namespace nnhep {
     }
 
     double grad(double activated_value) { return 0.; }
-    std::vector<double> grad(shared<Layer<T>> layer) {
+    std::vector<double> grad(std::shared_ptr<Layer<T>> layer) {
       return std::vector<double>(layer->size(), 0.);
     }
     std::vector<double> grad(std::vector<T> node_values) {
@@ -75,7 +75,7 @@ namespace nnhep {
     }
 
     double grad(double activated_value) { return 1; }
-    std::vector<double> grad(shared<Layer<T>> layer) {
+    std::vector<double> grad(std::shared_ptr<Layer<T>> layer) {
       return std::vector<double>(layer->size(), 1);
     }
     std::vector<double> grad(std::vector<T> node_values) {
@@ -109,7 +109,7 @@ namespace nnhep {
     double grad(double activated_value) {
       return activated_value * (1 - activated_value);
     }
-    std::vector<double> grad(shared<Layer<T>> layer) {
+    std::vector<double> grad(std::shared_ptr<Layer<T>> layer) {
       int N{layer->size()};
       std::vector<double> gradient_values(N);
       for (int i{}; i < N; ++i) {
@@ -153,7 +153,7 @@ namespace nnhep {
     }
 
     double grad(double activated_value) { return 1 + pow(activated_value, 2); }
-    std::vector<double> grad(shared<Layer<T>> layer) {
+    std::vector<double> grad(std::shared_ptr<Layer<T>> layer) {
       int N{layer->size()};
       std::vector<double> gradient_values(N);
       for (int i{}; i < N; ++i) {
@@ -211,7 +211,7 @@ namespace nnhep {
         return activated_value + A;
       }
     }
-    std::vector<double> grad(shared<Layer<T>> layer) {
+    std::vector<double> grad(std::shared_ptr<Layer<T>> layer) {
       int N{layer->size()};
       std::vector<double> gradient_values(N);
       for (int i{}; i < N; ++i) {
@@ -261,7 +261,7 @@ namespace nnhep {
         return 0.1;
       }
     }
-    std::vector<double> grad(shared<Layer<T>> layer) {
+    std::vector<double> grad(std::shared_ptr<Layer<T>> layer) {
       int N{layer->size()};
       std::vector<double> gradient_values(N);
       for (int i{}; i < N; ++i) {
@@ -313,7 +313,7 @@ namespace nnhep {
         return A;
       }
     }
-    std::vector<double> grad(shared<Layer<T>> layer) {
+    std::vector<double> grad(std::shared_ptr<Layer<T>> layer) {
       int N{layer->size()};
       std::vector<double> gradient_values(N);
       for (int i{}; i < N; ++i) {
@@ -357,7 +357,7 @@ namespace nnhep {
     }
 
     double grad(double x) { return Sigmoid<T>()(x) * (1 + x) * (1 - Sigmoid<T>()(x)); }
-    std::vector<double> grad(shared<Layer<T>> layer) {
+    std::vector<double> grad(std::shared_ptr<Layer<T>> layer) {
       int N{layer->size()};
       std::vector<double> gradient_values(N);
       for (int i{}; i < N; ++i) {
