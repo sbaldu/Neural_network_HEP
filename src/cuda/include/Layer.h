@@ -1,7 +1,4 @@
 
-#ifndef Layer_h
-#define Layer_h
-
 #pragma once
 
 #include <algorithm>
@@ -130,5 +127,3 @@ std::ostream& operator<<(std::ostream& out, const Layer<T>& layer) {
 
   return out;
 }
-
-#endif

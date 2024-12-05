@@ -1,6 +1,5 @@
 
-#ifndef ErrorFunction_h
-#define ErrorFunction_h
+#pragma once
 
 #include <cmath>
 #include <memory>
@@ -73,5 +72,3 @@ namespace nnhep {
   /* }; */
 
 };  // namespace nnhep
-
-#endif

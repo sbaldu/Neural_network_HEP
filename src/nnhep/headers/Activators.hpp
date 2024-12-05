@@ -1,7 +1,4 @@
 
-#ifndef Activators_h
-#define Activators_h
-
 #pragma once
 
 #include <algorithm>
@@ -381,5 +378,3 @@ namespace nnhep {
   };
 
 };  // namespace nnhep
-
-#endif

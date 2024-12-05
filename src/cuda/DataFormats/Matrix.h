@@ -1,7 +1,4 @@
 
-#ifndef Matrix_h
-#define Matrix_h
-
 #pragma once
 
 #include <algorithm>
@@ -547,5 +544,3 @@ std::ostream& operator<<(std::ostream& out, const Matrix<U>& m) {
 
   return out;
 }
-
-#endif

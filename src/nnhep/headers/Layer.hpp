@@ -1,7 +1,4 @@
 
-#ifndef Layer_h
-#define Layer_h
-
 #pragma once
 
 #include <algorithm>
@@ -130,4 +127,3 @@ namespace nnhep {
   }
 
 };  // namespace nnhep
-#endif

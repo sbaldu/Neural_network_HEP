@@ -1,7 +1,4 @@
 
-#ifndef Matrix_h
-#define Matrix_h
-
 #pragma once
 
 #include <algorithm>
@@ -377,5 +374,3 @@ namespace nnhep {
   }
 
 };  // namespace nnhep
-
-#endif

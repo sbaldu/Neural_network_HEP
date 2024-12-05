@@ -1,7 +1,4 @@
 
-#ifndef kernels_h
-#define kernels_h
-
 #pragma once
 
 #include <cassert>
@@ -105,5 +102,3 @@ __global__ void matrix_multiply(const matrix_t<T> a,
     c[row * b.cols + col] = temp;
   }
 }
-
-#endif

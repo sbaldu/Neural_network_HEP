@@ -1,7 +1,4 @@
 
-#ifndef vec_operations_h
-#define vec_operations_h
-
 #pragma once
 
 #include <algorithm>
@@ -191,5 +188,3 @@ std::ostream& operator<<(std::ostream& out, const std::vector<T>& vec) {
 
   return out;
 }
-
-#endif

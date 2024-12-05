@@ -1,6 +1,5 @@
 
-#ifndef Network_h
-#define Network_h
+#pragma once
 
 #include <fstream>
 #include <memory>
@@ -367,5 +366,3 @@ inline void random_matrix(shared<Matrix<W>> matrix) {
     matrix->set_data(i, dis(gen));
   }
 }
-
-#endif

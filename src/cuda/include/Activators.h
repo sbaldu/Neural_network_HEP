@@ -1,7 +1,4 @@
 
-#ifndef Activators_h
-#define Activators_h
-
 #pragma once
 
 #include <algorithm>
@@ -470,4 +467,3 @@ struct Swish {
   }
 };
 */
-#endif

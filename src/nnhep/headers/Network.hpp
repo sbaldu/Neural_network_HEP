@@ -1,6 +1,5 @@
 
-#ifndef Network_h
-#define Network_h
+#pragma once
 
 #include <fstream>
 #include <memory>
@@ -380,5 +379,3 @@ namespace nnhep {
   }
 
 };  // namespace nnhep
-
-#endif

@@ -1,7 +1,4 @@
 
-#ifndef vec_operations_h
-#define vec_operations_h
-
 #pragma once
 
 #include <algorithm>
@@ -66,5 +63,3 @@ namespace nnhep {
   }
 
 };  // namespace nnhep
-
-#endif
