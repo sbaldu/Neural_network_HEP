@@ -10,9 +10,6 @@
 
 namespace nnhep {
 
-  template <typename T>
-  using std::shared_ptr = std::shared_ptr<T>;
-
   template <typename T, typename W, template <typename E> typename Activator>
   struct MeanSquaredError {
     template <typename U>

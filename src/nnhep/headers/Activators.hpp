@@ -11,9 +11,6 @@
 namespace nnhep {
 
   template <typename T>
-  using std::shared_ptr = std::shared_ptr<T>;
-
-  template <typename T>
   struct Step {
     short operator()(double x) {
       if (x < 0) {

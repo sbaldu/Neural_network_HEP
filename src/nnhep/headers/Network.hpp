@@ -15,11 +15,8 @@
 
 namespace nnhep {
 
-  template <typename T>
-  using std::shared_ptr = std::shared_ptr<T>;
-
   template <typename W>
-  void random_matrix(std::shared_ptr<Matrix<W>> matrix);
+  void random_matrix(Matrix<W>& matrix);
 
   template <typename T,
             typename W,
@@ -31,29 +28,25 @@ namespace nnhep {
   private:
     int n_layers;
     std::vector<std::shared_ptr<Layer<T>>> m_layers;
-    std::vector<std::shared_ptr<Matrix<W>>> m_weights;
-    std::vector<std::shared_ptr<std::vector<W>>> m_bias;
+    std::vector<Matrix<W>> m_weights;
+    std::vector<std::vector<W>> m_bias;
 
   public:
-    Network() = delete;
     explicit Network(const std::vector<T>& nodes_per_layer);
 
     void load_input_layer(std::stringstream& stream);
     void load_input_layer(const std::vector<T>& vec);
     void load_from_file(const std::string& path_to_file);
 
-    const std::shared_ptr<Matrix<W>> weight_matrix(int layer_id) const;
+    const Matrix<W>& weight_matrix(int layer_id) const;
     const std::vector<T>& output_layer() const;
 
     void set_matrix_data(int layer_id, Matrix<W> weight_matrix);
-    void set_matrix_data(int layer_id, std::shared_ptr<Matrix<W>> weight_matrix_ptr);
-
     void set_bias_data(int layer_id, std::vector<W> bias_vector);
-    void set_bias_data(int layer_id, std::shared_ptr<std::vector<W>> bias_vector_ptr);
 
     std::vector<T> forward_propatation(std::shared_ptr<Layer<T>>,
-                                       std::shared_ptr<Matrix<W>>,
-                                       std::shared_ptr<std::vector<W>>);
+                                       const Matrix<W>&,
+                                       const std::vector<W>&);
     void forward_propatation();
 
     template <typename U>
@@ -93,15 +86,15 @@ namespace nnhep {
         m_weights(n_layers + 1),
         m_bias(n_layers - 1) {
     for (int i{}; i < n_layers - 1; ++i) {
-      m_layers[i] = std::make_std::shared_ptr<Layer<T>>(nodes_per_layer[i]);
-      m_weights[i] =
-          std::make_std::shared_ptr<Matrix<W>>(nodes_per_layer[i + 1], nodes_per_layer[i]);
-      m_bias[i] = std::make_std::shared_ptr<std::vector<W>>(nodes_per_layer[i + 1]);
+      m_layers[i] = std::shared_ptr<Layer<T>>(nodes_per_layer[i]);
+      m_weights[i] = std::shared_ptr<Matrix<W>>(nodes_per_layer[i + 1],
+                                                          nodes_per_layer[i]);
+      m_bias[i] = std::shared_ptr<std::vector<W>>(nodes_per_layer[i + 1]);
 
       // Generate random weight matrices
       random_matrix(m_weights[i]);
     }
-    m_layers[n_layers - 1] = std::make_std::shared_ptr<Layer<T>>(nodes_per_layer.back());
+    m_layers[n_layers - 1] = std::shared_ptr<Layer<T>>(nodes_per_layer.back());
     m_layers[n_layers] = nullptr;
     m_weights[n_layers - 1] = nullptr;
     m_weights[n_layers] = nullptr;
@@ -141,7 +134,7 @@ namespace nnhep {
             typename Activator,
             template <typename E, typename LW, template <typename K> typename Act>
             typename Loss>
-  const std::shared_ptr<Matrix<W>> Network<T, W, Activator, Loss>::weight_matrix(
+  const Matrix<W>& Network<T, W, Activator, Loss>::weight_matrix(
       int layer_id) const {
     return m_weights[layer_id];
   }
@@ -164,18 +157,7 @@ namespace nnhep {
             typename Loss>
   void Network<T, W, Activator, Loss>::set_matrix_data(int layer_id,
                                                        Matrix<W> weight_matrix) {
-    m_weights[layer_id] = std::make_std::shared_ptr<Matrix<W>>(weight_matrix);
-  }
-
-  template <typename T,
-            typename W,
-            template <typename F>
-            typename Activator,
-            template <typename E, typename LW, template <typename K> typename Act>
-            typename Loss>
-  void Network<T, W, Activator, Loss>::set_matrix_data(
-      int layer_id, std::shared_ptr<Matrix<W>> weight_matrix_ptr) {
-    m_weights[layer_id] = weight_matrix_ptr;
+    m_weights[layer_id] = std::shared_ptr<Matrix<W>>(weight_matrix);
   }
 
   template <typename T,
@@ -186,18 +168,7 @@ namespace nnhep {
             typename Loss>
   void Network<T, W, Activator, Loss>::set_bias_data(int layer_id,
                                                      std::vector<W> bias_vector) {
-    m_bias[layer_id] = std::make_std::shared_ptr<std::vector<W>>(bias_vector);
-  }
-
-  template <typename T,
-            typename W,
-            template <typename F>
-            typename Activator,
-            template <typename E, typename LW, template <typename K> typename Act>
-            typename Loss>
-  void Network<T, W, Activator, Loss>::set_bias_data(
-      int layer_id, std::shared_ptr<std::vector<W>> bias_vector_ptr) {
-    m_bias[layer_id] = bias_vector_ptr;
+    m_bias[layer_id] = std::shared_ptr<std::vector<W>>(bias_vector);
   }
 
   template <typename T,
@@ -208,8 +179,8 @@ namespace nnhep {
             typename Loss>
   std::vector<T> Network<T, W, Activator, Loss>::forward_propatation(
       std::shared_ptr<Layer<T>> layer,
-      std::shared_ptr<Matrix<W>> weight_matrix,
-      std::shared_ptr<std::vector<W>> bias_vector) {
+      const Matrix<W>& weight_matrix,
+      const std::vector<W>& bias_vector) {
     std::vector<W> next_layer_nodes{*weight_matrix * layer->nodes() + *bias_vector};
 
     return Activator<T>()(next_layer_nodes);
@@ -313,9 +284,9 @@ namespace nnhep {
         bias.push_back(std::stod(value));
       }
 
-      m_weights[i] = std::make_std::shared_ptr<Matrix<W>>(
+      m_weights[i] = std::shared_ptr<Matrix<W>>(
           m_weights[i]->nrows(), m_weights[i]->ncols(), weights);
-      m_bias[i] = std::make_std::shared_ptr<std::vector<W>>(bias);
+      m_bias[i] = std::shared_ptr<std::vector<W>>(bias);
     }
   }
 
@@ -369,7 +340,7 @@ namespace nnhep {
   }
 
   template <typename W>
-  inline void random_matrix(std::shared_ptr<Matrix<W>> matrix) {
+  inline void random_matrix(Matrix<W>& matrix) {
     std::mt19937 gen;
     std::uniform_real_distribution<W> dis(-0.5, 0.5);
 
