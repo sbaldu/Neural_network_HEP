@@ -10,7 +10,7 @@
 
 namespace nnhep {
 
-  template <typename T, typename W, template <typename E> typename Activator>
+  template <typename T, template <typename E> typename Activator>
   struct MeanSquaredError {
     template <typename U>
     double operator()(const std::vector<T>& node_values,
@@ -29,7 +29,7 @@ namespace nnhep {
     std::vector<double> grad(const std::vector<U>& expected_values,
                              int layer_id,
                              const std::vector<std::shared_ptr<Layer<T>>>& layers,
-                             const std::vector<std::shared_ptr<Matrix<W>>>& weights) {
+                             const std::vector<std::shared_ptr<Matrix<T>>>& weights) {
       if (layers[layer_id + 1] == nullptr) {
         int N{layers[layer_id]->size()};
         std::vector<double> delta(N);
